@@ -7,23 +7,13 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="destinations-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="Login-style.css">
+<script src="Login-script.js" defer></script>
 </head>
 <body>
     <!-- Navigation -->
-    <nav>
-        <div class="nav-content">
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="destinations.html" class="active">Destinations</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="aboutUs.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <div class="auth-buttons">
-                <a href="login.html">SIGN UP / LOG IN</a>
-            </div>
-        </div>
-    </nav>
+    <div id="nav-content"></div>
+
 
     <!-- Destinations Header -->
     <header class="destinations-header">
@@ -168,5 +158,14 @@
     </div>
 
     <script src="destinations.js"></script>
+
+    <script>
+        fetch('navbar.html')
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById('nav-content').innerHTML = html;
+          })
+          .catch(err => console.error('Navbar load failed:', err));
+      </script>
 </body>
 </html> 

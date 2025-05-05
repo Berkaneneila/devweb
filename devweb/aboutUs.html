@@ -14,25 +14,14 @@
   <!-- Our stylesheet & script -->
   <link rel="stylesheet" href="aboutUs-style.css" />
   <script src="aboutUs.js" defer></script>
+  <link rel="stylesheet" href="Login-style.css">
+  <script src="Login-script.js" defer></script>
 </head>
 <body>
 
   <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="container">
-      <div class="logo">Algeria Travel</div>
-      <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="destinations.html">Destinations</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="aboutUs.html">About Us</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-      </nav>
-      <div class="auth"><a href="#">Sign Up / Log In</a></div>
-    </div>
-  </header>
+  <div id="nav-content"></div>
+
 
   <!-- HERO SECTION -->
   <section id="hero" class="hero">
@@ -96,6 +85,15 @@
       <p class="footer-note">We don’t sell tours, we craft memories. Discover Algeria the way only Algerians know it.</p>
     </div>
   </footer>
+
+  <script>
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('nav-content').innerHTML = html;
+      })
+      .catch(err => console.error('Navbar load failed:', err));
+  </script>
 
 </body>
 </html>

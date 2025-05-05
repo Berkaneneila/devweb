@@ -10,48 +10,58 @@ body {
 }
 
 /* Navigation */
-nav {
-    position: fixed;
-    width: 100%;
+/* ── NAVBAR ───────────────────────────────────────────────────── */
+.navbar {
+    position: sticky;
     top: 0;
+    width: 100%;
+    background: #1d3557;
+    color: #fff;
     z-index: 1000;
-    padding: 2rem;
-}
-
-.nav-content {
+  }
+  
+  .navbar .container {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-    gap: 2rem;
-}
-
-.nav-links {
-    display: flex;
+    justify-content: space-between;
+    padding: 1rem 10%;
+  }
+  
+  .navbar .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .navbar nav ul {
     list-style: none;
-    gap: 2rem;
-}
-
-.nav-links a {
-    text-decoration: none;
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .navbar nav ul li a {
     color: #fff;
+    text-decoration: none;
     font-weight: 500;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.language-globe {
-    color: #fff;
-    font-size: 1.2rem;
-    cursor: pointer;
-}
-
-.auth-buttons a {
-    color: #fff;
-    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .navbar nav ul li a:hover {
+    color: #a8dadc;
+  }
+  
+  .navbar .auth a {
+    background: #fff;
+    color: #1d3557;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
     font-weight: 600;
-    font-size: 0.8rem;
-}
+    transition: background 0.2s ease;
+  }
+  
+  .navbar .auth a:hover {
+    background: #f1f1f1;
+  }
 
 /* Hero Section */
 .hero {

@@ -49,10 +49,16 @@
   
   /* HERO */
   .hero {
-    position: relative; height: 80vh;
-    background: url('C:\Users\bougu\OneDrive\Bureau\projet neila\devweb\photos yassir\oued souf.jpg') center/cover no-repeat;
-    display: flex; align-items: center; justify-content: center;
-    text-align: center; color: var(--text-light);
+    position: relative;
+    height: 80vh;
+    background:
+      linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+      url('photos yassir/algeria-pic.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
   }
   .hero .overlay {
     position: absolute; inset: 0; background: rgba(0,0,0,0.5);
