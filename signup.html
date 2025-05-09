@@ -3,40 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Travel Website</title>
+    <title>Sign Up - Travel Website</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../login-style.css">
 </head>
 <body>
     <div class="signup-container">
-        <h1>Login</h1>
+        <h1>Sign Up</h1>
         <div id="error-message" class="message error"></div>
         <div id="success-message" class="message success"></div>
         
-        <form id="login-form" action="../login.php" method="POST">
+        <form id="signup-form" action="../signup.php" method="POST">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" class="input-field" required>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" class="input-field" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" class="input-field" required>
             </div>
-            <button type="submit" class="submit-btn">Login</button>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="input-field" required minlength="6">
+            </div>
+            <button type="submit" class="submit-btn">Sign Up</button>
         </form>
         
         <p style="text-align: center; margin-top: 20px;">
-            Don't have an account? <a href="signup.html">Sign up</a>
+            Already have an account? <a href="login.html">Login</a>
         </p>
     </div>
 
     <script>
-        document.getElementById('login-form').addEventListener('submit', function(e) {
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const formData = new FormData(this);
             
-            fetch('../login.php', {
+            fetch('../signup.php', {
                 method: 'POST',
                 body: formData
             })
@@ -50,7 +54,7 @@
                     successMessage.textContent = data.message;
                     successMessage.style.display = 'block';
                     
-                    // Redirect to admin page after successful login
+                    // Redirect to admin page after successful signup
                     setTimeout(() => {
                         window.location.href = '../admin.php';
                     }, 1000);

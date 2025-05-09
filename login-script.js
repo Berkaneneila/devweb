@@ -1,134 +1,123 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const tabs = document.querySelectorAll('.tab');
-    const title = document.querySelector('h2');
-    const signupForm = document.getElementById('signupForm');
-    const loginForm = document.getElementById('loginForm');
-    const messageDiv = document.getElementById('message');
-
-    // API endpoints
-    const API_URL = 'http://localhost:5000/api';
-
+document.addEventListener('DOMContentLoaded', function() {
     // Tab switching
+    const tabs = document.querySelectorAll('.tab');
+    const forms = document.querySelectorAll('.auth-form');
+    const titles = document.querySelectorAll('h2');
+
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            // Remove active class from all tabs and forms
-            tabs.forEach(t => t.classList.remove('active'));
-            signupForm.classList.remove('active');
-            loginForm.classList.remove('active');
-
-            // Add active class to clicked tab and corresponding form
-            tab.classList.add('active');
             const formType = tab.dataset.form;
-            if (formType === 'signup') {
-                title.textContent = 'Sign Up';
-                signupForm.classList.add('active');
-            } else {
-                title.textContent = 'Log In';
-                loginForm.classList.add('active');
-            }
+            
+            // Update active tab
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            // Update active form
+            forms.forEach(form => {
+                form.classList.remove('active');
+                if (form.id === `${formType}Form`) {
+                    form.classList.add('active');
+                }
+            });
+            
+            // Update title
+            titles.forEach(title => {
+                title.textContent = formType === 'signup' ? 'Sign Up' : 'Log In';
+            });
         });
     });
 
-    // Password toggle
-    document.querySelectorAll('.toggle-password').forEach(button => {
-        button.addEventListener('click', () => {
-            const input = button.parentElement.querySelector('input');
-            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
-            input.setAttribute('type', type);
-            button.querySelector('i').classList.toggle('fa-eye');
-            button.querySelector('i').classList.toggle('fa-eye-slash');
+    // Password visibility toggle
+    const toggleButtons = document.querySelectorAll('.toggle-password');
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const input = this.previousElementSibling;
+            const icon = this.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
         });
     });
 
     // Form submission handlers
-    signupForm.addEventListener('submit', async (e) => {
+    const signupForm = document.getElementById('signupForm');
+    const loginForm = document.getElementById('loginForm');
+    const messageDiv = document.getElementById('message');
+
+    function showMessage(message, type = 'error') {
+        messageDiv.textContent = message;
+        messageDiv.className = `message ${type}`;
+        messageDiv.style.display = 'block';
+        
+        setTimeout(() => {
+            messageDiv.style.display = 'none';
+        }, 5000);
+    }
+
+    signupForm.addEventListener('submit', async function(e) {
         e.preventDefault();
-        messageDiv.textContent = '';
-
-        const formData = new FormData(signupForm);
-        const data = {
-            username: formData.get('username'),
-            email: formData.get('email'),
-            password: formData.get('password')
-        };
-
+        
+        const formData = new FormData(this);
+        
         try {
-            const response = await fetch(`${API_URL}/register`, {
+            const response = await fetch('signup.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
+                body: formData
             });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                showMessage(result.message || 'Registration successful!', 'success');
-                setTimeout(() => {
-                    // Switch to login tab after successful registration
-                    tabs[1].click();
-                }, 1500);
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                showMessage(data.message, 'success');
+                // Switch to login form after successful signup
+                document.querySelector('.tab[data-form="login"]').click();
             } else {
-                showMessage(result.error || 'Registration failed', 'error');
+                showMessage(data.message);
             }
         } catch (error) {
-            showMessage('Network error. Please try again.', 'error');
-            console.error('Error:', error);
+            showMessage('An error occurred during signup');
         }
     });
 
-    loginForm.addEventListener('submit', async (e) => {
+    loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
-        messageDiv.textContent = '';
-
-        const formData = new FormData(loginForm);
-        const data = {
-            username: formData.get('username'),
-            password: formData.get('password')
-        };
-
+        
+        const formData = new FormData(this);
+        
         try {
-            const response = await fetch(`${API_URL}/login`, {
+            const response = await fetch('login.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
+                body: formData
             });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                showMessage(result.message || 'Login successful!', 'success');
-                // Store the token if provided
-                if (result.token) {
-                    localStorage.setItem('authToken', result.token);
-                }
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                showMessage(data.message, 'success');
                 // Redirect to home page after successful login
                 setTimeout(() => {
                     window.location.href = 'index.html';
                 }, 1500);
             } else {
-                showMessage(result.error || 'Login failed', 'error');
+                showMessage(data.message);
             }
         } catch (error) {
-            showMessage('Network error. Please try again.', 'error');
-            console.error('Error:', error);
+            showMessage('An error occurred during login');
         }
     });
 
-    // Social login handlers
-    document.querySelectorAll('.social-btn').forEach(button => {
+    // Social login buttons
+    const socialButtons = document.querySelectorAll('.social-btn');
+    socialButtons.forEach(button => {
         button.addEventListener('click', () => {
-            showMessage('Social login will be implemented soon!', 'info');
+            showMessage('Social login coming soon!', 'info');
         });
     });
-
-    // Message display helper
-    function showMessage(message, type) {
-        messageDiv.textContent = message;
-        messageDiv.className = `message ${type}`;
-        messageDiv.style.display = 'block';
-    }
 });
