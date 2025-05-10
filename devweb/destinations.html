@@ -13,28 +13,7 @@
 
 <body>
     <!-- NAVBAR -->
-    <header class="navbar">
-        <div class="container">
-            <div class="logo"><span>Tour</span>Algeria</div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="destinations.html" class="active">Destinations</a></li>
-                    <li><a href="services.html">Tours</a></li>
-                    <li><a href="aboutUs.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="auth">
-                <button class="auth-btn">Sign In</button>
-            </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </header>
+    <div id="nav-content"></div>
 
     <!-- HERO SECTION -->
     <section class="hero">
@@ -599,6 +578,18 @@
         </div>
     </div>
 
+    <script>
+        fetch('navbar.html')
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById('nav-content').innerHTML = html;
+            // Load navbar.js after navbar is inserted
+            const script = document.createElement('script');
+            script.src = 'js/navbar.js';
+            document.body.appendChild(script);
+          })
+          .catch(err => console.error('Navbar load failed:', err));
+      </script>
     <script src="destinations.js"></script>
 </body>
 </html>

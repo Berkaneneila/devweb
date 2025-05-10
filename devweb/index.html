@@ -146,9 +146,13 @@
           .then(res => res.text())
           .then(html => {
             document.getElementById('nav-content').innerHTML = html;
+            // Load navbar.js after navbar is inserted
+            const script = document.createElement('script');
+            script.src = 'js/navbar.js';
+            document.body.appendChild(script);
           })
           .catch(err => console.error('Navbar load failed:', err));
-    </script>
+      </script>
     <script src="index.js"></script>
 </body>
 </html>
