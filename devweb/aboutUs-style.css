@@ -28,14 +28,14 @@
   
   /* NAVBAR */
   :root {
-    --navy-blue: #2c3e50;
-    --soft-blue: #3498db;
-    --warm-beige: #f5e6ca;
-    --light-beige: #f9f3e6;
-    --accent-gold: #e6b422;
-    --text-dark: #333;
-    --text-light: #f8f9fa;
-  }
+    --navy-blue: #1F2D3A; /* Darker Calm Navy */
+    --soft-blue: #3A5873; /* Darker Muted Blue */
+    --warm-beige: #E8D8C3; /* Soft Beige */
+    --light-beige: #F5EFE6; /* Light Cream */
+    --accent-gold: #C9A66B; /* Muted Gold */
+    --text-dark: #3B3B3B; /* Neutral Dark Gray */
+    --text-light: #F7F7F7; /* Soft Light Gray */
+}
   
   .navbar {
     background: linear-gradient(135deg, var(--navy-blue) 0%, var(--soft-blue) 100%);
