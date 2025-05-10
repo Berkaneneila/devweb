@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | World Tours</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-bg">
+        <div class="bubble-container">
+            <div class="bubble bubble-1"></div>
+            <div class="bubble bubble-2"></div>
+            <div class="bubble bubble-3"></div>
+        </div>
+        <div class="auth-container">
+            <div class="auth-tabs">
+                <button class="tab-btn signup-tab" id="signupTab">Sign up</button>
+                <button class="tab-btn login-tab active" id="loginTab">Sign in</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form class="login-form" style="display: block;">
+                <h2>Welcome Back!</h2>
+                <button type="button" class="social-btn fb-btn"><i class="fab fa-facebook-f"></i> Continue with Facebook</button>
+                <button type="button" class="social-btn google-btn"><i class="fab fa-google"></i> Continue with Google</button>
+                <div class="or-divider"><span>OR</span></div>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="login-username-input" placeholder="Username or Email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" class="login-password-input" placeholder="Password" required>
+                    <span class="login-password-toggle"><i class="fas fa-eye"></i></span>
+                </div>
+                <a href="#" class="forgot-link">Forgot your password?</a>
+                <button type="submit" class="auth-submit">Sign in</button>
+                <div class="login-message"></div>
+            </form>
+
+            <!-- Signup Form -->
+            <form class="signup-form" style="display: none;">
+                <h2>Create Account</h2>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="signup-username-input" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" class="signup-email-input" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="signup-firstname-input" placeholder="First Name" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="signup-lastname-input" placeholder="Last Name" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" class="signup-password-input" placeholder="Password" required>
+                    <span class="signup-password-toggle"><i class="fas fa-eye"></i></span>
+                </div>
+                <button type="submit" class="auth-submit">Sign up</button>
+                <div class="signup-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Include auth.js -->
+    <script src="js/auth.js"></script>
+    <script src="login.js"></script>
+</body>
+</html> 
