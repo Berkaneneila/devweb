@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .social-btn {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .social-btn:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .social-btn img {
+            width: 20px;
+            margin-right: 10px;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #999;
+        }
+        
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .divider::before {
+            margin-right: 10px;
+        }
+        
+        .divider::after {
+            margin-left: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        
+        .help-text {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+        
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #333;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #3367d6;
+        }
+        
+        .switch-mode {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .switch-mode a {
+            color: #4285f4;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .footer-text {
+            font-size: 12px;
+            color: #999;
+            margin-top: 30px;
+            line-height: 1.5;
+        }
+        
+        .time {
+            font-size: 12px;
+            color: #999;
+            margin-top: 20px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sign up</h1>
+        
+        <div class="social-buttons">
+            <button class="social-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+                Sign up with Facebook
+            </button>
+            <button class="social-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google">
+                Sign up with Google
+            </button>
+        </div>
+        
+        <div class="divider">or</div>
+        
+        <div class="form-group">
+            <label for="email">Event address</label>
+            <input type="email" id="email" placeholder="Your email">
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Your password</label>
+            <input type="password" id="password" placeholder="Your password">
+            <span class="help-text">#1 Help</span>
+        </div>
+        
+        <div class="price">US$ 10</div>
+        
+        <p class="footer-text">Royal text statement</p>
+        
+        <button class="submit-btn">OK</button>
+        
+        <div class="switch-mode">
+            Already have an account? <a href="#">Log in</a>
+        </div>
+        
+        <div class="time">5:57 UTC</div>
+    </div>
+</body>
+</html>
