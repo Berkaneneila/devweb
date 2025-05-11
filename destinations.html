@@ -58,93 +58,107 @@
             <h2>Explore Our Destinations</h2>
             <p>Algeria offers diverse landscapes from north to south. Find your perfect adventure.</p>
             <div class="filter-tabs">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="north">Northern Cities</button>
-                <button class="filter-btn" data-filter="sahara">Sahara</button>
-                <button class="filter-btn" data-filter="coast">Coastal</button>
-                <button class="filter-btn" data-filter="cultural">Cultural</button>
+                <button class="filter-btn active" data-filter="north">Northern Cities</button>
+                <button class="filter-btn" data-filter="south">Southern Cities</button>
+                <button class="filter-btn" data-filter="east">Eastern Cities</button>
+                <button class="filter-btn" data-filter="west">Western Cities</button>
             </div>
         </div>
         
         <div class="destinations-grid">
-            <!-- Northern Cities -->
-            <div class="destination-card" data-destination="algiers" data-filter="north cultural">
+            <!-- Algiers -->
+            <div class="destination-card" data-destination="algiers" data-region="north">
                 <div class="card-image">
-                    <img src="photos yassir/algeria-pic.jpg" alt="Algiers">
-                    <div class="card-badge">Cultural Capital</div>
+                    <img src="photos/algiers.jpg" alt="Algiers">
+                    <div class="card-badge">Popular</div>
                 </div>
                 <div class="card-content">
                     <h3>Algiers</h3>
                     <div class="card-rating">
                         <i class="fas fa-star"></i>
-                        <span>4.7 (243 reviews)</span>
+                        <span>4.5 (128 reviews)</span>
                     </div>
-                    <p>The White City blending French colonial architecture with Ottoman heritage and modern vibrancy.</p>
-                    <div class="card-footer">
-                        <span class="price">From $120/night</span>
-                        <button class="explore-btn">Explore</button>
+                    <p>Discover the white city of Algiers, where French colonial architecture meets Ottoman heritage.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price">From $299</div>
+                    <div class="card-actions">
+                        <button class="book-now-btn">Book Now</button>
+                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
                     </div>
                 </div>
             </div>
 
-            <div class="destination-card" data-destination="oran" data-filter="north coast">
+            <!-- Oran -->
+            <div class="destination-card" data-destination="oran" data-region="west">
                 <div class="card-image">
-                    <img src="photos yassir/oran.jpg" alt="Oran">
-                    <div class="card-badge">Best Nightlife</div>
+                    <img src="photos/oran.jpg" alt="Oran">
+                    <div class="card-badge">Cultural</div>
                 </div>
                 <div class="card-content">
                     <h3>Oran</h3>
                     <div class="card-rating">
                         <i class="fas fa-star"></i>
-                        <span>4.5 (187 reviews)</span>
+                        <span>4.3 (98 reviews)</span>
                     </div>
-                    <p>Vibrant port city known for its raï music, Spanish influences, and beautiful beaches.</p>
-                    <div class="card-footer">
-                        <span class="price">From $90/night</span>
-                        <button class="explore-btn">Explore</button>
+                    <p>Experience the vibrant cultural hub and birthplace of raï music.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price">From $249</div>
+                    <div class="card-actions">
+                        <button class="book-now-btn">Book Now</button>
+                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
                     </div>
                 </div>
             </div>
 
-            <div class="destination-card" data-destination="constantine" data-filter="north cultural">
+            <!-- Constantine -->
+            <div class="destination-card" data-destination="constantine" data-region="east">
                 <div class="card-image">
-                    <img src="photos yassir/algiers bey.jpg" alt="Constantine">
-                    <div class="card-badge">City of Bridges</div>
+                    <img src="photos/constantine.jpg" alt="Constantine">
+                    <div class="card-badge">Historic</div>
                 </div>
                 <div class="card-content">
                     <h3>Constantine</h3>
                     <div class="card-rating">
                         <i class="fas fa-star"></i>
-                        <span>4.6 (156 reviews)</span>
+                        <span>4.7 (156 reviews)</span>
                     </div>
-                    <p>Dramatic cliffs and deep gorges connected by breathtaking bridges spanning centuries.</p>
-                    <div class="card-footer">
-                        <span class="price">From $85/night</span>
-                        <button class="explore-btn">Explore</button>
+                    <p>Explore the city of bridges, perched dramatically above the Rhumel River gorges.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price">From $279</div>
+                    <div class="card-actions">
+                        <button class="book-now-btn">Book Now</button>
+                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
                     </div>
                 </div>
             </div>
 
-            <!-- Sahara Destinations -->
-            <div class="destination-card" data-destination="ghardaia" data-filter="sahara cultural">
+            <!-- Ghardaia -->
+            <div class="destination-card" data-destination="ghardaia" data-region="south">
                 <div class="card-image">
-                    <img src="photos yassir/ghardaia.jpg" alt="Ghardaia">
-                    <div class="card-badge">UNESCO Site</div>
+                    <img src="photos/ghardaia.jpg" alt="Ghardaia">
+                    <div class="card-badge">UNESCO</div>
                 </div>
                 <div class="card-content">
                     <h3>Ghardaia</h3>
                     <div class="card-rating">
                         <i class="fas fa-star"></i>
-                        <span>4.8 (132 reviews)</span>
+                        <span>4.6 (112 reviews)</span>
                     </div>
-                    <p>The jewel of the M'zab Valley with unique Mozabite architecture and traditions.</p>
-                    <div class="card-footer">
-                        <span class="price">From $110/night</span>
-                        <button class="explore-btn">Explore</button>
+                    <p>Visit the UNESCO World Heritage site with unique Mozabite architecture.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price">From $329</div>
+                    <div class="card-actions">
+                        <button class="book-now-btn">Book Now</button>
+                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
                     </div>
                 </div>
             </div>
 
+            <!-- Sahara Destinations -->
             <div class="destination-card" data-destination="djanet" data-filter="sahara">
                 <div class="card-image">
                     <img src="photos yassir/Djanet.jpg" alt="Djanet">
@@ -496,45 +510,36 @@
     <div class="destination-modal">
         <div class="modal-overlay"></div>
         <div class="modal-container">
-            <button class="close-modal"><i class="fas fa-times"></i></button>
+            <button class="close-modal">&times;</button>
             <div class="modal-header">
-                <h2 class="modal-title">Algiers</h2>
+                <h2 class="modal-title"></h2>
                 <div class="modal-rating">
-                    <span class="stars">
+                    <div class="stars">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star-half-alt"></i>
-                    </span>
-                    <span class="rating-text">4.5 (128 reviews)</span>
+                    </div>
+                    <span class="rating-text"></span>
                 </div>
             </div>
-            
             <div class="modal-main-image">
-                <img src="" alt="Main destination image" id="modal-main-img">
+                <img id="modal-main-img" src="" alt="">
             </div>
-            
-            <div class="modal-thumbnails">
-                <!-- Thumbnails will be inserted here by JavaScript -->
-            </div>
-            
+            <div class="modal-thumbnails"></div>
             <div class="modal-content">
                 <div class="modal-description">
-                    <h3>About This Destination</h3>
+                    <h3>About this Destination</h3>
                     <p id="modal-description-text"></p>
                 </div>
-                
                 <div class="modal-highlights">
                     <h3>Highlights</h3>
-                    <ul id="modal-highlights-list">
-                        <!-- Highlights will be inserted here by JavaScript -->
-                    </ul>
+                    <ul id="modal-highlights-list"></ul>
                 </div>
-                
                 <div class="modal-travel-info">
                     <div class="info-box">
-                        <i class="fas fa-clock"></i>
+                        <i class="far fa-calendar-alt"></i>
                         <div>
                             <h4>Best Time to Visit</h4>
                             <p id="best-time"></p>
@@ -548,7 +553,7 @@
                         </div>
                     </div>
                     <div class="info-box">
-                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-cloud-sun"></i>
                         <div>
                             <h4>Climate</h4>
                             <p id="climate"></p>
@@ -557,23 +562,19 @@
                     <div class="info-box">
                         <i class="fas fa-landmark"></i>
                         <div>
-                            <h4>UNESCO Sites</h4>
+                            <h4>UNESCO Status</h4>
                             <p id="unesco"></p>
                         </div>
                     </div>
                 </div>
-                
                 <div class="modal-itinerary">
                     <h3>Suggested Itinerary</h3>
-                    <div class="itinerary-days" id="itinerary-days">
-                        <!-- Itinerary will be inserted here by JavaScript -->
-                    </div>
+                    <div id="itinerary-days" class="itinerary-days"></div>
                 </div>
             </div>
-            
             <div class="modal-footer">
                 <button class="book-now">Book Now</button>
-                <button class="save-trip"><i class="far fa-heart"></i> Save to Trip</button>
+                <button class="save-trip"><i class="far fa-heart"></i> Save to Favorites</button>
             </div>
         </div>
     </div>
