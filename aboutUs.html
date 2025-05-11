@@ -16,6 +16,7 @@
   <script src="aboutUs.js" defer></script>
   <link rel="stylesheet" href="Login-style.css">
   <script src="Login-script.js" defer></script>
+  <script src="js/load-navbar.js"></script>
 </head>
 <body>
 
@@ -82,35 +83,9 @@
         <a href="#"><i class="fab fa-instagram"></i></a>
         <a href="#"><i class="fab fa-twitter"></i></a>
       </div>
-      <p class="footer-note">We don’t sell tours, we craft memories. Discover Algeria the way only Algerians know it.</p>
+      <p class="footer-note">We don't sell tours, we craft memories. Discover Algeria the way only Algerians know it.</p>
     </div>
   </footer>
-
-  <script>
-    fetch('navbar.html')
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById('nav-content').innerHTML = html;
-        // Load navbar.js after navbar is inserted
-        const script = document.createElement('script');
-        script.src = 'js/navbar.js';
-        document.body.appendChild(script);
-      })
-      .catch(err => console.error('Navbar load failed:', err));
-  </script>
-  <div id="nav-content"></div>
-  <script>
-      fetch('navbar.html')
-        .then(res => res.text())
-        .then(html => {
-          document.getElementById('nav-content').innerHTML = html;
-          // Load navbar.js after navbar is inserted
-          const script = document.createElement('script');
-          script.src = 'js/navbar.js';
-          document.body.appendChild(script);
-        })
-        .catch(err => console.error('Navbar load failed:', err));
-  </script>
 
 </body>
 </html>

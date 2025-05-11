@@ -1,66 +1,24 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Services - World Tours</title>
-    <meta name="description" content="Premium travel services including transportation, tour guides, travel insurance and more to make your journey unforgettable">
-    <meta name="theme-color" content="#00bcd4">
-
-    
-    <!-- Preload critical resources -->
-    <link rel="preload" href="css/services.css" as="style">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" as="style">
-    
-    <!-- Load stylesheets -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <title>Our Services | TourAlgeria</title>
+    <meta name="description" content="Discover our premium travel services designed to make your Algerian adventure unforgettable. From transportation to guided tours, we've got you covered.">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/user-style.css">
     <link rel="stylesheet" href="services.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-    
-    <!-- Open Graph / Social Media Meta Tags -->
-    <meta property="og:title" content="Premium Services - World Tours">
-    <meta property="og:description" content="Premium travel services to make your journey unforgettable">
-    <meta property="og:image" content="https://yourdomain.com/assets/social-preview.jpg">
-    <meta property="og:url" content="https://yourdomain.com/services.html">
-    <meta name="twitter:card" content="summary_large_image">
+    <script src="js/load-navbar.js"></script>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
-    <!-- Navigation -->
-    <nav aria-label="Main navigation">
-        <div class="container nav-content">
-            <a href="index.html" class="logo">World<span>Tours</span></a>
-            
-            <button class="hamburger" aria-label="Menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="destinations.html">Destinations</a></li>
-                <li><a href="services.html" class="active" aria-current="page">Services</a></li>
-                <li><a href="aboutUs.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            
-            <div class="nav-actions">
-                <button id="darkModeToggle" aria-label="Toggle dark mode">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <a href="login.html" class="btn">Sign Up / Log In</a>
-            </div>
-        </div>
-    </nav>
-
+    <!-- NAVBAR -->
+    <div id="nav-content"></div>
+    
     <!-- Hero Section -->
     <section class="hero" id="main-content">
         <div class="container hero-content">

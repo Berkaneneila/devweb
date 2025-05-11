@@ -1,110 +1,98 @@
-<header class="navbar">
-  <div class="container">
-    <a href="index.html" class="logo">World<span>Tours</span></a>
-    <nav class="nav-links">
-      <ul>
-        <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="destinations.html" class="nav-link">Destinations</a></li>
-        <li><a href="services.html" class="nav-link">Services</a></li>
-        <li><a href="aboutUs.html" class="nav-link">About Us</a></li>
-        <li><a href="contact.html" class="nav-link">Contact</a></li>
-      </ul>
-    </nav>
-    <div class="auth-buttons" id="authButtons">
-      <a href="login.html" class="auth-btn" id="authBtn">Log In</a>
-      <a href="signup.html" class="auth-btn" id="signupBtn">Sign Up</a>
+<!-- Custom Navbar -->
+<nav class="custom-navbar">
+    <div class="nav-brand">
+        <svg class="logo" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="8" fill="#0A192F"/>
+            <path d="M20 8C13.373 8 8 13.373 8 20C8 26.627 13.373 32 20 32C26.627 32 32 26.627 32 20C32 13.373 26.627 8 20 8ZM20 12C22.209 12 24 13.791 24 16C24 18.209 22.209 20 20 20C17.791 20 16 18.209 16 16C16 13.791 17.791 12 20 12ZM20 28C17.333 28 14.933 26.933 13.2 25.067C13.233 23.067 18.4 21.733 20 21.733C21.6 21.733 26.767 23.067 26.8 25.067C25.067 26.933 22.667 28 20 28Z" fill="#F59E0B"/>
+        </svg>
+        <h1>TourAlgeria</h1>
     </div>
-    <div class="user-menu" id="userMenu" style="display: none;">
-      <div class="user-info">
-        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2NjY2NjYyI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgM2MyLjY3IDAgNC44NCAyLjE3IDQuODQgNC44NCAwIDIuNjctMi4xNyA0Ljg0LTQuODQgNC44NC0yLjY3IDAtNC44NC0yLjE3LTQuODQtNC44NCAwLTIuNjcgMi4xNy00Ljg0IDQuODQtNC44NHptMCAxMmM0LjQyIDAgOC4xNy0yLjIyIDkuNTQtNS41NS0yLjY5LTEuNzMtNi4xNC0yLjctOS41NC0yLjctMy40IDAtNi44NS45Ny05LjU0IDIuNyAxLjM3IDMuMzMgNS4xMiA1LjU1IDkuNTQgNS41NXoiLz48L3N2Zz4=" alt="User Avatar" id="navUserAvatar" class="nav-avatar">
-        <span class="user-name">User</span>
-      </div>
-      <div class="dropdown-menu">
-        <a href="user.html">Dashboard</a>
-        <a href="#" class="logout-btn">Logout</a>
-      </div>
+    <button class="hamburger" id="hamburgerBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="destinations.html" class="nav-link">Destinations</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="aboutUs.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
     </div>
-    <div class="hamburger" id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
+    <div class="nav-actions" id="navActions">
+        <button class="nav-btn secondary">
+            <i class="fas fa-search"></i>
+        </button>
+        <!-- Sign In button (shown when not logged in) -->
+        <button class="nav-btn primary" id="signInBtn">
+            <i class="fas fa-user"></i>
+            <span>Sign In</span>
+        </button>
+        <!-- User profile circle (shown when logged in) -->
+        <div class="user-profile-circle" id="userProfileBtn" style="display: none;">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2NjY2NjYyI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgM2MyLjY3IDAgNC44NCAyLjE3IDQuODQgNC44NCAwIDIuNjctMi4xNyA0Ljg0LTQuODQgNC44NC0yLjY3IDAtNC44NC0yLjE3LTQuODQtNC44NCAwLTIuNjcgMi4xNy00Ljg0IDQuODQtNC44NHptMCAxMmM0LjQyIDAgOC4xNy0yLjIyIDkuNTQtNS41NS0yLjY5LTEuNzMtNi4xNC0yLjctOS41NC0yLjctMy40IDAtNi44NS45Ny05LjU0IDIuNyAxLjM3IDMuMzMgNS4xMiA1LjU1IDkuNTQgNS41NXoiLz48L3N2Zz4=" alt="Profile Picture">
+            <div class="user-dropdown">
+                <a href="user.html" class="dropdown-item">
+                    <i class="fas fa-user"></i>
+                    My Profile
+                </a>
+                <a href="user-bookings.html" class="dropdown-item">
+                    <i class="fas fa-calendar-check"></i>
+                    My Bookings
+                </a>
+                <a href="user-settings.html" class="dropdown-item">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item text-danger" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
     </div>
-  </div>
-</header>
+</nav>
 
-<style>
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
+<!-- Auth Modal -->
+<div class="auth-modal" id="authModal">
+    <div class="modal-content">
+        <button class="close-modal" id="closeAuthModal">&times;</button>
+        <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="login">Login</button>
+            <button class="auth-tab" data-tab="signup">Sign Up</button>
+        </div>
+        
+        <!-- Login Form -->
+        <form id="loginForm" class="auth-form active">
+            <div class="form-group">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" required>
+            </div>
+            <button type="submit" class="auth-btn">Login</button>
+        </form>
 
-.nav-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.user-menu {
-  position: relative;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  padding: 8px 0;
-  min-width: 150px;
-  display: none;
-  z-index: 1000;
-}
-
-.user-menu:hover .dropdown-menu {
-  display: block;
-}
-
-.dropdown-menu a {
-  display: block;
-  padding: 8px 16px;
-  color: #333;
-  text-decoration: none;
-  transition: background 0.3s;
-}
-
-.dropdown-menu a:hover {
-  background: #f5f5f5;
-}
-
-.logout-btn {
-  color: #ff4444 !important;
-}
-</style>
-
-<!-- Include auth.js -->
-<script src="js/auth.js"></script>
-<script>
-    // Initialize navbar
-    document.addEventListener('DOMContentLoaded', function() {
-        if (typeof auth !== 'undefined') {
-            // Initialize auth
-            auth.init();
-            
-            // Mobile menu toggle
-            document.getElementById('hamburger').addEventListener('click', () => {
-                const navLinks = document.querySelector('.nav-links');
-                navLinks.classList.toggle('active');
-            });
-
-            // Add logout event listener
-            document.querySelector('.logout-btn').addEventListener('click', function(e) {
-                e.preventDefault();
-                auth.logout();
-            });
-        }
-    });
-</script>
+        <!-- Signup Form -->
+        <form id="signupForm" class="auth-form">
+            <div class="form-group">
+                <label for="signupName">Full Name</label>
+                <input type="text" id="signupName" required>
+            </div>
+            <div class="form-group">
+                <label for="signupEmail">Email</label>
+                <input type="email" id="signupEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="signupPassword">Password</label>
+                <input type="password" id="signupPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" required>
+            </div>
+            <button type="submit" class="auth-btn">Sign Up</button>
+        </form>
+    </div>
+</div> 
