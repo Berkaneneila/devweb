@@ -211,21 +211,18 @@
                 <span>Sign In</span>
             </button>
             <!-- User profile circle (shown when logged in) -->
-            <div class="user-profile-circle" id="userProfileBtn" style="display: none;">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2NjY2NjYyI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgM2MyLjY3IDAgNC44NCAyLjE3IDQuODQgNC44NCAwIDIuNjctMi4xNyA0Ljg0LTQuODQgNC44NC0yLjY3IDAtNC44NC0yLjE3LTQuODQtNC44NCAwLTIuNjcgMi4xNy00Ljg0IDQuODQtNC44NHptMCAxMmM0LjQyIDAgOC4xNy0yLjIyIDkuNTQtNS41NS0yLjY5LTEuNzMtNi4xNC0yLjctOS41NC0yLjctMy40IDAtNi44NS45Ny05LjU0IDIuNyAxLjM3IDMuMzMgNS4xMiA1LjU1IDkuNTQgNS41NXoiLz48L3N2Zz4=" alt="Profile Picture">
-                <div class="user-dropdown">
+            <div class="user-profile-circle" id="userProfileBtn">
+                <img src="data:image/svg+xml;base64,..." alt="Profile Picture">
+                <div class="user-dropdown" id="userDropdown" style="display: none;">
                     <a href="user.html" class="dropdown-item">
-                        <i class="fas fa-user"></i>
-                        My Profile
+                        <i class="fas fa-user"></i> My Profile
                     </a>
                     <a href="#" class="dropdown-item">
-                        <i class="fas fa-cog"></i>
-                        Settings
+                        <i class="fas fa-cog"></i> Settings
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item text-danger" id="logoutBtn">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
+                        <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
                 </div>
             </div>

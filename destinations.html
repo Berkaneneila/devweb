@@ -19,6 +19,23 @@
     <!-- NAVBAR -->
     <div id="nav-content"></div>
 
+    <!-- User profile circle (shown when logged in) -->
+    <div class="user-profile-circle" id="userProfileBtn">
+        <img src="data:image/svg+xml;base64,..." alt="Profile Picture">
+        <div class="user-dropdown" id="userDropdown" style="display: none;">
+            <a href="user.html" class="dropdown-item">
+                <i class="fas fa-user"></i> My Profile
+            </a>
+            <a href="#" class="dropdown-item">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item text-danger" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+
     <!-- HERO SECTION -->
     <section class="hero">
         <div class="hero-slideshow">

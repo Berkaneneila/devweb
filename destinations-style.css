@@ -1464,3 +1464,38 @@ footer {
 .favorite-btn.active {
     color: var(--primary);
 }
+
+/* User Dropdown Menu */
+.user-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--white);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    width: 200px;
+}
+
+.user-dropdown .dropdown-item {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: var(--dark-gray);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.user-dropdown .dropdown-item:hover {
+    background-color: var(--light-gray);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background-color: var(--light-gray);
+    margin: 5px 0;
+}

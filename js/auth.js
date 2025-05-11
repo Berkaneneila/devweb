@@ -372,4 +372,44 @@ document.addEventListener('DOMContentLoaded', function() {
         if (signInBtn) signInBtn.style.display = loggedIn ? 'none' : 'block';
         if (userProfileBtn) userProfileBtn.style.display = loggedIn ? 'block' : 'none';
     }
-}); 
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const userProfileBtn = document.getElementById('userProfileBtn');
+    const userDropdown = document.getElementById('userDropdown');
+    const signInBtn = document.getElementById('signInBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Simulate user login state (replace with actual authentication logic)
+    const isLoggedIn = true; // Change this based on your authentication logic
+
+    if (isLoggedIn) {
+        userProfileBtn.style.display = 'flex';
+        signInBtn.style.display = 'none';
+    } else {
+        userProfileBtn.style.display = 'none';
+        signInBtn.style.display = 'block';
+    }
+
+    // Toggle dropdown menu
+    userProfileBtn.addEventListener('click', function () {
+        const isDropdownVisible = userDropdown.style.display === 'block';
+        userDropdown.style.display = isDropdownVisible ? 'none' : 'block';
+    });
+
+    // Logout functionality
+    logoutBtn.addEventListener('click', function () {
+        alert('You have been logged out.');
+        // Add your logout logic here (e.g., clear session, redirect to login page)
+        userProfileBtn.style.display = 'none';
+        signInBtn.style.display = 'block';
+        userDropdown.style.display = 'none';
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+        if (!userProfileBtn.contains(event.target)) {
+            userDropdown.style.display = 'none';
+        }
+    });
+});

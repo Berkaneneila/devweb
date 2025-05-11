@@ -1,13 +1,100 @@
 // Navbar functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Wait for navbar to be loaded
-    const checkNavbarLoaded = setInterval(() => {
-        const navbar = document.querySelector('.custom-navbar');
-        if (navbar) {
-            clearInterval(checkNavbarLoaded);
-            initializeNavbar();
+    // User Profile Dropdown Functionality
+    const userProfileBtn = document.getElementById('userProfileBtn');
+    const signInBtn = document.getElementById('signInBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const dropdownMenu = document.querySelector('.user-dropdown');
+
+    // Check auth status
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
+    // Update UI based on auth state
+    function updateAuthUI() {
+        if (isLoggedIn) {
+            if (signInBtn) signInBtn.style.display = 'none';
+            if (userProfileBtn) userProfileBtn.style.display = 'flex';
+        } else {
+            if (signInBtn) signInBtn.style.display = 'flex';
+            if (userProfileBtn) userProfileBtn.style.display = 'none';
+            if (dropdownMenu) dropdownMenu.classList.remove('show');
         }
-    }, 100);
+    }
+    
+    // Initialize UI
+    updateAuthUI();
+
+    // Toggle dropdown menu
+    if (userProfileBtn) {
+        userProfileBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.user-profile-circle') && dropdownMenu.classList.contains('show')) {
+            dropdownMenu.classList.remove('show');
+        }
+    });
+
+    // Logout functionality
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('isLoggedIn');
+            updateAuthUI();
+            window.location.href = 'index.html';
+        });
+    }
+
+    // Mobile menu functionality
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    if (hamburgerBtn && navLinks) {
+        hamburgerBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            hamburgerBtn.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.nav-links') && !event.target.closest('.hamburger')) {
+                navLinks.classList.remove('active');
+                hamburgerBtn.classList.remove('active');
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburgerBtn.classList.remove('active');
+            });
+        });
+    }
+
+    // Scroll event for navbar
+    const navbar = document.querySelector('.custom-navbar');
+    if (navbar) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
+
+    // For testing - simulate login when clicking login button in modal
+    document.querySelector('.btn-login')?.addEventListener('click', function() {
+        localStorage.setItem('isLoggedIn', 'true');
+        updateAuthUI();
+        document.getElementById('loginModal').classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
 });
 
 function initializeNavbar() {
@@ -104,24 +191,34 @@ function initializeNavbar() {
     });
 
     // User profile dropdown
-    userProfileBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        userProfileBtn.classList.toggle('active');
-    });
+    const userDropdown = document.querySelector('.user-dropdown');
 
-    // Close dropdown when clicking outside
-    document.addEventListener('click', () => {
-        userProfileBtn.classList.remove('active');
-    });
+    if (userProfileBtn && userDropdown) {
+        // Toggle dropdown on profile button click
+        userProfileBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            userDropdown.style.display = userDropdown.style.display === 'block' ? 'none' : 'block';
+        });
 
-    // Logout functionality
-    logoutBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('user');
-        checkAuthStatus();
-        window.location.href = 'index.html';
-    });
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!userProfileBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+                userDropdown.style.display = 'none';
+            }
+        });
+
+        // Handle logout
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userProfilePic');
+                userDropdown.style.display = 'none';
+                checkAuthStatus();
+                window.location.href = 'index.html';
+            });
+        }
+    }
 
     // Form submissions
     document.getElementById('loginForm').addEventListener('submit', function(e) {

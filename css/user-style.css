@@ -1085,66 +1085,36 @@ body {
 
 .user-dropdown {
     position: absolute;
-    top: 50px;
+    top: 100%;
     right: 0;
     background-color: var(--white);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    width: 200px;
-    z-index: 1001;
-    display: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
     overflow: hidden;
-    animation: dropdownFadeIn 0.2s ease-out;
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    width: 200px;
 }
 
-@keyframes dropdownFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.user-dropdown.active {
-    display: block;
-}
-
-.dropdown-item {
+.user-dropdown .dropdown-item {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: var(--dark-gray);
     display: flex;
     align-items: center;
-    padding: 12px 15px;
-    color: var(--text-color);
-    text-decoration: none;
-    transition: all 0.2s ease;
+    gap: 10px;
+    transition: background-color 0.3s ease;
 }
 
-.dropdown-item i {
-    margin-right: 10px;
-    width: 20px;
-    text-align: center;
-    color: var(--primary-color);
-}
-
-.dropdown-item:hover {
+.user-dropdown .dropdown-item:hover {
     background-color: var(--light-gray);
-    color: var(--primary-color);
 }
 
 .dropdown-divider {
     height: 1px;
-    background-color: #e0e0e0;
+    background-color: var(--light-gray);
     margin: 5px 0;
-}
-
-.text-danger {
-    color: #e74c3c;
-}
-
-.text-danger:hover {
-    color: #c0392b;
 }
 
 /* Sign In Button Styles */
@@ -1301,4 +1271,4 @@ body {
 .auth-btn:hover {
     background-color: var(--primary-dark);
     transform: translateY(-1px);
-} 
+}
