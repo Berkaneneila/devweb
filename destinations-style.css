@@ -430,27 +430,33 @@ img {
 .filter-tabs {
     display: flex;
     justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 2rem;
 }
 
 .filter-btn {
-    padding: 0.5rem 1.5rem;
-    background-color: transparent;
-    border: 1px solid var(--gray);
-    border-radius: 50px;
+    padding: 0.8rem 1.5rem;
+    border: 2px solid var(--primary);
+    background: transparent;
+    color: var(--primary);
+    border-radius: 25px;
     cursor: pointer;
     font-weight: 500;
-    transition: var(--transition);
-    color: var(--text-light);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
 }
 
-.filter-btn.active,
-.filter-btn:hover {
-    background-color: var(--primary);
+.filter-btn.active {
+    background: var(--primary);
     color: var(--white);
-    border-color: var(--primary);
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
 }
 
 .destinations-grid {
@@ -461,18 +467,17 @@ img {
 }
 
 .destination-card {
-    background-color: var(--white);
+    background: var(--white);
     border-radius: 10px;
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
     position: relative;
-    opacity: 1;
 }
 
 .destination-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .card-image {
@@ -539,11 +544,15 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--gray);
+    background: var(--light);
 }
 
 .price {
     font-weight: 600;
     color: var(--primary);
+    font-size: 1.1rem;
 }
 
 .explore-btn {
@@ -1317,6 +1326,28 @@ footer {
         text-align: center;
         justify-content: center;
     }
+
+    .filter-tabs {
+        gap: 0.5rem;
+    }
+
+    .filter-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .card-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .book-now-btn {
+        width: 100%;
+    }
+
+    .favorite-btn {
+        align-self: flex-end;
+    }
 }
 
 @media (max-width: 576px) {
@@ -1362,4 +1393,74 @@ footer {
 .destination-card[style*="display: none"] {
     opacity: 0;
     transform: scale(0.8);
+}
+
+/* Card Summary Styles */
+.card-summary {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: var(--light);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.summary-item i {
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+/* Card Actions Styles */
+.card-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.book-now-btn {
+    background: var(--primary);
+    color: var(--white);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.book-now-btn:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.favorite-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+.favorite-btn:hover {
+    color: var(--primary);
+    background: var(--light);
+}
+
+.favorite-btn.active {
+    color: var(--primary);
 }
