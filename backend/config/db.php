@@ -26,7 +26,7 @@ try {
 } catch (Exception $e) {
     // Log the error
     error_log("Database connection error: " . $e->getMessage());
-    
+
     // Return JSON error response
     header('Content-Type: application/json');
     echo json_encode([
@@ -35,4 +35,4 @@ try {
     ]);
     exit;
 }
-?> 
+?>

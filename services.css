@@ -1,11 +1,11 @@
 :root {
-    --primary-color: #00bcd4;
-    --primary-dark: #0097a7;
-    --primary-light: #80deea;
-    --secondary-color: #ff6b6b;
-    --accent-color: #ffab40;
-    --dark-color: #1e1e2f;
-    --dark-gray: #2d2d3a;
+    --primary-color: #3A6D8C;
+    --primary-dark: #1F3140;
+    --primary-light: #5D8AA6;
+    --secondary-color: #73672C;
+    --accent-color: #BFAE9F;
+    --dark-color: #1F3140;
+    --dark-gray: #2D2D3A;
     --medium-gray: #6c757d;
     --light-gray: #e9ecef;
     --light-color: #f4f4f9;
@@ -15,21 +15,7 @@
     --text-color: var(--dark-color);
     --text-light: var(--medium-gray);
     
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.15);
-    
-    --transition: all 0.3s ease;
-    --transition-fast: all 0.15s ease;
-    --transition-slow: all 0.5s ease;
-    
-    --border-radius: 8px;
-    --border-radius-lg: 12px;
-    --border-radius-xl: 16px;
-    
-    --max-width: 1200px;
-    --header-height: 80px;
+    /* ... rest of your existing root variables ... */
 }
 
 /* Dark Mode Variables */
@@ -372,8 +358,8 @@ nav {
 /* Hero Section */
 .hero {
     min-height: 100vh;
-    background: linear-gradient(rgba(30, 30, 47, 0.9), rgba(30, 30, 47, 0.9)), 
-                url('../assets/hero-bg.jpg') no-repeat center center/cover;
+    background: linear-gradient(rgba(31, 49, 64, 0.85), rgba(31, 49, 64, 0.85)), 
+                url('photos yassir/algeria\ hero\ bg.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
     text-align: center;
