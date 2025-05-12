@@ -1,10 +1,11 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Background Image Slider
+document.addEventListener('DOMContentLoaded', function () {
+    // DOM Elements
     const mainImage = document.querySelector('.main-image');
     const thumbnails = document.querySelectorAll('.thumbnail');
     const heroContent = document.querySelector('.hero-content h1');
     const heroDescription = document.querySelector('.hero-content p');
-    
+
+    // Images with paths and descriptions
     const destinations = [
         {
             image: 'photos yassir/akger.jpg',
@@ -25,41 +26,72 @@ document.addEventListener('DOMContentLoaded', function() {
             image: 'photos yassir/sahara.jpg',
             title: 'Sahara Desert',
             description: 'Experience the vastness of the world\'s largest hot desert with stunning landscapes.'
+        },
+        {
+            image: 'photos yassir/annaba.jpg',
+            title: 'Annaba',
+            description: 'A coastal city known for its beautiful beaches and ancient Roman ruins.'
         }
     ];
-    
-    // Set initial background
+
     let currentIndex = 0;
-    updateBackground(currentIndex);
-    
-    // Thumbnail click event
-    thumbnails.forEach((thumbnail, index) => {
-        thumbnail.addEventListener('click', () => {
+    let slideInterval;
+
+    // Function to change the main image
+    function changeImage(index) {
+        if (!mainImage) return;
+
+        // Update the background image
+        mainImage.style.backgroundImage = `url('${destinations[index].image}')`;
+
+        // Update the hero content
+        if (heroContent) heroContent.textContent = `Discover ${destinations[index].title}`;
+        if (heroDescription) heroDescription.textContent = destinations[index].description;
+
+        // Update the active thumbnail
+        updateActiveThumbnail(index);
+    }
+
+    // Function to update the active thumbnail
+    function updateActiveThumbnail(index) {
+        thumbnails.forEach((thumb, i) => {
+            thumb.classList.toggle('active', i === index);
+        });
+    }
+
+    // Start the automatic carousel
+    function startCarousel() {
+        slideInterval = setInterval(() => {
+            currentIndex = (currentIndex + 1) % destinations.length;
+            changeImage(currentIndex);
+        }, 5000); // Change every 5 seconds
+    }
+
+    // Stop the carousel when the mouse is over the main image
+    if (mainImage) {
+        mainImage.addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+        });
+
+        mainImage.addEventListener('mouseleave', startCarousel);
+    }
+
+    // Add click events to thumbnails
+    thumbnails.forEach((thumb, index) => {
+        thumb.addEventListener('click', () => {
             currentIndex = index;
-            updateBackground(currentIndex);
-            updateActiveThumbnail();
+            changeImage(currentIndex);
+
+            // Restart the carousel timer
+            clearInterval(slideInterval);
+            startCarousel();
         });
     });
-    
-    // Auto slide change
-    setInterval(() => {
-        currentIndex = (currentIndex + 1) % destinations.length;
-        updateBackground(currentIndex);
-        updateActiveThumbnail();
-    }, 5000);
-    
-    function updateBackground(index) {
-        mainImage.style.backgroundImage = `url('${destinations[index].image}')`;
-        heroContent.textContent = `Discover ${destinations[index].title}`;
-        heroDescription.textContent = destinations[index].description;
-    }
-    
-    function updateActiveThumbnail() {
-        thumbnails.forEach((thumb, index) => {
-            thumb.classList.toggle('active', index === currentIndex);
-        });
-    }
-    
+
+    // Initialize the slider
+    changeImage(0); // Show the first image
+    startCarousel(); // Start the carousel
+
     // Destination Slider
     const slider = document.querySelector('.destinations-slider');
     const prevBtn = document.querySelector('.prev-arrow');

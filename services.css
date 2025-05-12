@@ -357,22 +357,21 @@ nav {
 
 /* Hero Section */
 .hero {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;    /* Centers vertically */
     min-height: 100vh;
     background: linear-gradient(rgba(31, 49, 64, 0.85), rgba(31, 49, 64, 0.85)), 
-                url('photos yassir/algeria\ hero\ bg.jpg') no-repeat center center/cover;
-    display: flex;
-    align-items: center;
-    text-align: center;
+                url('photos yassir/algeria hero bg.jpg') no-repeat center center/cover;
     color: var(--white);
-    padding-top: var(--header-height);
     position: relative;
     overflow: hidden;
 }
 
 .hero-content {
+    text-align: center; /* Ensures text is centered */
     max-width: 800px;
     margin: 0 auto;
-    position: relative;
     z-index: 1;
     padding: 2rem;
 }

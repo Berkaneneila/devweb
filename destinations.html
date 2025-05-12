@@ -4,624 +4,732 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discover Algeria's Wonders | TourAlgeria</title>
-    <meta name="description" content="Explore Algeria's most breathtaking destinations from the Sahara to the Mediterranean coast. Plan your perfect Algerian adventure with us.">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/auth.css">
-    <link rel="stylesheet" href="css/user-style.css">
-    <link rel="stylesheet" href="destinations-style.css">
-    <script src="js/load-navbar.js"></script>
+    <title>Discover Algeria's Destinations | TourAlgeria</title>
+    <meta name="description" content="Explore Algeria's diverse destinations from Mediterranean coast to Sahara desert with our expert-guided tours.">
+    
+    <!-- Modern font stack -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/destinations.css">
 </head>
 
 <body>
-    <!-- NAVBAR -->
-    <div id="nav-content"></div>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </div>
+    
+    <!-- Simple Modern Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-mountain"></i>
+                <span>TourAlgeria</span>
+            </a>
+            
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="destinations.html" class="nav-link active">Destinations</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="aboutUs.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
 
-    <!-- User profile circle (shown when logged in) -->
-    <div class="user-profile-circle" id="userProfileBtn">
-        <img src="data:image/svg+xml;base64,..." alt="Profile Picture">
-        <div class="user-dropdown" id="userDropdown" style="display: none;">
-            <a href="user.html" class="dropdown-item">
-                <i class="fas fa-user"></i> My Profile
-            </a>
-            <a href="#" class="dropdown-item">
-                <i class="fas fa-cog"></i> Settings
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item text-danger" id="logoutBtn">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
+            <div class="nav-actions">
+               
+                <button class="nav-btn auth-btn">
+                    <i class="fas fa-user"></i>
+                    <span>Sign In</span>
+                </button>
+            </div>
+
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+  
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" style="background-image: url('photos yassir/algeria hero bg.jpg'); background-size: cover; background-position: center;">
+            <div class="hero-content">
+                <h1>Discover Algeria's Hidden Gems</h1>
+                <p>From Mediterranean coastlines to Saharan landscapes, explore the diverse beauty of Algeria</p>
+                <button class="search-trigger pulse-animation">
+                    <i class="fas fa-search"></i>
+                    <span>Search destinations</span>
+                </button>
+            </div>
+            <div class="hero-overlay"></div>
+        </section>
+
+        <!-- Destinations Section -->
+        <section class="destinations">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Explore Algeria</span>
+                    <h2>Featured Destinations</h2>
+                    <p>From UNESCO World Heritage sites to hidden gems, discover Algeria's diverse landscapes</p>
+                </div>
+
+                <!-- Filter System -->
+                <div class="filter-system">
+                    <div class="filter-tabs">
+                        <button class="filter-tab active">All</button>
+                        <button class="filter-tab">Northern</button>
+                        <button class="filter-tab">Southern</button>
+                        <button class="filter-tab">Coastal</button>
+                        <button class="filter-tab">UNESCO</button>
+                    </div>
+                </div>
+
+                <!-- Destinations Grid -->
+                <div class="destinations-grid">
+                    <!-- Algiers Card -->
+                    <article class="destination-card" data-category="north unesco" data-destination="algiers">
+                        <div class="card-media">
+                            <img src="photos yassir/akger.jpg" alt="Algiers white city with Mediterranean backdrop" loading="lazy">
+                            <div class="card-badge">Cultural</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <div class="card-overlay">
+                                <div class="card-actions">
+                                    <button class="action-btn" aria-label="View gallery">
+                                        <i class="fas fa-images"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="View map">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Algiers</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.5</span>
+                                    </div>
+                                    <span class="reviews">(128 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">The vibrant capital where French colonial architecture meets Ottoman heritage in the iconic Casbah.</p>
+                            <div class="card-tags">
+                                <span class="tag">Cultural</span>
+                                <span class="tag">Historical</span>
+                                <span class="tag">UNESCO</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$299</span>
+                                    <span class="dinar">40,000 DZD</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Oran Card -->
+                    <article class="destination-card" data-category="coast">
+                        <div class="card-media">
+                            <img src="photos yassir/oran.jpg" alt="Oran coastal city" loading="lazy">
+                            <div class="card-badge">Coastal</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <div class="card-overlay">
+                                <div class="card-actions">
+                                    <button class="action-btn" aria-label="View gallery">
+                                        <i class="fas fa-images"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="View map">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Oran</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.3</span>
+                                    </div>
+                                    <span class="reviews">(95 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Vibrant coastal city with Spanish influences and a thriving cultural scene.</p>
+                            <div class="card-tags">
+                                <span class="tag">Coastal</span>
+                                <span class="tag">Cultural</span>
+                                <span class="tag">Nightlife</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$249</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Sahara Card -->
+                    <article class="destination-card" data-category="south">
+                        <div class="card-media">
+                            <img src="photos yassir/sahara.jpg" alt="Sahara desert landscape" loading="lazy">
+                            <div class="card-badge">Adventure</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <div class="card-overlay">
+                                <div class="card-actions">
+                                    <button class="action-btn" aria-label="View gallery">
+                                        <i class="fas fa-images"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="View map">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Sahara Desert</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.8</span>
+                                    </div>
+                                    <span class="reviews">(156 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Experience the vastness of the world's largest hot desert with stunning landscapes.</p>
+                            <div class="card-tags">
+                                <span class="tag">Adventure</span>
+                                <span class="tag">Nature</span>
+                                <span class="tag">Desert</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$499</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Constantine Card -->
+                    <article class="destination-card" data-category="north">
+                        <div class="card-media">
+                            <img src="photos yassir/Djanet.jpg" alt="Constantine city of bridges" loading="lazy">
+                            <div class="card-badge">Historical</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <div class="card-overlay">
+                                <div class="card-actions">
+                                    <button class="action-btn" aria-label="View gallery">
+                                        <i class="fas fa-images"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="View map">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Constantine</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.6</span>
+                                    </div>
+                                    <span class="reviews">(112 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">The "City of Bridges" perched on dramatic cliffs, offering stunning views and rich history.</p>
+                            <div class="card-tags">
+                                <span class="tag">Historical</span>
+                                <span class="tag">Architecture</span>
+                                <span class="tag">Nature</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$279</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Tlemcen Card -->
+                    <article class="destination-card" data-category="north unesco">
+                        <div class="card-media">
+                            <img src="photos yassir/tlemcen.webp" alt="Tlemcen historical city" loading="lazy">
+                            <div class="card-badge">Cultural</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <div class="card-overlay">
+                                <div class="card-actions">
+                                    <button class="action-btn" aria-label="View gallery">
+                                        <i class="fas fa-images"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="View map">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Tlemcen</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.4</span>
+                                    </div>
+                                    <span class="reviews">(89 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Ancient city with stunning Islamic architecture and rich cultural heritage.</p>
+                            <div class="card-tags">
+                                <span class="tag">Cultural</span>
+                                <span class="tag">Historical</span>
+                                <span class="tag">UNESCO</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$229</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Annaba Card -->
+                    <article class="destination-card" data-category="coast">
+                        <div class="card-media">
+                            <img src="photos yassir/annaba.jpg" alt="Annaba coastal city" loading="lazy">
+                            <div class="card-badge">Coastal</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <div class="card-overlay">
+                                <div class="card-actions">
+                                    <button class="action-btn" aria-label="View gallery">
+                                        <i class="fas fa-images"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="View map">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Annaba</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.2</span>
+                                    </div>
+                                    <span class="reviews">(76 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Beautiful coastal city with Roman ruins and pristine beaches.</p>
+                            <div class="card-tags">
+                                <span class="tag">Coastal</span>
+                                <span class="tag">Beach</span>
+                                <span class="tag">Historical</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$259</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Ghardaia Card -->
+                    <article class="destination-card" data-category="south unesco">
+                        <div class="card-media">
+                            <img src="photos yassir/ghardaia.jpg" alt="Ghardaia M'zab Valley" loading="lazy">
+                            <div class="card-badge">UNESCO</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <div class="card-overlay">
+                                <div class="card-actions">
+                                    <button class="action-btn" aria-label="View gallery">
+                                        <i class="fas fa-images"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="View map">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Ghardaia</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.7</span>
+                                    </div>
+                                    <span class="reviews">(92 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">UNESCO World Heritage site featuring unique architecture in the M'zab Valley.</p>
+                            <div class="card-tags">
+                                <span class="tag">UNESCO</span>
+                                <span class="tag">Cultural</span>
+                                <span class="tag">Architecture</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$349</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Tipaza Card -->
+                    <article class="destination-card" data-category="coast unesco">
+                        <div class="card-media">
+                            <img src="photos yassir/biskra.jpg" alt="Tipaza Roman ruins" loading="lazy">
+                            <div class="card-badge">UNESCO</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <div class="card-overlay">
+                                <div class="card-actions">
+                                    <button class="action-btn" aria-label="View gallery">
+                                        <i class="fas fa-images"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="View map">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Tipaza</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.5</span>
+                                    </div>
+                                    <span class="reviews">(68 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Ancient Roman ruins by the sea, combining history with coastal beauty.</p>
+                            <div class="card-tags">
+                                <span class="tag">UNESCO</span>
+                                <span class="tag">Historical</span>
+                                <span class="tag">Coastal</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$199</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Djemila Card -->
+                    <article class="destination-card" data-category="north unesco">
+                        <div class="card-media">
+                            <img src="photos yassir/casbah-alger-pic.jpg" alt="Djemila Roman ruins" loading="lazy">
+                            <div class="card-badge">UNESCO</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <div class="card-overlay">
+                                <div class="card-actions">
+                                    <button class="action-btn" aria-label="View gallery">
+                                        <i class="fas fa-images"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="View map">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Djemila</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.6</span>
+                                    </div>
+                                    <span class="reviews">(54 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Well-preserved Roman ruins showcasing ancient architecture and history.</p>
+                            <div class="card-tags">
+                                <span class="tag">UNESCO</span>
+                                <span class="tag">Historical</span>
+                                <span class="tag">Archaeological</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$179</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Bejaia Card -->
+                    <article class="destination-card" data-category="coast">
+                        <div class="card-media">
+                            <img src="photos yassir/biskra.jpg" alt="Bejaia coastal city" loading="lazy">
+                            <div class="card-badge">Nature</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <div class="card-overlay">
+                                <div class="card-actions">
+                                    <button class="action-btn" aria-label="View gallery">
+                                        <i class="fas fa-images"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="View map">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Bejaia</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.4</span>
+                                    </div>
+                                    <span class="reviews">(82 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Coastal city with beautiful beaches and the stunning Gouraya National Park.</p>
+                            <div class="card-tags">
+                                <span class="tag">Coastal</span>
+                                <span class="tag">Nature</span>
+                                <span class="tag">Beach</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$239</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Tassili N'Ajjer Card -->
+                    <article class="destination-card" data-category="south unesco">
+                        <div class="card-media">
+                            <img src="photos yassir/tamenrasset.webp" alt="Tassili N'Ajjer rock art" loading="lazy">
+                            <div class="card-badge">UNESCO</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <div class="card-overlay">
+                                <div class="card-actions">
+                                    <button class="action-btn" aria-label="View gallery">
+                                        <i class="fas fa-images"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="action-btn" aria-label="View map">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Tassili N'Ajjer</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.9</span>
+                                    </div>
+                                    <span class="reviews">(45 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">UNESCO World Heritage site featuring ancient rock art and stunning desert landscapes.</p>
+                            <div class="card-tags">
+                                <span class="tag">UNESCO</span>
+                                <span class="tag">Adventure</span>
+                                <span class="tag">Archaeological</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$599</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Destination Modal -->
+    <div class="bubble-overlay"></div>
+    <div class="destination-bubble">
+        <div class="bubble-header">
+            <h2 class="bubble-title">Destination Title</h2>
+            <button class="bubble-close">&times;</button>
+        </div>
+        <img src="photos yassir/algeria.jpg" alt="Destination Image" class="bubble-image">
+        <p class="bubble-description">This is a description of the destination.</p>
+        <div class="bubble-highlights">
+            <span class="bubble-highlight">Cultural</span>
+            <span class="bubble-highlight">Historical</span>
+        </div>
+        <div class="bubble-footer">
+            <button class="bubble-btn">Learn More</button>
+            <button class="bubble-btn bubble-close">Close</button>
         </div>
     </div>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="hero-slideshow">
-            <div class="slide active" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2NjY2NjYyI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgM2MyLjY3IDAgNC44NCAyLjE3IDQuODQgNC44NCAwIDIuNjctMi4xNyA0Ljg0LTQuODQgNC44NC0yLjY3IDAtNC44NC0yLjE3LTQuODQtNC44NCAwLTIuNjcgMi4xNy00Ljg0IDQuODQtNC44NHptMCAxMmM0LjQyIDAgOC4xNy0yLjIyIDkuNTQtNS41NS0yLjY5LTEuNzMtNi4xNC0yLjctOS41NC0yLjctMy40IDAtNi44NS45Ny05LjU0IDIuNyAxLjM3IDMuMzMgNS4xMiA1LjU1IDkuNTQgNS41NXoiLz48L3N2Zz4=');"></div>
-            <div class="slide" style="background-image: url('photos/algeria-hero-2.jpg')"></div>
-            <div class="slide" style="background-image: url('photos/algeria-hero-3.jpg')"></div>
-        </div>
-        <div class="hero-content">
-            <h1>Discover Algeria's Hidden Treasures</h1>
-            <p>From Mediterranean shores to Saharan dunes, explore landscapes and cultures that will leave you breathless.</p>
-            <div class="hero-buttons">
-                <button class="see-more">Explore Now</button>
-                <button class="video-btn">
-                    <i class="fas fa-play"></i> Watch Video
-                </button>
-            </div>
-        </div>
-        <div class="search-box">
-            <h3>Find Your Perfect Destination</h3>
-            <div class="search-fields">
-                <div class="search-field">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <input type="text" placeholder="Where to?">
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-mountain"></i>
+                    <span>TourAlgeria</span>
                 </div>
-                <div class="search-field">
-                    <i class="fas fa-calendar-alt"></i>
-                    <input type="text" placeholder="When?">
+                <div class="footer-links">
+                    <a href="#">About Us</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
                 </div>
-                <div class="search-field">
-                    <i class="fas fa-user-friends"></i>
-                    <input type="text" placeholder="Travelers">
-                </div>
-                <button class="search-btn">Search</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- DESTINATIONS SECTION -->
-    <section class="destinations">
-        <div class="section-header">
-            <h2>Explore Our Destinations</h2>
-            <p>Algeria offers diverse landscapes from north to south. Find your perfect adventure.</p>
-            <div class="filter-tabs">
-                <button class="filter-btn active" data-filter="north">Northern Cities</button>
-                <button class="filter-btn" data-filter="south">Southern Cities</button>
-                <button class="filter-btn" data-filter="east">Eastern Cities</button>
-                <button class="filter-btn" data-filter="west">Western Cities</button>
-            </div>
-        </div>
-        
-        <div class="destinations-grid">
-            <!-- Algiers -->
-            <div class="destination-card" data-destination="algiers" data-region="north">
-                <div class="card-image">
-                    <img src="photos yassir/algeria destination hero.jpg" alt="Algiers">
-                    <div class="card-badge">Popular</div>
-                </div>
-                <div class="card-content">
-                    <h3>Algiers</h3>
-                    <div class="card-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.5 (128 reviews)</span>
-                    </div>
-                    <p>Discover the white city of Algiers, where French colonial architecture meets Ottoman heritage.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="price">From $299</div>
-                    <div class="card-actions">
-                        <button class="book-now-btn">Book Now</button>
-                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Oran -->
-            <div class="destination-card" data-destination="oran" data-region="west">
-                <div class="card-image">
-                    <img src="photos yassir/oran.jpg" alt="Oran">
-                    <div class="card-badge">Cultural</div>
-                </div>
-                <div class="card-content">
-                    <h3>Oran</h3>
-                    <div class="card-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.3 (98 reviews)</span>
-                    </div>
-                    <p>Experience the vibrant cultural hub and birthplace of raï music.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="price">From $249</div>
-                    <div class="card-actions">
-                        <button class="book-now-btn">Book Now</button>
-                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Constantine -->
-            <div class="destination-card" data-destination="constantine" data-region="east">
-                <div class="card-image">
-                    <img src="photos yassir/bejaia .jpg" alt="Constantine">
-                    <div class="card-badge">Historic</div>
-                </div>
-                <div class="card-content">
-                    <h3>Constantine</h3>
-                    <div class="card-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.7 (156 reviews)</span>
-                    </div>
-                    <p>Explore the city of bridges, perched dramatically above the Rhumel River gorges.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="price">From $279</div>
-                    <div class="card-actions">
-                        <button class="book-now-btn">Book Now</button>
-                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ghardaia -->
-            <div class="destination-card" data-destination="ghardaia" data-region="south">
-                <div class="card-image">
-                    <img src="photos yassir/ghardaia.jpg" alt="Ghardaia">
-                    <div class="card-badge">UNESCO</div>
-                </div>
-                <div class="card-content">
-                    <h3>Ghardaia</h3>
-                    <div class="card-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.6 (112 reviews)</span>
-                    </div>
-                    <p>Visit the UNESCO World Heritage site with unique Mozabite architecture.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="price">From $329</div>
-                    <div class="card-actions">
-                        <button class="book-now-btn">Book Now</button>
-                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sahara Destinations -->
-            <div class="destination-card" data-destination="djanet" data-filter="sahara">
-                <div class="card-image">
-                    <img src="photos yassir/Djanet.jpg" alt="Djanet">
-                    <div class="card-badge">Adventure</div>
-                </div>
-                <div class="card-content">
-                    <h3>Djanet</h3>
-                    <div class="card-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.9 (98 reviews)</span>
-                    </div>
-                    <p>Gateway to the Tassili n'Ajjer's prehistoric rock art and surreal desert landscapes.</p>
-                    <div class="card-footer">
-                        <span class="price">From $150/night</span>
-                        <button class="explore-btn">Explore</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="destination-card" data-destination="tamanrasset" data-filter="sahara">
-                <div class="card-image">
-                    <img src="photos yassir/tamenrasset.webp" alt="Tamanrasset">
-                    <div class="card-badge">Hoggar Mountains</div>
-                </div>
-                <div class="card-content">
-                    <h3>Tamanrasset</h3>
-                    <div class="card-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.7 (87 reviews)</span>
-                    </div>
-                    <p>Base for exploring the majestic Hoggar Mountains and experiencing Tuareg culture.</p>
-                    <div class="card-footer">
-                        <span class="price">From $140/night</span>
-                        <button class="explore-btn">Explore</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Coastal Destinations -->
-            <div class="destination-card" data-destination="tipaza" data-filter="coast cultural">
-                <div class="card-image">
-                    <img src="photos yassir/tipaza.webp" alt="Tipaza">
-                    <div class="card-badge">Roman Ruins</div>
-                </div>
-                <div class="card-content">
-                    <h3>Tipaza</h3>
-                    <div class="card-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.6 (114 reviews)</span>
-                    </div>
-                    <p>Where Mediterranean waves meet ancient Roman ruins in a breathtaking coastal setting.</p>
-                    <div class="card-footer">
-                        <span class="price">From $75/night</span>
-                        <button class="explore-btn">Explore</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="destination-card" data-destination="bejaia" data-filter="coast">
-                <div class="card-image">
-                    <img src="photos yassir/bejaia.jpg" alt="Bejaia">
-                    <div class="card-badge">Natural Beauty</div>
-                </div>
-                <div class="card-content">
-                    <h3>Bejaia</h3>
-                    <div class="card-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.5 (103 reviews)</span>
-                    </div>
-                    <p>Emerald green mountains plunging into turquoise waters at the Kabylian coast.</p>
-                    <div class="card-footer">
-                        <span class="price">From $95/night</span>
-                        <button class="explore-btn">Explore</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Other Destinations -->
-            <div class="destination-card" data-destination="biskra" data-filter="sahara">
-                <div class="card-image">
-                    <img src="photos yassir/biskra.jpg" alt="Biskra">
-                    <div class="card-badge">Oasis City</div>
-                </div>
-                <div class="card-content">
-                    <h3>Biskra</h3>
-                    <div class="card-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.4 (76 reviews)</span>
-                    </div>
-                    <p>The "Queen of the Oases" with lush palm groves and therapeutic hot springs.</p>
-                    <div class="card-footer">
-                        <span class="price">From $80/night</span>
-                        <button class="explore-btn">Explore</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="destination-card" data-destination="tlemcen" data-filter="north cultural">
-                <div class="card-image">
-                    <img src="photos yassir/tlemcen.webp" alt="Tlemcen">
-                    <div class="card-badge">Andalusian Heritage</div>
-                </div>
-                <div class="card-content">
-                    <h3>Tlemcen</h3>
-                    <div class="card-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.6 (92 reviews)</span>
-                    </div>
-                    <p>Where Andalusian refinement meets Islamic architecture in a mountain setting.</p>
-                    <div class="card-footer">
-                        <span class="price">From $85/night</span>
-                        <button class="explore-btn">Explore</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="destination-card" data-destination="annaba" data-filter="north coast">
-                <div class="card-image">
-                    <img src="photos yassir/annaba.jpg" alt="Annaba">
-                    <div class="card-badge">Historic Port</div>
-                </div>
-                <div class="card-content">
-                    <h3>Annaba</h3>
-                    <div class="card-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.5 (88 reviews)</span>
-                    </div>
-                    <p>Home to the impressive ruins of Hippo Regius and beautiful Mediterranean beaches.</p>
-                    <div class="card-footer">
-                        <span class="price">From $90/night</span>
-                        <button class="explore-btn">Explore</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="destination-card" data-destination="setif" data-filter="north">
-                <div class="card-image">
-                    <img src="photos yassir/setif.jpg" alt="Setif">
-                    <div class="card-badge">Roman Heritage</div>
-                </div>
-                <div class="card-content">
-                    <h3>Setif</h3>
-                    <div class="card-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.3 (67 reviews)</span>
-                    </div>
-                    <p>High plateau city with impressive Roman ruins and gateway to the Aurès Mountains.</p>
-                    <div class="card-footer">
-                        <span class="price">From $75/night</span>
-                        <button class="explore-btn">Explore</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="view-all">
-            <button class="view-all-btn">View All 24 Destinations <i class="fas fa-arrow-right"></i></button>
-        </div>
-    </section>
-
-    <!-- TESTIMONIALS SECTION -->
-    <section class="testimonials">
-        <div class="section-header">
-            <h2>Traveler Stories</h2>
-            <p>Hear what our explorers say about their Algerian adventures</p>
-        </div>
-        
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2NjY2NjYyI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgM2MyLjY3IDAgNC44NCAyLjE3IDQuODQgNC44NCAwIDIuNjctMi4xNyA0Ljg0LTQuODQgNC44NC0yLjY3IDAtNC44NC0yLjE3LTQuODQtNC44NCAwLTIuNjcgMi4xNy00Ljg0IDQuODQtNC44NHptMCAxMmM0LjQyIDAgOC4xNy0yLjIyIDkuNTQtNS41NS0yLjY5LTEuNzMtNi4xNC0yLjctOS41NC0yLjctMy40IDAtNi44NS45Ny05LjU0IDIuNyAxLjM3IDMuMzMgNS4xMiA1LjU1IDkuNTQgNS41NXoiLz48L3N2Zz4=" alt="Traveler 1" class="traveler-img">
-                    <div class="traveler-info">
-                        <h4>Sarah Johnson</h4>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-content">
-                    <p>"Exploring the Kasbah of Algiers felt like stepping back in time. Our guide was incredibly knowledgeable and showed us hidden corners we never would have found on our own."</p>
-                </div>
-                <div class="testimonial-footer">
-                    <span class="destination">Algiers, Algeria</span>
-                    <span class="date">March 2023</span>
-                </div>
-            </div>
-            
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2NjY2NjYyI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgM2MyLjY3IDAgNC44NCAyLjE3IDQuODQgNC44NCAwIDIuNjctMi4xNyA0Ljg0LTQuODQgNC44NC0yLjY3IDAtNC44NC0yLjE3LTQuODQtNC44NCAwLTIuNjcgMi4xNy00Ljg0IDQuODQtNC44NHptMCAxMmM0LjQyIDAgOC4xNy0yLjIyIDkuNTQtNS41NS0yLjY5LTEuNzMtNi4xNC0yLjctOS41NC0yLjctMy40IDAtNi44NS45Ny05LjU0IDIuNyAxLjM3IDMuMzMgNS4xMiA1LjU1IDkuNTQgNS41NXoiLz48L3N2Zz4=" alt="Traveler 2" class="traveler-img">
-                    <div class="traveler-info">
-                        <h4>Mohamed Ali</h4>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-content">
-                    <p>"The Sahara near Djanet was otherworldly. Camping under the stars with Tuareg guides was the highlight of our year. The rock art sites are truly humanity's first galleries."</p>
-                </div>
-                <div class="testimonial-footer">
-                    <span class="destination">Djanet, Algeria</span>
-                    <span class="date">November 2022</span>
-                </div>
-            </div>
-            
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2NjY2NjYyI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgM2MyLjY3IDAgNC44NCAyLjE3IDQuODQgNC44NCAwIDIuNjctMi4xNyA0Ljg0LTQuODQgNC44NC0yLjY3IDAtNC44NC0yLjE3LTQuODQtNC44NCAwLTIuNjcgMi4xNy00Ljg0IDQuODQtNC44NHptMCAxMmM0LjQyIDAgOC4xNy0yLjIyIDkuNTQtNS41NS0yLjY5LTEuNzMtNi4xNC0yLjctOS41NC0yLjctMy40IDAtNi44NS45Ny05LjU0IDIuNyAxLjM3IDMuMzMgNS4xMiA1LjU1IDkuNTQgNS41NXoiLz48L3N2Zz4=" alt="Traveler 3" class="traveler-img">
-                    <div class="traveler-info">
-                        <h4>Isabelle Dupont</h4>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-content">
-                    <p>"Ghardaia's architecture took my breath away. The harmony between the buildings and desert landscape is genius. The local hospitality made us feel like family."</p>
-                </div>
-                <div class="testimonial-footer">
-                    <span class="destination">Ghardaia, Algeria</span>
-                    <span class="date">April 2023</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="testimonials-cta">
-            <p>Ready to create your own Algerian adventure story?</p>
-            <button class="cta-btn">Start Planning Today</button>
-        </div>
-    </section>
-
-    <!-- WHY CHOOSE US SECTION -->
-    <section class="why-choose-us">
-        <div class="section-header">
-            <h2>Why Travel With TourAlgeria?</h2>
-            <p>We're passionate about sharing the real Algeria with you</p>
-        </div>
-        
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-map-marked-alt"></i>
-                </div>
-                <h3>Local Expertise</h3>
-                <p>Our guides are born and raised in the regions they show you, offering authentic insights.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-lock"></i>
-                </div>
-                <h3>Safe Travel</h3>
-                <p>We carefully vet all accommodations and transportation for your peace of mind.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-hand-holding-heart"></i>
-                </div>
-                <h3>Sustainable Tourism</h3>
-                <p>We support local communities and minimize environmental impact.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-concierge-bell"></i>
-                </div>
-                <h3>Tailored Experiences</h3>
-                <p>From luxury to adventure, we customize trips to match your travel style.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEWSLETTER SECTION -->
-    <section class="newsletter">
-        <div class="newsletter-content">
-            <h2>Get Travel Inspiration</h2>
-            <p>Subscribe to our newsletter for exclusive deals and insider tips on Algeria travel.</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Your email address">
-                <button type="submit">Subscribe</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section about">
-                <div class="logo"><span>Tour</span>Algeria</div>
-                <p>Discover the beauty, culture, and adventure that Algeria has to offer with our expert-guided tours.</p>
-                <div class="socials">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
-            
-            <div class="footer-section links">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="destinations.html">Destinations</a></li>
-                    <li><a href="services.html">Tours</a></li>
-                    <li><a href="aboutUs.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TourAlgeria. All rights reserved.</p>
             </div>
-            
-            <div class="footer-section destinations">
-                <h3>Popular Destinations</h3>
-                <ul>
-                    <li><a href="#">Algiers</a></li>
-                    <li><a href="#">Ghardaia</a></li>
-                    <li><a href="#">Djanet</a></li>
-                    <li><a href="#">Oran</a></li>
-                    <li><a href="#">Tamanrasset</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section contact">
-                <h3>Contact Us</h3>
-                <p><i class="fas fa-map-marker-alt"></i> 123 Tourism St, Algiers, Algeria</p>
-                <p><i class="fas fa-phone"></i> +213 123 456 789</p>
-                <p><i class="fas fa-envelope"></i> info@touralgeria.com</p>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2025 TourAlgeria. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
         </div>
     </footer>
 
-    <!-- Destination Modal -->
-    <div class="destination-modal">
-        <div class="modal-overlay"></div>
-        <div class="modal-container">
-            <button class="close-modal">&times;</button>
-            <div class="modal-header">
-                <h2 class="modal-title"></h2>
-                <div class="modal-rating">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <span class="rating-text"></span>
-                </div>
-            </div>
-            <div class="modal-main-image">
-                <img id="modal-main-img" src="" alt="">
-            </div>
-            <div class="modal-thumbnails"></div>
-            <div class="modal-content">
-                <div class="modal-description">
-                    <h3>About this Destination</h3>
-                    <p id="modal-description-text"></p>
-                </div>
-                <div class="modal-highlights">
-                    <h3>Highlights</h3>
-                    <ul id="modal-highlights-list"></ul>
-                </div>
-                <div class="modal-travel-info">
-                    <div class="info-box">
-                        <i class="far fa-calendar-alt"></i>
-                        <div>
-                            <h4>Best Time to Visit</h4>
-                            <p id="best-time"></p>
-                        </div>
-                    </div>
-                    <div class="info-box">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4>Location</h4>
-                            <p id="location"></p>
-                        </div>
-                    </div>
-                    <div class="info-box">
-                        <i class="fas fa-cloud-sun"></i>
-                        <div>
-                            <h4>Climate</h4>
-                            <p id="climate"></p>
-                        </div>
-                    </div>
-                    <div class="info-box">
-                        <i class="fas fa-landmark"></i>
-                        <div>
-                            <h4>UNESCO Status</h4>
-                            <p id="unesco"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-itinerary">
-                    <h3>Suggested Itinerary</h3>
-                    <div id="itinerary-days" class="itinerary-days"></div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="book-now">Book Now</button>
-                <button class="save-trip"><i class="far fa-heart"></i> Save to Favorites</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        fetch('navbar.html')
-          .then(res => res.text())
-          .then(html => {
-            document.getElementById('nav-content').innerHTML = html;
-            // Load navbar.js after navbar is inserted
-            const script = document.createElement('script');
-            script.src = 'js/navbar.js';
-            document.body.appendChild(script);
-          })
-          .catch(err => console.error('Navbar load failed:', err));
-      </script>
-    <script src="destinations.js"></script>
-    <!-- Include auth.js -->
-    <script src="js/auth.js"></script>
-    <script>
-        // Initialize auth state
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof auth !== 'undefined') {
-                auth.init();
-            }
-        });
-    </script>
+    <!-- Scripts -->
+    <script src="js/destinations.js"></script>
 </body>
 </html>
