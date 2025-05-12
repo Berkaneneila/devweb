@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.classList.add('active');
 
             // Get the category from the clicked tab
-            const category = this.textContent.toLowerCase();
+            const category = this.getAttribute('data-category');
 
             // Filter destinations based on the selected category
             filterDestinations(category);
