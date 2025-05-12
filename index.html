@@ -10,49 +10,7 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="custom-navbar" id="navbar">
-        <div class="nav-brand">
-            <svg class="logo" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="40" height="40" rx="8" fill="#1F3140"/>
-                <path d="M20 8C13.373 8 8 13.373 8 20C8 26.627 13.373 32 20 32C26.627 32 32 26.627 32 20C32 13.373 26.627 8 20 8ZM20 12C22.209 12 24 13.791 24 16C24 18.209 22.209 20 20 20C17.791 20 16 18.209 16 16C16 13.791 17.791 12 20 12ZM20 28C17.333 28 14.933 26.933 13.2 25.067C13.233 23.067 18.4 21.733 20 21.733C21.6 21.733 26.767 23.067 26.8 25.067C25.067 26.933 22.667 28 20 28Z" fill="#BFAE9F"/>
-            </svg>
-            <h1>ZRquest</h1>
-        </div>
-        <button class="hamburger" id="hamburgerBtn">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="nav-links" id="navLinks">
-            <a href="index.html" class="nav-link active">Home</a>
-            <a href="destinations.html" class="nav-link">Destinations</a>
-            <a href="tours.html" class="nav-link">Tours</a>
-            <a href="about.html" class="nav-link">About</a>
-            <a href="contact.html" class="nav-link">Contact</a>
-        </div>
-        <div class="nav-actions" id="navActions">
-            <button class="nav-btn secondary">
-                <i class="fas fa-search"></i>
-            </button>
-            <button class="nav-btn primary" id="signInBtn">
-                <i class="fas fa-user"></i>
-                <span>Sign In</span>
-            </button>
-            <div class="user-profile-circle" id="userProfileBtn" style="display: none;">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS11c2VyIj48cGF0aCBkPSJNMTkgMjF2LTJhNCA0IDAgMCAwLTQtNEg5YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCIvPjwvc3ZnPg==" alt="Profile Picture">
-                <div class="user-dropdown" id="userDropdown" style="display: none;">
-                    <a href="user.html" class="dropdown-item">
-                        <i class="fas fa-user"></i> My Profile
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-cog"></i> Settings
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item text-danger" id="logoutBtn">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <div id="navbar-placeholder"></div>
 
     <!-- Hero Section -->
 <!-- Hero Section -->
@@ -307,63 +265,7 @@
     </div>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <div class="footer-logo">
-                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="40" height="40" rx="8" fill="#1F3140"/>
-                        <path d="M20 8C13.373 8 8 13.373 8 20C8 26.627 13.373 32 20 32C26.627 32 32 26.627 32 20C32 13.373 26.627 8 20 8ZM20 12C22.209 12 24 13.791 24 16C24 18.209 22.209 20 20 20C17.791 20 16 18.209 16 16C16 13.791 17.791 12 20 12ZM20 28C17.333 28 14.933 26.933 13.2 25.067C13.233 23.067 18.4 21.733 20 21.733C21.6 21.733 26.767 23.067 26.8 25.067C25.067 26.933 22.667 28 20 28Z" fill="#BFAE9F"/>
-                    </svg>
-                    <h4>ZRquest</h4>
-                </div>
-                <p>Discover the beauty of Algeria with our expertly crafted tours and travel experiences.</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="destinations.html">Destinations</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="#">FAQs</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Booking Conditions</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Contact Us</h4>
-                <div class="contact-info">
-                    <p><i class="fas fa-map-marker-alt"></i> 123 Travel St, Algiers, Algeria</p>
-                    <p><i class="fas fa-phone"></i> +213 123 456 789</p>
-                    <p><i class="fas fa-envelope"></i> contact@touralgeria.dz</p>
-                </div>
-                <div class="newsletter">
-                    <h5>Subscribe to our newsletter</h5>
-                    <form>
-                        <input type="email" placeholder="Your email address">
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 TourAlgeria. All rights reserved.</p>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
     <!-- Auth Modal -->
     <div class="auth-modal" id="authModal">
@@ -432,5 +334,46 @@
     </div>
 
     <script src="index.js"></script>
+    <script>
+        // Load navigation
+        fetch('partials/navigation.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-placeholder').innerHTML = data;
+                // Reinitialize any navigation-related scripts here if needed
+                initializeNav();
+            });
+        
+        // Load footer
+        fetch('partials/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+        
+        function initializeNav() {
+            // Mobile Navigation Toggle
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (hamburgerBtn && navLinks) {
+                hamburgerBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    hamburgerBtn.innerHTML = navLinks.classList.contains('active') ? 
+                        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+                });
+            }
+            
+            // Highlight active page in navigation
+            const currentPage = location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+        </script>
 </body>
 </html>

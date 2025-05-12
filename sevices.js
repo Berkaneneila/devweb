@@ -1,25 +1,15 @@
 // Wait for both DOM and navbar to be loaded
 window.addEventListener('load', function() {
-    // Mobile Navigation
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
+    // Mobile Navigation Toggle
+    // Mobile Navigation Toggle
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navLinks = document.getElementById('navLinks');
     
-    if (hamburger && navLinks) {
-        hamburger.addEventListener('click', function() {
-            this.classList.toggle('open');
-            navLinks.classList.toggle('active');
-            document.body.classList.toggle('no-scroll');
-        });
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('open');
-                navLinks.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-            });
-        });
-    }
+    hamburgerBtn.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+        hamburgerBtn.innerHTML = navLinks.classList.contains('active') ? 
+            '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
 
     // Service data with more details
     const services = {
