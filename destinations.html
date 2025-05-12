@@ -387,16 +387,18 @@
             margin-top: var(--spacing-md);
         }
 
+        /* Destination Card */
         .destination-card {
             background: var(--card-bg);
             border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             height: 100%;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         .destination-card:hover {
@@ -408,13 +410,14 @@
             position: relative;
             height: 250px;
             overflow: hidden;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .card-media img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--transition-slow);
+            transition: transform 0.5s ease;
         }
 
         .destination-card:hover .card-media img {
@@ -448,7 +451,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: var(--transition);
+            transition: transform 0.3s ease, background 0.3s ease;
             z-index: 2;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
@@ -526,7 +529,7 @@
             font-size: 0.75rem;
             color: var(--secondary);
             border: 1px solid rgba(115, 103, 34, 0.3);
-            transition: var(--transition);
+            transition: background 0.3s ease, transform 0.3s ease;
         }
 
         .tag:hover {
@@ -599,7 +602,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
             z-index: 999;
             display: none;
             opacity: 0;
@@ -616,16 +620,17 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.9);
-            background: linear-gradient(135deg, var(--card-bg), var(--background));
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: var(--card-bg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             border-radius: var(--border-radius);
             z-index: 1000;
             width: 90%;
-            max-width: 400px;
+            max-width: 800px;
+            max-height: 90vh;
             display: none;
-            padding: var(--spacing-sm);
             opacity: 0;
             transition: transform 0.3s ease, opacity 0.3s ease;
+            overflow-y: auto;
         }
 
         .destination-bubble.active {
@@ -638,24 +643,51 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--spacing-xs);
+            padding: 1.5rem;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            padding-bottom: var(--spacing-xs);
+            position: sticky;
+            top: 0;
+            background: var(--card-bg);
+            z-index: 2;
         }
 
         .bubble-title {
-            font-size: 1.2rem;
-            font-weight: bold;
+            font-size: 1.5rem;
+            font-weight: 700;
             color: var(--primary);
+            margin: 0;
+        }
+
+        .bubble-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .bubble-action-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .bubble-action-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+            color: var(--accent);
         }
 
         .bubble-close {
-            background: none;
-            border: none;
             font-size: 1.5rem;
             color: var(--text-dark);
             cursor: pointer;
             transition: transform 0.3s ease, color 0.3s ease;
+            background: none;
+            border: none;
+            padding: 0.5rem;
         }
 
         .bubble-close:hover {
@@ -663,206 +695,297 @@
             color: var(--accent);
         }
 
+        /* Gallery Styles */
+        .bubble-gallery {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .gallery-main {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+        }
+
         .bubble-image {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
-            border-radius: var(--border-radius);
-            margin-bottom: var(--spacing-xs);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .gallery-main:hover .gallery-nav {
+            opacity: 1;
+        }
+
+        .prev-btn {
+            left: 1rem;
+        }
+
+        .next-btn {
+            right: 1rem;
+        }
+
+        .gallery-nav:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .gallery-thumbnails {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 60px;
+            border-radius: 8px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* Content Styles */
+        .bubble-content {
+            padding: 0 1.5rem;
+        }
+
+        .bubble-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .bubble-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .bubble-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dark);
+            opacity: 0.8;
         }
 
         .bubble-description {
-            font-size: 0.9rem;
-            margin-bottom: var(--spacing-xs);
+            font-size: 1rem;
+            line-height: 1.6;
             color: var(--text-dark);
-            line-height: 1.4;
+            margin-bottom: 1.5rem;
+        }
+
+        .bubble-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: var(--border-radius);
+        }
+
+        .feature i {
+            color: var(--accent);
         }
 
         .bubble-highlights {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--spacing-xs);
-            margin-bottom: var(--spacing-xs);
+            margin-bottom: 1.5rem;
+        }
+
+        .bubble-highlights h4 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.75rem;
         }
 
         .bubble-highlight {
             background: var(--secondary);
             color: var(--primary);
-            padding: 0.2rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .bubble-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: var(--spacing-xs);
-        }
-
-        .bubble-btn {
             padding: 0.5rem 1rem;
-            font-size: 0.9rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
             font-weight: 600;
-            color: var(--text-light);
-            background: var(--accent);
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.3s ease;
-            flex: 1;
             text-align: center;
         }
 
-        .bubble-btn:hover {
-            background: var(--secondary);
-            transform: translateY(-2px);
+        .bubble-map {
+            margin-bottom: 1.5rem;
         }
 
-        .bubble-btn:active {
-            transform: translateY(1px);
+        .bubble-map h4 {
+            margin-bottom: 1rem;
+            color: var(--primary);
         }
 
-        /* Footer */
-        .footer {
-            background: var(--primary);
-            color: var(--text-light);
-            padding: var(--spacing-lg) 0;
-            margin-top: var(--spacing-lg);
+        .map-container {
+            height: 200px;
+            background: #f0f0f0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
         }
 
-        .footer-content {
+        /* Footer Styles */
+        .bubble-footer {
+            padding: 1.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--spacing-md);
+            position: sticky;
+            bottom: 0;
+            background: var(--card-bg);
         }
 
-        .footer-brand {
+        .bubble-price {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.5rem;
-            font-weight: 600;
+            flex-direction: column;
         }
 
-        .footer-links {
-            display: flex;
-            gap: 2rem;
+        .bubble-price .from {
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            opacity: 0.7;
         }
 
-        .footer-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            opacity: 0.8;
-            transition: var(--transition);
+        .bubble-price .amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
         }
 
-        .footer-links a:hover {
-            opacity: 1;
-            color: var(--secondary);
+        .bubble-price .per {
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            opacity: 0.7;
         }
 
-        .footer-social {
+        .bubble-buttons {
             display: flex;
             gap: 1rem;
         }
 
-        .footer-social a {
-            color: var(--text-light);
-            font-size: 1.2rem;
-            opacity: 0.8;
-            transition: var(--transition);
+        .bubble-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .footer-social a:hover {
-            opacity: 1;
-            color: var(--secondary);
+        .bubble-btn.primary-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+        }
+
+        .bubble-btn.secondary-btn {
+            background: none;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .bubble-btn:hover {
             transform: translateY(-2px);
         }
 
-        .footer-bottom {
-            text-align: center;
-            padding-top: var(--spacing-md);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .bubble-btn.primary-btn:hover {
+            background: var(--secondary);
         }
 
-        /* Responsive Design */
+        .bubble-btn.secondary-btn:hover {
+            background: rgba(58, 109, 140, 0.1);
+        }
+
+        /* Responsive Styles */
         @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--primary);
-                flex-direction: column;
-                padding: 1rem;
-                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            .destination-bubble {
+                width: 95%;
+                max-height: 95vh;
             }
 
-            .nav-menu.active {
-                display: flex;
+            .gallery-main {
+                height: 300px;
             }
 
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .filter-tabs {
-                gap: 0.5rem;
-            }
-
-            .filter-tab {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
-
-            .destinations-grid {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                gap: 1.5rem;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                gap: var(--spacing-md);
-                text-align: center;
-            }
-
-            .footer-links {
+            .bubble-footer {
                 flex-direction: column;
                 gap: 1rem;
+            }
+
+            .bubble-buttons {
+                width: 100%;
+            }
+
+            .bubble-btn {
+                flex: 1;
+                justify-content: center;
             }
         }
 
         @media (max-width: 480px) {
-            .hero-content h1 {
-                font-size: 2rem;
+            .bubble-header {
+                padding: 1rem;
             }
 
-            .section-header h2 {
-                font-size: 2rem;
+            .bubble-title {
+                font-size: 1.2rem;
             }
 
-            .destinations-grid {
+            .gallery-main {
+                height: 200px;
+            }
+
+            .bubble-features {
                 grid-template-columns: 1fr;
             }
 
-            .card-footer {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: flex-start;
-            }
-
-            .explore-btn {
-                width: 100%;
-                justify-content: center;
+            .highlights-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -949,19 +1072,6 @@
                             <button class="card-favorite" aria-label="Save to favorites">
                                 <i class="far fa-heart"></i>
                             </button>
-                            <div class="card-overlay">
-                                <div class="card-actions">
-                                    <button class="action-btn" aria-label="View gallery">
-                                        <i class="fas fa-images"></i>
-                                    </button>
-                                    <button class="action-btn" aria-label="Share">
-                                        <i class="fas fa-share-alt"></i>
-                                    </button>
-                                    <button class="action-btn" aria-label="View map">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                         <div class="card-content">
                             <div class="card-header">
@@ -1141,349 +1251,1004 @@
                             </div>
                             <div class="card-footer">
                                 <div class="card-price">
-                                    <span class="from">                            
-                                <span class="from">From</span>
-                                <span class="amount">$349</span>
-                                <span class="per">/person</span>
-                            </div>
-                            <button class="card-link explore-btn">
-                                <span>Explore</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Timgad Card -->
-                <article class="destination-card" data-category="north unesco">
-                    <div class="card-media">
-                        <img src="photos yassir/timgad.jpg" alt="Roman ruins of Timgad" loading="lazy">
-                        <div class="card-badge">UNESCO</div>
-                        <button class="card-favorite" aria-label="Save to favorites">
-                            <i class="far fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-header">
-                            <h3 class="card-title">Timgad</h3>
-                            <div class="card-rating">
-                                <div class="stars">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.7</span>
+                                    <span class="from">From</span>
+                                    <span class="amount">$349</span>
+                                    <span class="per">/person</span>
                                 </div>
-                                <span class="reviews">(85 reviews)</span>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
                             </div>
                         </div>
-                        <p class="card-description">Remarkably preserved Roman ruins showcasing the grandeur of ancient urban planning.</p>
-                        <div class="card-tags">
-                            <span class="tag">Historical</span>
-                            <span class="tag">Archaeology</span>
-                            <span class="tag">UNESCO</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="card-price">
-                                <span class="from">From</span>
-                                <span class="amount">$279</span>
-                                <span class="per">/person</span>
-                            </div>
-                            <button class="card-link explore-btn">
-                                <span>Explore</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                </article>
+                    </article>
 
-                <!-- Bejaia Card -->
-                <article class="destination-card" data-category="coast">
-                    <div class="card-media">
-                        <img src="photos yassir/bejaia.jpg" alt="Bejaia coastline" loading="lazy">
-                        <div class="card-badge">Coastal</div>
-                        <button class="card-favorite" aria-label="Save to favorites">
-                            <i class="far fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-header">
-                            <h3 class="card-title">Bejaia</h3>
-                            <div class="card-rating">
-                                <div class="stars">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.4</span>
-                                </div>
-                                <span class="reviews">(78 reviews)</span>
-                            </div>
-                        </div>
-                        <p class="card-description">Stunning coastal city with golden beaches, lush mountains, and rich Kabyle culture.</p>
-                        <div class="card-tags">
-                            <span class="tag">Beaches</span>
-                            <span class="tag">Nature</span>
-                            <span class="tag">Culture</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="card-price">
-                                <span class="from">From</span>
-                                <span class="amount">$269</span>
-                                <span class="per">/person</span>
-                            </div>
-                            <button class="card-link explore-btn">
-                                <span>Explore</span>
-                                <i class="fas fa-arrow-right"></i>
+                    <!-- Timgad Card -->
+                    <article class="destination-card" data-category="north unesco">
+                        <div class="card-media">
+                            <img src="photos yassir/timgad.jpg" alt="Roman ruins of Timgad" loading="lazy">
+                            <div class="card-badge">UNESCO</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
                             </button>
                         </div>
-                    </div>
-                </article>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Timgad</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.7</span>
+                                    </div>
+                                    <span class="reviews">(85 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Remarkably preserved Roman ruins showcasing the grandeur of ancient urban planning.</p>
+                            <div class="card-tags">
+                                <span class="tag">Historical</span>
+                                <span class="tag">Archaeology</span>
+                                <span class="tag">UNESCO</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$279</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
 
-                <!-- Djanet Card -->
-                <article class="destination-card" data-category="south">
-                    <div class="card-media">
-                        <img src="photos yassir/Djanet.jpg" alt="Djanet desert landscape" loading="lazy">
-                        <div class="card-badge">Adventure</div>
-                        <button class="card-favorite" aria-label="Save to favorites">
-                            <i class="far fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-header">
-                            <h3 class="card-title">Djanet</h3>
-                            <div class="card-rating">
-                                <div class="stars">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.9</span>
-                                </div>
-                                <span class="reviews">(64 reviews)</span>
-                            </div>
-                        </div>
-                        <p class="card-description">Gateway to the stunning Tassili n'Ajjer with its prehistoric rock art and surreal landscapes.</p>
-                        <div class="card-tags">
-                            <span class="tag">Adventure</span>
-                            <span class="tag">Archaeology</span>
-                            <span class="tag">Unique</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="card-price">
-                                <span class="from">From</span>
-                                <span class="amount">$549</span>
-                                <span class="per">/person</span>
-                            </div>
-                            <button class="card-link explore-btn">
-                                <span>Explore</span>
-                                <i class="fas fa-arrow-right"></i>
+                    <!-- Bejaia Card -->
+                    <article class="destination-card" data-category="coast">
+                        <div class="card-media">
+                            <img src="photos yassir/bejaia.jpg" alt="Bejaia coastline" loading="lazy">
+                            <div class="card-badge">Coastal</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
                             </button>
                         </div>
-                    </div>
-                </article>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Bejaia</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.4</span>
+                                    </div>
+                                    <span class="reviews">(78 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Stunning coastal city with golden beaches, lush mountains, and rich Kabyle culture.</p>
+                            <div class="card-tags">
+                                <span class="tag">Beaches</span>
+                                <span class="tag">Nature</span>
+                                <span class="tag">Culture</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$269</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Djanet Card -->
+                    <article class="destination-card" data-category="south">
+                        <div class="card-media">
+                            <img src="photos yassir/Djanet.jpg" alt="Djanet desert landscape" loading="lazy">
+                            <div class="card-badge">Adventure</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Djanet</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.9</span>
+                                    </div>
+                                    <span class="reviews">(64 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Gateway to the stunning Tassili n'Ajjer with its prehistoric rock art and surreal landscapes.</p>
+                            <div class="card-tags">
+                                <span class="tag">Adventure</span>
+                                <span class="tag">Archaeology</span>
+                                <span class="tag">Unique</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$549</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Annaba Card -->
+                    <article class="destination-card" data-category="coast">
+                        <div class="card-media">
+                            <img src="photos yassir/annaba.jpg" alt="Annaba coastal city" loading="lazy">
+                            <div class="card-badge">Coastal</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Annaba</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.4</span>
+                                    </div>
+                                    <span class="reviews">(92 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Beautiful Mediterranean port city with Roman ruins and stunning beaches.</p>
+                            <div class="card-tags">
+                                <span class="tag">Beaches</span>
+                                <span class="tag">Historical</span>
+                                <span class="tag">Cultural</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$289</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Ghardaia Card -->
+                    <article class="destination-card" data-category="south">
+                        <div class="card-media">
+                            <img src="photos yassir/ghardaia.jpg" alt="Ghardaia M'zab Valley" loading="lazy">
+                            <div class="card-badge">UNESCO</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Ghardaia</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.7</span>
+                                    </div>
+                                    <span class="reviews">(78 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Ancient fortified city in the M'zab Valley, showcasing unique Berber architecture.</p>
+                            <div class="card-tags">
+                                <span class="tag">UNESCO</span>
+                                <span class="tag">Cultural</span>
+                                <span class="tag">Architecture</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$329</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Tipaza Card -->
+                    <article class="destination-card" data-category="north unesco">
+                        <div class="card-media">
+                            <img src="photos yassir/tipaza.jpg" alt="Tipaza Roman ruins" loading="lazy">
+                            <div class="card-badge">UNESCO</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Tipaza</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.6</span>
+                                    </div>
+                                    <span class="reviews">(88 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Coastal town with well-preserved Roman ruins and Mediterranean charm.</p>
+                            <div class="card-tags">
+                                <span class="tag">UNESCO</span>
+                                <span class="tag">Historical</span>
+                                <span class="tag">Beaches</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$259</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Setif Card -->
+                    <article class="destination-card" data-category="north">
+                        <div class="card-media">
+                            <img src="photos yassir/setif.jpg" alt="Setif city" loading="lazy">
+                            <div class="card-badge">Cultural</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Setif</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.3</span>
+                                    </div>
+                                    <span class="reviews">(85 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">High-altitude city known for its Roman ruins and vibrant cultural scene.</p>
+                            <div class="card-tags">
+                                <span class="tag">Historical</span>
+                                <span class="tag">Cultural</span>
+                                <span class="tag">Architecture</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$239</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Tlemcen Card -->
+                    <article class="destination-card" data-category="north unesco">
+                        <div class="card-media">
+                            <img src="photos yassir/tlemcen.jpg" alt="Tlemcen architecture" loading="lazy">
+                            <div class="card-badge">UNESCO</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Tlemcen</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.8</span>
+                                    </div>
+                                    <span class="reviews">(112 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Historic city with stunning Islamic architecture and ancient ruins.</p>
+                            <div class="card-tags">
+                                <span class="tag">UNESCO</span>
+                                <span class="tag">Historical</span>
+                                <span class="tag">Architecture</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$299</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Skikda Card -->
+                    <article class="destination-card" data-category="coast">
+                        <div class="card-media">
+                            <img src="photos yassir/skikda.jpg" alt="Skikda coastline" loading="lazy">
+                            <div class="card-badge">Coastal</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Skikda</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.2</span>
+                                    </div>
+                                    <span class="reviews">(76 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Port city with beautiful beaches and Roman archaeological sites.</p>
+                            <div class="card-tags">
+                                <span class="tag">Beaches</span>
+                                <span class="tag">Historical</span>
+                                <span class="tag">Nature</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$229</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Jijel Card -->
+                    <article class="destination-card" data-category="coast">
+                        <div class="card-media">
+                            <img src="photos yassir/jijel.jpg" alt="Jijel beaches" loading="lazy">
+                            <div class="card-badge">Coastal</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Jijel</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.5</span>
+                                    </div>
+                                    <span class="reviews">(94 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Coastal paradise with crystal-clear waters and stunning beaches.</p>
+                            <div class="card-tags">
+                                <span class="tag">Beaches</span>
+                                <span class="tag">Nature</span>
+                                <span class="tag">Adventure</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$249</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Mostaganem Card -->
+                    <article class="destination-card" data-category="coast">
+                        <div class="card-media">
+                            <img src="photos yassir/mostaganem.jpg" alt="Mostaganem city" loading="lazy">
+                            <div class="card-badge">Coastal</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Mostaganem</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.4</span>
+                                    </div>
+                                    <span class="reviews">(82 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Charming coastal city with historic architecture and beautiful beaches.</p>
+                            <div class="card-tags">
+                                <span class="tag">Beaches</span>
+                                <span class="tag">Historical</span>
+                                <span class="tag">Cultural</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$219</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- El Oued Card -->
+                    <article class="destination-card" data-category="south">
+                        <div class="card-media">
+                            <img src="photos yassir/el-oued.jpg" alt="El Oued desert city" loading="lazy">
+                            <div class="card-badge">Unique</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">El Oued</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.6</span>
+                                    </div>
+                                    <span class="reviews">(68 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Unique desert city known as the "City of a Thousand Domes".</p>
+                            <div class="card-tags">
+                                <span class="tag">Desert</span>
+                                <span class="tag">Cultural</span>
+                                <span class="tag">Unique</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$379</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Batna Card -->
+                    <article class="destination-card" data-category="north">
+                        <div class="card-media">
+                            <img src="photos yassir/batna.jpg" alt="Batna city" loading="lazy">
+                            <div class="card-badge">Historical</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Batna</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.3</span>
+                                    </div>
+                                    <span class="reviews">(71 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Gateway to the Roman ruins of Timgad and Lambaesis.</p>
+                            <div class="card-tags">
+                                <span class="tag">Historical</span>
+                                <span class="tag">Archaeology</span>
+                                <span class="tag">Cultural</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$269</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Tizi Ouzou Card -->
+                    <article class="destination-card" data-category="north">
+                        <div class="card-media">
+                            <img src="photos yassir/tizi-ouzou.jpg" alt="Tizi Ouzou landscape" loading="lazy">
+                            <div class="card-badge">Cultural</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Tizi Ouzou</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.4</span>
+                                    </div>
+                                    <span class="reviews">(65 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Heart of Kabylie region with rich Berber culture and mountain landscapes.</p>
+                            <div class="card-tags">
+                                <span class="tag">Cultural</span>
+                                <span class="tag">Nature</span>
+                                <span class="tag">Mountain</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$239</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- El Kala Card -->
+                    <article class="destination-card" data-category="coast">
+                        <div class="card-media">
+                            <img src="photos yassir/el-kala.jpg" alt="El Kala National Park" loading="lazy">
+                            <div class="card-badge">Nature</div>
+                            <button class="card-favorite" aria-label="Save to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">El Kala</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.7</span>
+                                    </div>
+                                    <span class="reviews">(58 reviews)</span>
+                                </div>
+                            </div>
+                            <p class="card-description">Home to El Kala National Park with diverse wildlife and pristine beaches.</p>
+                            <div class="card-tags">
+                                <span class="tag">Nature</span>
+                                <span class="tag">Wildlife</span>
+                                <span class="tag">Beaches</span>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="from">From</span>
+                                    <span class="amount">$289</span>
+                                    <span class="per">/person</span>
+                                </div>
+                                <button class="card-link explore-btn">
+                                    <span>Explore</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-mountain"></i>
+                    <span>TourAlgeria</span>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="destinations.html">Destinations</a>
+                    <a href="services.html">Services</a>
+                    <a href="aboutUs.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 TourAlgeria. All rights reserved.</p>
             </div>
         </div>
-    </section>
-</main>
+    </footer>
 
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <i class="fas fa-mountain"></i>
-                <span>TourAlgeria</span>
-            </div>
-            <div class="footer-links">
-                <a href="index.html">Home</a>
-                <a href="destinations.html">Destinations</a>
-                <a href="services.html">Services</a>
-                <a href="aboutUs.html">About</a>
-                <a href="contact.html">Contact</a>
-            </div>
-            <div class="footer-social">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+    <!-- Destination Bubble Popup -->
+    <div class="bubble-overlay"></div>
+    <div class="destination-bubble">
+        <div class="bubble-header">
+            <h3 class="bubble-title">Destination Details</h3>
+            <div class="bubble-actions">
+                <button class="bubble-action-btn share-btn" aria-label="Share">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+                <button class="bubble-action-btn favorite-btn" aria-label="Add to favorites">
+                    <i class="far fa-heart"></i>
+                </button>
+                <button class="bubble-close" aria-label="Close">&times;</button>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 TourAlgeria. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
-
-<!-- Destination Bubble Popup -->
-<div class="bubble-overlay"></div>
-<div class="destination-bubble">
-    <div class="bubble-header">
-        <h3 class="bubble-title">Destination Details</h3>
-        <button class="bubble-close">&times;</button>
-    </div>
-    <img src="" alt="Destination image" class="bubble-image">
-    <p class="bubble-description">Detailed description of the destination will appear here.</p>
-    <div class="bubble-highlights">
-        <span class="bubble-highlight">Cultural</span>
-        <span class="bubble-highlight">Historical</span>
-    </div>
-    <div class="bubble-footer">
-        <button class="bubble-btn">View Tours</button>
-        <button class="bubble-btn">Book Now</button>
-    </div>
-</div>
-
-<!-- JavaScript -->
-<script>
-    // Theme Toggle
-    const themeToggle = document.querySelector('.theme-toggle');
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
         
-        // Save preference to localStorage
-        const isDark = document.body.classList.contains('dark-mode');
-        localStorage.setItem('darkMode', isDark);
-    });
+        <div class="bubble-gallery">
+            <div class="gallery-main">
+                <img src="" alt="Destination image" class="bubble-image">
+                <button class="gallery-nav prev-btn" aria-label="Previous image">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="gallery-nav next-btn" aria-label="Next image">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="gallery-thumbnails">
+                <!-- Thumbnails will be added dynamically -->
+            </div>
+        </div>
 
-    // Check for saved theme preference
-    if (localStorage.getItem('darkMode') === 'true') {
-        document.body.classList.add('dark-mode');
-    }
+        <div class="bubble-content">
+            <div class="bubble-info">
+                <div class="bubble-rating">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <span class="rating-value">4.5</span>
+                    </div>
+                    <span class="reviews-count">(120 reviews)</span>
+                </div>
+                <div class="bubble-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="location-text">Location, Algeria</span>
+                </div>
+            </div>
 
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    mobileMenuBtn.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? 
-            '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-    });
-
-    // Filter System
-    const filterTabs = document.querySelectorAll('.filter-tab');
-    const destinationCards = document.querySelectorAll('.destination-card');
-    
-    filterTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // Update active tab
-            filterTabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
+            <p class="bubble-description">Detailed description of the destination will appear here.</p>
             
-            const category = tab.dataset.category;
+            <div class="bubble-features">
+                <div class="feature">
+                    <i class="fas fa-clock"></i>
+                    <span class="feature-text">Best time to visit</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-temperature-high"></i>
+                    <span class="feature-text">Weather</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-language"></i>
+                    <span class="feature-text">Language</span>
+                </div>
+            </div>
+
+            <div class="bubble-highlights">
+                <h4>Highlights</h4>
+                <div class="highlights-grid">
+                    <!-- Highlights will be added dynamically -->
+                </div>
+            </div>
+
+            <div class="bubble-map">
+                <h4>Location</h4>
+                <div class="map-container">
+                    <!-- Map will be added dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <div class="bubble-footer">
+            <div class="bubble-price">
+                <span class="from">From</span>
+                <span class="amount">$299</span>
+                <span class="per">/person</span>
+            </div>
+            <div class="bubble-buttons">
+                <button class="bubble-btn secondary-btn">
+                    <i class="fas fa-info-circle"></i>
+                    <span>More Info</span>
+                </button>
+                <button class="bubble-btn primary-btn">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Book Now</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Theme Toggle
+        const themeToggle = document.querySelector('.theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
             
-            // Filter cards
-            destinationCards.forEach(card => {
-                if (category === 'all' || card.dataset.category.includes(category)) {
-                    card.style.display = 'block';
-                    gsap.from(card, {
-                        opacity: 0,
-                        y: 20,
-                        duration: 0.5,
-                        ease: "power2.out"
-                    });
-                } else {
-                    card.style.display = 'none';
-                }
+            // Save preference to localStorage
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+        });
+
+        // Check for saved theme preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Filter System
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const destinationCards = document.querySelectorAll('.destination-card');
+        
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                const category = tab.dataset.category;
+                
+                // Filter cards
+                destinationCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category.includes(category)) {
+                        card.style.display = 'block';
+                        gsap.from(card, {
+                            opacity: 0,
+                            y: 20,
+                            duration: 0.5,
+                            ease: "power2.out"
+                        });
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
             });
         });
-    });
 
-    // Favorite Button Toggle
-    const favoriteBtns = document.querySelectorAll('.card-favorite');
-    favoriteBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            btn.classList.toggle('active');
-            btn.innerHTML = btn.classList.contains('active') ? 
-                '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
-        });
-    });
-
-    // Destination Card Click Handler
-    const exploreBtns = document.querySelectorAll('.explore-btn, .destination-card');
-    const bubbleOverlay = document.querySelector('.bubble-overlay');
-    const destinationBubble = document.querySelector('.destination-bubble');
-    const bubbleClose = document.querySelector('.bubble-close');
-    
-    exploreBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            
-            // Get card data (in a real app, this would come from a database)
-            const card = btn.closest('.destination-card') || btn;
-            const title = card.querySelector('.card-title').textContent;
-            const description = card.querySelector('.card-description').textContent;
-            const imageSrc = card.querySelector('.card-media img').src;
-            const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent);
-            
-            // Update bubble content
-            destinationBubble.querySelector('.bubble-title').textContent = title;
-            destinationBubble.querySelector('.bubble-description').textContent = description;
-            destinationBubble.querySelector('.bubble-image').src = imageSrc;
-            
-            // Update highlights
-            const highlightsContainer = destinationBubble.querySelector('.bubble-highlights');
-            highlightsContainer.innerHTML = '';
-            tags.forEach(tag => {
-                const highlight = document.createElement('span');
-                highlight.className = 'bubble-highlight';
-                highlight.textContent = tag;
-                highlightsContainer.appendChild(highlight);
+        // Favorite Button Toggle
+        const favoriteBtns = document.querySelectorAll('.card-favorite');
+        favoriteBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.classList.toggle('active');
+                btn.innerHTML = btn.classList.contains('active') ? 
+                    '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
             });
-            
-            // Show bubble
-            bubbleOverlay.classList.add('active');
-            destinationBubble.classList.add('active');
         });
-    });
-    
-    // Close bubble
-    bubbleClose.addEventListener('click', () => {
-        bubbleOverlay.classList.remove('active');
-        destinationBubble.classList.remove('active');
-    });
-    
-    bubbleOverlay.addEventListener('click', () => {
-        bubbleOverlay.classList.remove('active');
-        destinationBubble.classList.remove('active');
-    });
 
-    // Hero Animation
-    gsap.from('.hero-content h1', {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        delay: 0.3,
-        ease: "power3.out"
-    });
-    
-    gsap.from('.hero-content p', {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        delay: 0.6,
-        ease: "power3.out"
-    });
-    
-    gsap.from('.search-trigger', {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        delay: 0.9,
-        ease: "power3.out"
-    });
-
-    // Card hover animations
-    destinationCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            gsap.to(card, {
-                y: -10,
-                duration: 0.3,
-                ease: "power1.out"
+        // Destination Card Click Handler
+        const exploreBtns = document.querySelectorAll('.explore-btn, .destination-card');
+        const bubbleOverlay = document.querySelector('.bubble-overlay');
+        const destinationBubble = document.querySelector('.destination-bubble');
+        const bubbleClose = document.querySelector('.bubble-close');
+        
+        exploreBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                const card = btn.closest('.destination-card') || btn;
+                const title = card.querySelector('.card-title').textContent;
+                const description = card.querySelector('.card-description').textContent;
+                const imageSrc = card.querySelector('.card-media img').src;
+                const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent);
+                
+                // Update bubble content
+                destinationBubble.querySelector('.bubble-title').textContent = title;
+                destinationBubble.querySelector('.bubble-description').textContent = description;
+                destinationBubble.querySelector('.bubble-image').src = imageSrc;
+                
+                // Update highlights
+                const highlightsContainer = destinationBubble.querySelector('.bubble-highlights');
+                highlightsContainer.innerHTML = '';
+                tags.forEach(tag => {
+                    const highlight = document.createElement('span');
+                    highlight.className = 'bubble-highlight';
+                    highlight.textContent = tag;
+                    highlightsContainer.appendChild(highlight);
+                });
+                
+                // Show bubble
+                bubbleOverlay.classList.add('active');
+                destinationBubble.classList.add('active');
             });
         });
         
-        card.addEventListener('mouseleave', () => {
-            gsap.to(card, {
-                y: 0,
-                duration: 0.3,
-                ease: "power1.out"
+        // Close bubble
+        bubbleClose.addEventListener('click', () => {
+            bubbleOverlay.classList.remove('active');
+            destinationBubble.classList.remove('active');
+        });
+        
+        bubbleOverlay.addEventListener('click', () => {
+            bubbleOverlay.classList.remove('active');
+            destinationBubble.classList.remove('active');
+        });
+
+        // Hero Animation
+        gsap.from('.hero-content h1', {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            delay: 0.3,
+            ease: "power3.out"
+        });
+        
+        gsap.from('.hero-content p', {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            delay: 0.6,
+            ease: "power3.out"
+        });
+        
+        gsap.from('.search-trigger', {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            delay: 0.9,
+            ease: "power3.out"
+        });
+
+        // Card hover animations
+        destinationCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, {
+                    y: -10,
+                    duration: 0.3,
+                    ease: "power1.out"
+                });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    y: 0,
+                    duration: 0.3,
+                    ease: "power1.out"
+                });
             });
         });
-    });
-</script>
+
+        // Enhanced Bubble Functionality
+        const bubbleGallery = document.querySelector('.bubble-gallery');
+        const galleryMain = document.querySelector('.gallery-main');
+        const galleryThumbnails = document.querySelector('.gallery-thumbnails');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const shareBtn = document.querySelector('.share-btn');
+        const favoriteBtn = document.querySelector('.favorite-btn');
+
+        // Sample gallery images (in a real app, this would come from your data)
+        const galleryImages = [
+            'photos yassir/casbah-alger-pic.jpg',
+            'photos yassir/oran.jpg',
+            'photos yassir/tamenrasset.webp',
+            'photos yassir/Djanet.jpg'
+        ];
+
+        let currentImageIndex = 0;
+
+        function updateGallery() {
+            const mainImage = galleryMain.querySelector('.bubble-image');
+            mainImage.src = galleryImages[currentImageIndex];
+            
+            // Update thumbnails
+            galleryThumbnails.innerHTML = galleryImages.map((src, index) => `
+                <img src="${src}" 
+                     alt="Gallery thumbnail" 
+                     class="thumbnail ${index === currentImageIndex ? 'active' : ''}"
+                     onclick="setCurrentImage(${index})">
+            `).join('');
+        }
+
+        function setCurrentImage(index) {
+            currentImageIndex = index;
+            updateGallery();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+            updateGallery();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+            updateGallery();
+        });
+
+        // Share functionality
+        shareBtn.addEventListener('click', async () => {
+            try {
+                await navigator.share({
+                    title: document.querySelector('.bubble-title').textContent,
+                    text: document.querySelector('.bubble-description').textContent,
+                    url: window.location.href
+                });
+            } catch (err) {
+                console.log('Error sharing:', err);
+            }
+        });
+
+        // Favorite functionality
+        favoriteBtn.addEventListener('click', () => {
+            favoriteBtn.classList.toggle('active');
+            const icon = favoriteBtn.querySelector('i');
+            icon.classList.toggle('far');
+            icon.classList.toggle('fas');
+        });
+
+        // Enhanced card click handler
+        exploreBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                const card = btn.closest('.destination-card') || btn;
+                const title = card.querySelector('.card-title').textContent;
+                const description = card.querySelector('.card-description').textContent;
+                const rating = card.querySelector('.stars span').textContent;
+                const reviews = card.querySelector('.reviews').textContent;
+                const price = card.querySelector('.amount').textContent;
+                
+                // Update bubble content
+                destinationBubble.querySelector('.bubble-title').textContent = title;
+                destinationBubble.querySelector('.bubble-description').textContent = description;
+                destinationBubble.querySelector('.rating-value').textContent = rating;
+                destinationBubble.querySelector('.reviews-count').textContent = reviews;
+                destinationBubble.querySelector('.amount').textContent = price;
+                
+                // Update gallery
+                updateGallery();
+                
+                // Show bubble with animation
+                bubbleOverlay.classList.add('active');
+                destinationBubble.classList.add('active');
+                
+                // Scroll to top of bubble
+                destinationBubble.scrollTop = 0;
+            });
+        });
+    </script>
 </body>
 </html>
