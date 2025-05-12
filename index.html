@@ -4,198 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>World Tours - Discover Algeria</title>
-    <style>
-        /* Navbar Styles */
-        :root {
-            --primary-blue: #1E3A8A;
-            --secondary-blue: #3B82F6;
-            --accent-gold: #D4AF37;
-            --white: #FFFFFF;
-            --light-gray: #F5F5F5;
-            --dark-gray: #333333;
-            --header-height: 80px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .navbar {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            height: var(--header-height);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .navbar.scrolled {
-            height: 70px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--white);
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: var(--accent-gold);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            position: relative;
-            transition: color 0.3s ease;
-            padding: 0.5rem 0;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: var(--accent-gold);
-            bottom: 0;
-            left: 0;
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 100%;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--accent-gold);
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .btn {
-            background-color: var(--secondary-blue);
-            color: var(--white);
-            padding: 0.6rem 1.2rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: var(--primary-blue);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .hamburger {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--white);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Mobile Menu */
-        @media (max-width: 992px) {
-            .hamburger {
-                display: block;
-            }
-
-            .nav-links {
-                position: fixed;
-                top: var(--header-height);
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - var(--header-height));
-                background-color: var(--primary-blue);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 2rem;
-                transition: left 0.3s ease;
-                padding: 2rem 0;
-            }
-
-            .nav-links.active {
-                left: 0;
-            }
-
-            .nav-actions {
-                display: none;
-            }
-
-            .nav-links a {
-                font-size: 1.2rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .nav-container {
-                padding: 0 1rem;
-            }
-
-            .logo {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap">
-    <link rel="stylesheet" href="css/user-style.css">
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="custom-navbar">
+    <nav class="custom-navbar" id="navbar">
         <div class="nav-brand">
             <svg class="logo" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="40" height="40" rx="8" fill="#0A192F"/>
-                <path d="M20 8C13.373 8 8 13.373 8 20C8 26.627 13.373 32 20 32C26.627 32 32 26.627 32 20C32 13.373 26.627 8 20 8ZM20 12C22.209 12 24 13.791 24 16C24 18.209 22.209 20 20 20C17.791 20 16 18.209 16 16C16 13.791 17.791 12 20 12ZM20 28C17.333 28 14.933 26.933 13.2 25.067C13.233 23.067 18.4 21.733 20 21.733C21.6 21.733 26.767 23.067 26.8 25.067C25.067 26.933 22.667 28 20 28Z" fill="#F59E0B"/>
+                <rect width="40" height="40" rx="8" fill="#1F3140"/>
+                <path d="M20 8C13.373 8 8 13.373 8 20C8 26.627 13.373 32 20 32C26.627 32 32 26.627 32 20C32 13.373 26.627 8 20 8ZM20 12C22.209 12 24 13.791 24 16C24 18.209 22.209 20 20 20C17.791 20 16 18.209 16 16C16 13.791 17.791 12 20 12ZM20 28C17.333 28 14.933 26.933 13.2 25.067C13.233 23.067 18.4 21.733 20 21.733C21.6 21.733 26.767 23.067 26.8 25.067C25.067 26.933 22.667 28 20 28Z" fill="#BFAE9F"/>
             </svg>
-            <h1>TourAlgeria</h1>
+            <h1>ZRquest</h1>
         </div>
         <button class="hamburger" id="hamburgerBtn">
             <i class="fas fa-bars"></i>
         </button>
         <div class="nav-links" id="navLinks">
-            <a href="index.html" class="nav-link">Home</a>
+            <a href="index.html" class="nav-link active">Home</a>
             <a href="destinations.html" class="nav-link">Destinations</a>
             <a href="tours.html" class="nav-link">Tours</a>
             <a href="about.html" class="nav-link">About</a>
@@ -205,14 +32,12 @@
             <button class="nav-btn secondary">
                 <i class="fas fa-search"></i>
             </button>
-            <!-- Sign In button (shown when not logged in) -->
             <button class="nav-btn primary" id="signInBtn">
                 <i class="fas fa-user"></i>
                 <span>Sign In</span>
             </button>
-            <!-- User profile circle (shown when logged in) -->
-            <div class="user-profile-circle" id="userProfileBtn">
-                <img src="data:image/svg+xml;base64,..." alt="Profile Picture">
+            <div class="user-profile-circle" id="userProfileBtn" style="display: none;">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS11c2VyIj48cGF0aCBkPSJNMTkgMjF2LTJhNCA0IDAgMCAwLTQtNEg5YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCIvPjwvc3ZnPg==" alt="Profile Picture">
                 <div class="user-dropdown" id="userDropdown" style="display: none;">
                     <a href="user.html" class="dropdown-item">
                         <i class="fas fa-user"></i> My Profile
@@ -230,80 +55,137 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="main-image" id="mainImage">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <h1>Discover Algeria</h1>
-                <p>Explore the breathtaking landscapes, rich culture, and hidden gems of this North African treasure.</p>
-                <button class="cta-btn">Start Your Journey</button>
-            </div>
-        </div>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="main-image" id="mainImage">
+        <!-- We'll add the images as background divs here -->
+        <div class="hero-bg active" style="background-image: url('photos yassir/akger.jpg')"></div>
+        <div class="hero-bg" style="background-image: url('photos yassir/oued souf.jpg')"></div>
+        <div class="hero-bg" style="background-image: url('photos yassir/oran.jpg')"></div>
+        <div class="hero-bg" style="background-image: url('photos yassir/sahara.jpg')"></div>
         
-        <!-- Thumbnails strip -->
-        <div class="thumbnails-strip">
-            <div class="thumbnail active" data-index="0">
-                <img src="photos yassir/akger.jpg" alt="Algiers">
-                <div class="thumbnail-label">Algiers</div>
-            </div>
-            <div class="thumbnail" data-index="1">
-                <img src="photos yassir/oued souf.jpg" alt="Oued Souf">
-                <div class="thumbnail-label">Oued Souf</div>
-            </div>
-            <div class="thumbnail" data-index="2">
-                <img src="photos yassir/oran.jpg" alt="Oran">
-                <div class="thumbnail-label">Oran</div>
-            </div>
-            <div class="thumbnail" data-index="3">
-                <img src="photos yassir/sahara.jpg" alt="Sahara">
-                <div class="thumbnail-label">Sahara</div>
-            </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Discover Algeria</h1>
+            <p>Explore the breathtaking landscapes, rich culture, and hidden gems of this North African treasure.</p>
+            <button class="cta-btn">Start Your Journey</button>
         </div>
-    </section>
+    </div>
+    
+    <div class="thumbnails-strip">
+        <div class="thumbnail active" data-index="0">
+            <img src="photos yassir/akger.jpg" alt="Algiers">
+            <div class="thumbnail-label">Algiers</div>
+        </div>
+        <div class="thumbnail" data-index="1">
+            <img src="photos yassir/oued souf.jpg" alt="Oued Souf">
+            <div class="thumbnail-label">Oued Souf</div>
+        </div>
+        <div class="thumbnail" data-index="2">
+            <img src="photos yassir/oran.jpg" alt="Oran">
+            <div class="thumbnail-label">Oran</div>
+        </div>
+        <div class="thumbnail" data-index="3">
+            <img src="photos yassir/sahara.jpg" alt="Sahara">
+            <div class="thumbnail-label">Sahara</div>
+        </div>
+    </div>
+</section>
 
     <!-- Destinations Section -->
     <section class="destinations">
-        <h2>Featured Destinations</h2>
+        <div class="section-header">
+            <h2>Featured Destinations</h2>
+            <p class="section-subtitle">Explore our most popular destinations in Algeria</p>
+        </div>
         <div class="destinations-container">
             <div class="destinations-slider">
                 <div class="destination-card">
                     <div class="card-image">
                         <img src="photos yassir/akger.jpg" alt="Algiers">
+                        <div class="card-overlay"></div>
                     </div>
                     <div class="card-content">
+                        <div class="destination-badge">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Northern Algeria</span>
+                        </div>
                         <h3>Algiers</h3>
                         <p>The capital city known as "Algiers the White" for its beautiful white buildings...</p>
-                        <button class="see-more-btn">See more <i class="fas fa-chevron-right"></i></button>
+                        <div class="card-footer">
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.8</span>
+                                <span>(124 reviews)</span>
+                            </div>
+                            <button class="see-more-btn">See more <i class="fas fa-chevron-right"></i></button>
+                        </div>
                     </div>
                 </div>
                 <div class="destination-card">
                     <div class="card-image">
                         <img src="photos yassir/oued souf.jpg" alt="Oued Souf">
+                        <div class="card-overlay"></div>
                     </div>
                     <div class="card-content">
+                        <div class="destination-badge">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Saharan Algeria</span>
+                        </div>
                         <h3>Oued Souf</h3>
                         <p>Discover the unique desert architecture and golden dunes of this Saharan region...</p>
-                        <button class="see-more-btn">See more <i class="fas fa-chevron-right"></i></button>
+                        <div class="card-footer">
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                                <span>(98 reviews)</span>
+                            </div>
+                            <button class="see-more-btn">See more <i class="fas fa-chevron-right"></i></button>
+                        </div>
                     </div>
                 </div>
                 <div class="destination-card">
                     <div class="card-image">
                         <img src="photos yassir/oran.jpg" alt="Oran">
+                        <div class="card-overlay"></div>
                     </div>
                     <div class="card-content">
+                        <div class="destination-badge">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Western Algeria</span>
+                        </div>
                         <h3>Oran</h3>
                         <p>Vibrant coastal city with Spanish influences and a thriving cultural scene...</p>
-                        <button class="see-more-btn">See more <i class="fas fa-chevron-right"></i></button>
+                        <div class="card-footer">
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.7</span>
+                                <span>(156 reviews)</span>
+                            </div>
+                            <button class="see-more-btn">See more <i class="fas fa-chevron-right"></i></button>
+                        </div>
                     </div>
                 </div>
                 <div class="destination-card">
                     <div class="card-image">
                         <img src="photos yassir/sahara.jpg" alt="Sahara">
+                        <div class="card-overlay"></div>
                     </div>
                     <div class="card-content">
+                        <div class="destination-badge">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Southern Algeria</span>
+                        </div>
                         <h3>Sahara Desert</h3>
                         <p>Experience the vastness of the world's largest hot desert with stunning landscapes...</p>
-                        <button class="see-more-btn">See more <i class="fas fa-chevron-right"></i></button>
+                        <div class="card-footer">
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span>5.0</span>
+                                <span>(210 reviews)</span>
+                            </div>
+                            <button class="see-more-btn">See more <i class="fas fa-chevron-right"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -312,15 +194,114 @@
         </div>
     </section>
 
+    <!-- Features Section -->
+    <section class="features">
+        <div class="section-header">
+            <h2>Why Choose Algeria?</h2>
+            <p class="section-subtitle">Experience the best of North Africa with our curated tours</p>
+        </div>
+        <div class="features-container">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <h3>Rich History</h3>
+                <p>Explore ancient Roman ruins, Ottoman palaces, and French colonial architecture.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-mountain"></i>
+                </div>
+                <h3>Diverse Landscapes</h3>
+                <p>From Mediterranean beaches to Saharan dunes and Atlas mountains.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h3>Authentic Cuisine</h3>
+                <p>Taste traditional dishes like couscous, tajine, and delicious pastries.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h3>Warm Hospitality</h3>
+                <p>Experience the legendary Algerian welcome and generous spirit.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="section-header">
+            <h2>Traveler Experiences</h2>
+            <p class="section-subtitle">What our visitors say about Algeria</p>
+        </div>
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>"The Sahara Desert was absolutely breathtaking. The night sky filled with stars was unlike anything I've ever seen."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson">
+                    <div class="author-info">
+                        <h4>Sarah Johnson</h4>
+                        <span>From Canada</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>"Algiers surprised me with its mix of French and Arab influences. The Casbah is a must-see!"</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael Chen">
+                    <div class="author-info">
+                        <h4>Michael Chen</h4>
+                        <span>From Australia</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>"The hospitality of the Algerian people made our trip unforgettable. Can't wait to return!"</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Elena Rodriguez">
+                    <div class="author-info">
+                        <h4>Elena Rodriguez</h4>
+                        <span>From Spain</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>Ready to Explore Algeria?</h2>
+            <p>Join thousands of travelers who have discovered the beauty of Algeria with our expert guides.</p>
+            <button class="cta-btn">Book Your Adventure Today</button>
+        </div>
+    </section>
+
     <!-- Login Modal -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-content">
             <button class="close-modal">&times;</button>
+            <div class="modal-icon">
+                <i class="fas fa-lock"></i>
+            </div>
             <h3>Want to see more?</h3>
             <p>Sign up or log in to access detailed information about our destinations, itineraries, and exclusive offers.</p>
             <div class="modal-buttons">
                 <button class="btn btn-login">Log In</button>
                 <button class="btn btn-signup">Sign Up</button>
+            </div>
+            <div class="modal-footer">
+                <p>By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
             </div>
         </div>
     </div>
@@ -329,32 +310,58 @@
     <footer>
         <div class="footer-container">
             <div class="footer-section">
-                <h4>World Tours</h4>
+                <div class="footer-logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="8" fill="#1F3140"/>
+                        <path d="M20 8C13.373 8 8 13.373 8 20C8 26.627 13.373 32 20 32C26.627 32 32 26.627 32 20C32 13.373 26.627 8 20 8ZM20 12C22.209 12 24 13.791 24 16C24 18.209 22.209 20 20 20C17.791 20 16 18.209 16 16C16 13.791 17.791 12 20 12ZM20 28C17.333 28 14.933 26.933 13.2 25.067C13.233 23.067 18.4 21.733 20 21.733C21.6 21.733 26.767 23.067 26.8 25.067C25.067 26.933 22.667 28 20 28Z" fill="#BFAE9F"/>
+                    </svg>
+                    <h4>ZRquest</h4>
+                </div>
                 <p>Discover the beauty of Algeria with our expertly crafted tours and travel experiences.</p>
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Destinations</a></li>
-                    <li><a href="#">Tours</a></li>
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Booking Conditions</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h4>Contact Us</h4>
-                <p><i class="fas fa-map-marker-alt"></i> 123 Travel St, Algiers, Algeria</p>
-                <p><i class="fas fa-phone"></i> +213 123 456 789</p>
-                <p><i class="fas fa-envelope"></i> contact@worldtours.dz</p>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Travel St, Algiers, Algeria</p>
+                    <p><i class="fas fa-phone"></i> +213 123 456 789</p>
+                    <p><i class="fas fa-envelope"></i> contact@touralgeria.dz</p>
+                </div>
+                <div class="newsletter">
+                    <h5>Subscribe to our newsletter</h5>
+                    <form>
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2023 World Tours. All rights reserved.</p>
+            <p>&copy; 2023 TourAlgeria. All rights reserved.</p>
         </div>
     </footer>
 
@@ -367,7 +374,6 @@
                 <button class="auth-tab" data-tab="signup">Sign Up</button>
             </div>
             
-            <!-- Login Form -->
             <form id="loginForm" class="auth-form active">
                 <div class="form-group">
                     <label for="loginEmail">Email</label>
@@ -376,11 +382,20 @@
                 <div class="form-group">
                     <label for="loginPassword">Password</label>
                     <input type="password" id="loginPassword" required>
+                    <a href="#" class="forgot-password">Forgot password?</a>
                 </div>
                 <button type="submit" class="auth-btn">Login</button>
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+                <button type="button" class="social-auth-btn google-btn">
+                    <i class="fab fa-google"></i> Continue with Google
+                </button>
+                <button type="button" class="social-auth-btn facebook-btn">
+                    <i class="fab fa-facebook-f"></i> Continue with Facebook
+                </button>
             </form>
 
-            <!-- Signup Form -->
             <form id="signupForm" class="auth-form">
                 <div class="form-group">
                     <label for="signupName">Full Name</label>
@@ -398,20 +413,24 @@
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="password" id="confirmPassword" required>
                 </div>
+                <div class="form-check">
+                    <input type="checkbox" id="termsAgreement" required>
+                    <label for="termsAgreement">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                </div>
                 <button type="submit" class="auth-btn">Sign Up</button>
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+                <button type="button" class="social-auth-btn google-btn">
+                    <i class="fab fa-google"></i> Continue with Google
+                </button>
+                <button type="button" class="social-auth-btn facebook-btn">
+                    <i class="fab fa-facebook-f"></i> Continue with Facebook
+                </button>
             </form>
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="js/auth.js"></script>
-    <script>
-        // Initialize auth state
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof auth !== 'undefined') {
-                auth.init();
-            }
-        });
-    </script>
+    <script src="index.js"></script>
 </body>
 </html>
