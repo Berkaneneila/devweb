@@ -1,11 +1,10 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // DOM Elements
+document.addEventListener('DOMContentLoaded', function() {
+    // Background Image Slider
     const mainImage = document.querySelector('.main-image');
     const thumbnails = document.querySelectorAll('.thumbnail');
     const heroContent = document.querySelector('.hero-content h1');
     const heroDescription = document.querySelector('.hero-content p');
-
-    // Images with paths and descriptions
+    
     const destinations = [
         {
             image: 'photos yassir/akger.jpg',
@@ -26,72 +25,41 @@ document.addEventListener('DOMContentLoaded', function () {
             image: 'photos yassir/sahara.jpg',
             title: 'Sahara Desert',
             description: 'Experience the vastness of the world\'s largest hot desert with stunning landscapes.'
-        },
-        {
-            image: 'photos yassir/annaba.jpg',
-            title: 'Annaba',
-            description: 'A coastal city known for its beautiful beaches and ancient Roman ruins.'
         }
     ];
-
+    
+    // Set initial background
     let currentIndex = 0;
-    let slideInterval;
-
-    // Function to change the main image
-    function changeImage(index) {
-        if (!mainImage) return;
-
-        // Update the background image
-        mainImage.style.backgroundImage = `url('${destinations[index].image}')`;
-
-        // Update the hero content
-        if (heroContent) heroContent.textContent = `Discover ${destinations[index].title}`;
-        if (heroDescription) heroDescription.textContent = destinations[index].description;
-
-        // Update the active thumbnail
-        updateActiveThumbnail(index);
-    }
-
-    // Function to update the active thumbnail
-    function updateActiveThumbnail(index) {
-        thumbnails.forEach((thumb, i) => {
-            thumb.classList.toggle('active', i === index);
-        });
-    }
-
-    // Start the automatic carousel
-    function startCarousel() {
-        slideInterval = setInterval(() => {
-            currentIndex = (currentIndex + 1) % destinations.length;
-            changeImage(currentIndex);
-        }, 5000); // Change every 5 seconds
-    }
-
-    // Stop the carousel when the mouse is over the main image
-    if (mainImage) {
-        mainImage.addEventListener('mouseenter', () => {
-            clearInterval(slideInterval);
-        });
-
-        mainImage.addEventListener('mouseleave', startCarousel);
-    }
-
-    // Add click events to thumbnails
-    thumbnails.forEach((thumb, index) => {
-        thumb.addEventListener('click', () => {
+    updateBackground(currentIndex);
+    
+    // Thumbnail click event
+    thumbnails.forEach((thumbnail, index) => {
+        thumbnail.addEventListener('click', () => {
             currentIndex = index;
-            changeImage(currentIndex);
-
-            // Restart the carousel timer
-            clearInterval(slideInterval);
-            startCarousel();
+            updateBackground(currentIndex);
+            updateActiveThumbnail();
         });
     });
-
-    // Initialize the slider
-    changeImage(0); // Show the first image
-    startCarousel(); // Start the carousel
-
+    
+    // Auto slide change
+    setInterval(() => {
+        currentIndex = (currentIndex + 1) % destinations.length;
+        updateBackground(currentIndex);
+        updateActiveThumbnail();
+    }, 5000);
+    
+    function updateBackground(index) {
+        mainImage.style.backgroundImage = `url('${destinations[index].image}')`;
+        heroContent.textContent = `Discover ${destinations[index].title}`;
+        heroDescription.textContent = destinations[index].description;
+    }
+    
+    function updateActiveThumbnail() {
+        thumbnails.forEach((thumb, index) => {
+            thumb.classList.toggle('active', index === currentIndex);
+        });
+    }
+    
     // Destination Slider
     const slider = document.querySelector('.destinations-slider');
     const prevBtn = document.querySelector('.prev-arrow');
@@ -174,21 +142,61 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
     
-    closeModal.addEventListener('click', () => {
-        modal.classList.remove('active');
-        document.body.style.overflow = 'auto';
+    // Form submission
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Simulate login
+        isLoggedIn = true;
+        authModal.classList.remove('active');
+        signInBtn.style.display = 'none';
+        userProfileBtn.style.display = 'block';
+        // Show success message
+        showToast('Login successful!');
     });
     
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
+    signupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Simulate signup
+        isLoggedIn = true;
+        authModal.classList.remove('active');
+        signInBtn.style.display = 'none';
+        userProfileBtn.style.display = 'block';
+        // Show success message
+        showToast('Account created successfully!');
     });
+    
+    logoutBtn.addEventListener('click', () => {
+        isLoggedIn = false;
+        signInBtn.style.display = 'flex';
+        userProfileBtn.style.display = 'none';
+        showToast('Logged out successfully');
+    });
+    
+    // Show toast notification
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 100);
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(toast);
+            }, 300);
+        }, 3000);
+    }
     
     // Navbar scroll effect
-    window.addEventListener('scroll', function() {
-        const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.custom-navbar');
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
         } else {
@@ -196,14 +204,50 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
     
-    // Hamburger menu toggle
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    
-    if (hamburger && navLinks) {
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            hamburger.classList.toggle('active');
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            }
         });
-    }
+    });
+    
+    // Add toast notification styles dynamically
+    const toastStyles = document.createElement('style');
+    toastStyles.textContent = `
+        .toast-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 3000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .toast-notification.show {
+            opacity: 1;
+        }
+    `;
+    document.head.appendChild(toastStyles);
 });
