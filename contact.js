@@ -4,97 +4,85 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendButton = contactForm.querySelector('.send-message');
 
     // Form validation
-    function validateForm() {
-        let isValid = true;
-        let firstInvalidInput = null;
-
-        inputs.forEach(input => {
-            if (input.type === 'radio') return; // Skip radio buttons from required validation
-
-            if (!input.value.trim()) {
-                isValid = false;
-                input.classList.add('invalid');
-                if (!firstInvalidInput) firstInvalidInput = input;
-            } else {
-                input.classList.remove('invalid');
-            }
-
-            // Email validation
-            if (input.type === 'email' && input.value) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(input.value)) {
-                    isValid = false;
-                    input.classList.add('invalid');
-                    if (!firstInvalidInput) firstInvalidInput = input;
-                }
-            }
-
-            // Phone validation
-            if (input.type === 'tel' && input.value) {
-                const phoneRegex = /^\+?[\d\s-]{10,}$/;
-                if (!phoneRegex.test(input.value)) {
-                    isValid = false;
-                    input.classList.add('invalid');
-                    if (!firstInvalidInput) firstInvalidInput = input;
-                }
-            }
-        });
-
-        if (firstInvalidInput) {
-            firstInvalidInput.focus();
-        }
-
-        return isValid;
+// Update the existing form validation code
+function validateForm() {
+    let isValid = true;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\+?[\d\s-]{10,}$/;
+    
+    // Validate name
+    const nameInput = document.getElementById('name');
+    if (!nameInput.value.trim()) {
+        nameInput.parentElement.classList.add('error');
+        isValid = false;
+    } else {
+        nameInput.parentElement.classList.remove('error');
     }
+    
+    // Validate email with better feedback
+    const emailInput = document.getElementById('email');
+    if (!emailInput.value.trim()) {
+        emailInput.parentElement.classList.add('error');
+        emailInput.nextElementSibling.textContent = 'Please enter your email';
+        isValid = false;
+    } else if (!emailRegex.test(emailInput.value)) {
+        emailInput.parentElement.classList.add('error');
+        emailInput.nextElementSibling.textContent = 'Please enter a valid email address';
+        isValid = false;
+    } else {
+        emailInput.parentElement.classList.remove('error');
+    }
+    
+    // Validate phone if provided
+    const phoneInput = document.getElementById('phone');
+    if (phoneInput.value.trim() && !phoneRegex.test(phoneInput.value)) {
+        phoneInput.parentElement.classList.add('error');
+        phoneInput.nextElementSibling.textContent = 'Please enter a valid phone number';
+        phoneInput.nextElementSibling.style.display = 'block';
+        isValid = false;
+    } else {
+        phoneInput.parentElement.classList.remove('error');
+        phoneInput.nextElementSibling.style.display = 'none';
+    }
+    
+    // Validate subject
+    const subjectInput = document.getElementById('subject');
+    if (!subjectInput.value) {
+        subjectInput.parentElement.classList.add('error');
+        isValid = false;
+    } else {
+        subjectInput.parentElement.classList.remove('error');
+    }
+    
+    // Validate message with minimum length
+    const messageInput = document.getElementById('message');
+    if (!messageInput.value.trim()) {
+        messageInput.parentElement.classList.add('error');
+        messageInput.nextElementSibling.textContent = 'Please enter your message';
+        isValid = false;
+    } else if (messageInput.value.trim().length < 20) {
+        messageInput.parentElement.classList.add('error');
+        messageInput.nextElementSibling.textContent = 'Message should be at least 20 characters';
+        isValid = false;
+    } else {
+        messageInput.parentElement.classList.remove('error');
+    }
+    
+    return isValid;
+}
 
-    // Handle input events
-    inputs.forEach(input => {
-        input.addEventListener('input', () => {
-            input.classList.remove('invalid');
-        });
-    });
+// Add input event listeners for real-time validation
+document.getElementById('email').addEventListener('input', function() {
+    if (this.value.trim()) {
+        this.parentElement.classList.remove('error');
+    }
+});
 
-    // Form submission
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        if (!validateForm()) {
-            showNotification('Please fill in all required fields correctly', 'error');
-            return;
-        }
-
-        // Get form data
-        const formData = {
-            firstName: contactForm.querySelector('input[placeholder="Enter your first name"]').value,
-            lastName: contactForm.querySelector('input[placeholder="Enter your last name"]').value,
-            email: contactForm.querySelector('input[type="email"]').value,
-            phone: contactForm.querySelector('input[type="tel"]').value,
-            subject: contactForm.querySelector('input[name="subject"]:checked')?.value || 'Not specified',
-            message: contactForm.querySelector('textarea').value
-        };
-
-        // Disable submit button and show loading state
-        sendButton.disabled = true;
-        sendButton.textContent = 'Sending...';
-
-        try {
-            // In a real application, you would send this to your backend
-            // For now, we'll simulate an API call
-            await simulateApiCall(formData);
-
-            // Show success message
-            showNotification('Message sent successfully!', 'success');
-
-            // Reset form
-            contactForm.reset();
-        } catch (error) {
-            showNotification('Failed to send message. Please try again.', 'error');
-        } finally {
-            // Re-enable submit button
-            sendButton.disabled = false;
-            sendButton.textContent = 'Send Message';
-        }
-    });
+document.getElementById('message').addEventListener('input', function() {
+    if (this.value.trim() && this.value.trim().length >= 20) {
+        this.parentElement.classList.remove('error');
+    }
+});
 
     // Simulate API call
     function simulateApiCall(data) {
@@ -157,3 +145,24 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     document.head.appendChild(style);
 }); 
+
+// Back to top button
+const backToTopBtn = document.createElement('div');
+backToTopBtn.className = 'back-to-top';
+backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+document.body.appendChild(backToTopBtn);
+
+backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+        backToTopBtn.classList.add('visible');
+    } else {
+        backToTopBtn.classList.remove('visible');
+    }
+});

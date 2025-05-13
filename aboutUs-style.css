@@ -402,6 +402,8 @@ h1, h2, h3, h4 {
   max-width: 700px;
   color: var(--text-light);
   animation: fadeInUp 1s ease-out;
+  margin: 0 auto; /* This centers the container */
+  text-align: center; /* This centers the text inside */
 }
 
 .hero-title {
@@ -430,6 +432,7 @@ h1, h2, h3, h4 {
   transition: all 0.3s ease;
   margin-top: 1rem;
   text-shadow: none;
+  /* No changes needed here - it will inherit the center alignment */
 }
 
 .hero-cta:hover {
