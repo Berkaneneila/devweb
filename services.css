@@ -509,11 +509,12 @@ button {
 
 /* Navigation */
 
-/* Hero Section */
+/* Enhanced Hero Section */
 .hero {
     min-height: 100vh;
-    background: linear-gradient(rgba(30, 30, 47, 0.9), rgba(30, 30, 47, 0.9)), 
-                url('../assets/hero-bg.jpg') no-repeat center center/cover;
+    background: 
+        linear-gradient(rgba(31, 49, 64, 0.85), rgba(31, 49, 64, 0.9)), 
+        url('photos yassir/algeria\ hero\ bg.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
     text-align: center;
@@ -523,12 +524,28 @@ button {
     overflow: hidden;
 }
 
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(5px);
+    z-index: 0;
+}
+
 .hero-content {
     max-width: 800px;
     margin: 0 auto;
     position: relative;
     z-index: 1;
     padding: 2rem;
+    backdrop-filter: blur(2px);
+    background: rgba(31, 49, 64, 0.3);
+    border-radius: var(--border-radius-xl);
+    border: 1px solid rgba(191, 174, 159, 0.2);
 }
 
 .hero h1 {
@@ -536,6 +553,8 @@ button {
     margin-bottom: 1.5rem;
     animation: fadeInDown 1s ease;
     line-height: 1.1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    color: var(--accent-color);
 }
 
 .hero p {
@@ -543,6 +562,7 @@ button {
     margin-bottom: 2.5rem;
     animation: fadeInUp 1s ease;
     opacity: 0.9;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .search-bar {
@@ -550,10 +570,11 @@ button {
     max-width: 600px;
     margin: 0 auto;
     animation: fadeIn 1.5s ease;
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 50px;
     overflow: hidden;
     box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(191, 174, 159, 0.3);
 }
 
 .search-bar input {
@@ -563,6 +584,7 @@ button {
     font-size: 1rem;
     outline: none;
     color: var(--dark-color);
+    background: transparent;
 }
 
 .search-bar button {
@@ -578,22 +600,70 @@ button {
     background: var(--primary-dark);
 }
 
+.service-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 2rem 0;
+}
+
+.filter-btn {
+    padding: 0.5rem 1.25rem;
+    background: rgba(191, 174, 159, 0.1);
+    color: var(--accent-color);
+    border: none;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    border: 1px solid rgba(191, 174, 159, 0.3);
+}
+
+.filter-btn:hover {
+    background: rgba(191, 174, 159, 0.2);
+}
+
+.filter-btn.active {
+    background: var(--accent-color);
+    color: var(--dark-color);
+    font-weight: 500;
+}
+
 .hero-stats {
     display: flex;
     justify-content: center;
     gap: 2rem;
     margin-top: 3rem;
     animation: fadeInUp 1s ease;
+    background: rgba(31, 49, 64, 0.6);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(191, 174, 159, 0.2);
 }
 
 .stat-item {
     text-align: center;
+    padding: 0 1rem;
+    position: relative;
+}
+
+.stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 50%;
+    width: 1px;
+    background: rgba(191, 174, 159, 0.3);
 }
 
 .stat-number {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--accent-color);
     display: block;
     line-height: 1;
 }
@@ -603,6 +673,7 @@ button {
     opacity: 0.8;
     text-transform: uppercase;
     letter-spacing: 1px;
+    color: var(--white);
 }
 
 .hero-scroll-indicator {
@@ -610,7 +681,7 @@ button {
     bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
-    color: var(--white);
+    color: var(--accent-color);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -628,6 +699,20 @@ button {
     font-size: 1.25rem;
 }
 
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.service-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    animation: float 3s ease-in-out infinite;
+}
 /* Services Section */
 .services-section {
     padding: 5rem 0;
@@ -1630,35 +1715,54 @@ button {
 
 /* Service Card Enhancements */
 .service-card {
-    position: relative;
+    background: var(--light-color);
+    border-radius: var(--border-radius-lg);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    will-change: transform;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    border: 1px solid rgba(191, 174, 159, 0.2);
 }
 
 .service-card:hover {
-    transform: translateY(-5px) scale(1.02);
+    transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
-.service-meta {
-    display: flex;
-    justify-content: space-between;
-    margin: 1rem 0;
-    font-size: 0.875rem;
-    color: var(--medium-gray);
+.service-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(58, 109, 140, 0.1) 0%, rgba(31, 49, 64, 0.2) 100%);
+    opacity: 0;
+    transition: var(--transition);
+    z-index: 0;
 }
 
-.service-meta span {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
+.service-card:hover::after {
+    opacity: 1;
 }
 
-.service-meta i {
+.service-icon {
+    font-size: 3rem;
     color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+    background: rgba(191, 174, 159, 0.1);
+    width: 80px;
+    height: 80px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(191, 174, 159, 0.2);
 }
-
 /* Modal Enhancements */
 .service-modal {
     display: flex;
