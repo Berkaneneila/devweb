@@ -1,4 +1,5 @@
-<footer class="footer">
+document.getElementById('footer-placeholder').innerHTML = `
+    <footer class="footer">
     <div class="footer-container">
         <!-- Logo and Description -->
         <div class="footer-section about">
@@ -48,3 +49,4 @@
         <p>&copy; 2023 World Tours. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
     </div>
 </footer>
+`;

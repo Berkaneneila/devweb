@@ -1,15 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Navigation Toggle
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const navLinks = document.getElementById('navLinks');
-    
-    hamburgerBtn.addEventListener('click', function() {
-        navLinks.classList.toggle('active');
-        hamburgerBtn.innerHTML = navLinks.classList.contains('active') ? 
-            '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-    });
+// Mobile Navigation Toggle
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const navLinks = document.getElementById('navLinks');
+const signInBtn = document.getElementById('signInBtn');
+const userProfileBtn = document.getElementById('userProfileBtn');
+const userDropdown = document.getElementById('userDropdown');
+const logoutBtn = document.getElementById('logoutBtn');
 
-    // Hero Image Slider
 // Hero Image Slider
 const heroBackgrounds = document.querySelectorAll('.hero-bg');
 const thumbnails = document.querySelectorAll('.thumbnail');

@@ -7,12 +7,52 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" href="css/shared.css">
 </head>
 <body>
     <!-- Navigation -->
-    <div id="navbar-placeholder"></div>
+    <nav class="custom-navbar">
+        <div class="nav-brand">
+            <img src="logo.png" alt="World Tours Logo" class="logo">
+            <h1>World Tours</h1>
+        </div>
+        
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#" class="nav-link active">Home</a></li>
+            <li><a href="#destinations" class="nav-link">Destinations</a></li>
+            <li><a href="#features" class="nav-link">Features</a></li>
+            <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+        </ul>
+        
+        <div class="nav-actions">
+            <button class="nav-btn secondary" id="signInBtn">
+                <i class="fas fa-user"></i> Sign In
+            </button>
+            <button class="nav-btn primary">
+                <i class="fas fa-globe"></i> Book Now
+            </button>
+            <button class="hamburger" id="hamburgerBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="user-profile-circle" id="userProfileBtn" style="display: none;">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Profile">
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-user"></i> My Profile
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-heart"></i> Saved Trips
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-    <!-- Hero Section -->
 <!-- Hero Section -->
 <section class="hero">
     <div class="main-image" id="mainImage">
@@ -333,47 +373,8 @@
         </div>
     </div>
 
+    <script src="common.js"></script>
     <script src="index.js"></script>
-    <script>
-        // Load navigation
-        fetch('partials/navigation.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('navbar-placeholder').innerHTML = data;
-                // Reinitialize any navigation-related scripts here if needed
-                initializeNav();
-            });
-        
-        // Load footer
-        fetch('partials/footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-placeholder').innerHTML = data;
-            });
-        
-        function initializeNav() {
-            // Mobile Navigation Toggle
-            const hamburgerBtn = document.getElementById('hamburgerBtn');
-            const navLinks = document.getElementById('navLinks');
-            
-            if (hamburgerBtn && navLinks) {
-                hamburgerBtn.addEventListener('click', function() {
-                    navLinks.classList.toggle('active');
-                    hamburgerBtn.innerHTML = navLinks.classList.contains('active') ? 
-                        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-                });
-            }
-            
-            // Highlight active page in navigation
-            const currentPage = location.pathname.split('/').pop();
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === currentPage) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
-        }
-        </script>
+
 </body>
 </html>
