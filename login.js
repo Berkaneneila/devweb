@@ -1,200 +1,249 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Tab switching
-    const loginTab = document.querySelector('.login-tab');
-    const signupTab = document.querySelector('.signup-tab');
-    const loginForm = document.querySelector('.login-form');
-    const signupForm = document.querySelector('.signup-form');
+    // Mobile Navigation Toggle
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    hamburgerBtn.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+        hamburgerBtn.innerHTML = navLinks.classList.contains('active') ? 
+            '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
 
-    if (loginTab && signupTab) {
-        loginTab.addEventListener('click', () => {
-            loginTab.classList.add('active');
-            signupTab.classList.remove('active');
-            loginForm.style.display = 'block';
-            signupForm.style.display = 'none';
+    // Hero Image Slider
+// Hero Image Slider
+const heroBackgrounds = document.querySelectorAll('.hero-bg');
+const thumbnails = document.querySelectorAll('.thumbnail');
+let currentIndex = 0;
+let slideInterval;
+
+function showSlide(index) {
+    // Remove active class from all backgrounds and thumbnails
+    heroBackgrounds.forEach(bg => bg.classList.remove('active'));
+    thumbnails.forEach(thumb => thumb.classList.remove('active'));
+    
+    // Add active class to selected background and thumbnail
+    heroBackgrounds[index].classList.add('active');
+    thumbnails[index].classList.add('active');
+    
+    currentIndex = index;
+}
+
+function nextSlide() {
+    const newIndex = (currentIndex + 1) % heroBackgrounds.length;
+    showSlide(newIndex);
+}
+
+// Start the slideshow
+function startSlideShow() {
+    slideInterval = setInterval(nextSlide, 5000);
+}
+
+// Thumbnail click event
+thumbnails.forEach(thumbnail => {
+    thumbnail.addEventListener('click', function() {
+        const index = parseInt(this.getAttribute('data-index'));
+        if (index !== currentIndex) {
+            // Reset the timer when manually changing slides
+            clearInterval(slideInterval);
+            showSlide(index);
+            startSlideShow();
+        }
+    });
+});
+
+// Initialize the slider
+showSlide(0);
+startSlideShow();
+
+
+    // Destination Slider Navigation
+    const prevArrow = document.querySelector('.prev-arrow');
+    const nextArrow = document.querySelector('.next-arrow');
+    const destinationsSlider = document.querySelector('.destinations-slider');
+    
+    prevArrow.addEventListener('click', () => {
+        destinationsSlider.scrollBy({
+            left: -300,
+            behavior: 'smooth'
         });
-
-        signupTab.addEventListener('click', () => {
-            signupTab.classList.add('active');
-            loginTab.classList.remove('active');
-            signupForm.style.display = 'block';
-            loginForm.style.display = 'none';
+    });
+    
+    nextArrow.addEventListener('click', () => {
+        destinationsSlider.scrollBy({
+            left: 300,
+            behavior: 'smooth'
         });
-    }
+    });
 
-    // Password visibility toggle
-    const togglePassword = (button, input) => {
-        button.addEventListener('click', () => {
-            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
-            input.setAttribute('type', type);
-            button.innerHTML = type === 'password' ? 
-                '<i class="fas fa-eye"></i>' : 
-                '<i class="fas fa-eye-slash"></i>';
-        });
-    };
-
-    const loginPasswordToggle = document.querySelector('.login-password-toggle');
-    const loginPasswordInput = document.querySelector('.login-password-input');
-    if (loginPasswordToggle && loginPasswordInput) {
-        togglePassword(loginPasswordToggle, loginPasswordInput);
-    }
-
-    const signupPasswordToggle = document.querySelector('.signup-password-toggle');
-    const signupPasswordInput = document.querySelector('.signup-password-input');
-    if (signupPasswordToggle && signupPasswordInput) {
-        togglePassword(signupPasswordToggle, signupPasswordInput);
-    }
-
-    // Login form submission
-    const loginFormElement = document.querySelector('.login-form');
-    if (loginFormElement) {
-        loginFormElement.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.querySelector('.login-username-input').value;
-            const password = document.querySelector('.login-password-input').value;
-            const loginMessage = document.querySelector('.login-message');
-            
-            // Clear previous message
-            if (loginMessage) {
-                loginMessage.textContent = '';
-                loginMessage.className = 'login-message';
+    // User Authentication Modal
+    const signInBtn = document.getElementById('signInBtn');
+    const userProfileBtn = document.getElementById('userProfileBtn');
+    const userDropdown = document.getElementById('userDropdown');
+    const authModal = document.getElementById('authModal');
+    const closeAuthModal = document.getElementById('closeAuthModal');
+    const loginModal = document.getElementById('loginModal');
+    const closeLoginModal = document.querySelector('.close-modal');
+    const logoutBtn = document.getElementById('logoutBtn');
+    
+    // Check if user is logged in (simulated)
+    let isLoggedIn = false;
+    
+    // Toggle auth modal
+    signInBtn.addEventListener('click', () => {
+        authModal.classList.add('active');
+    });
+    
+    closeAuthModal.addEventListener('click', () => {
+        authModal.classList.remove('active');
+    });
+    
+    // Toggle login modal (for protected content)
+    document.querySelectorAll('.see-more-btn, .cta-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            if (!isLoggedIn) {
+                e.preventDefault();
+                loginModal.classList.add('active');
             }
-
-            // Make AJAX request to login
-            fetch('http://localhost/devweb/backend/api/login.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: username,
-                    password: password
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Store user data in localStorage
-                    const userData = {
-                        id: data.user.id,
-                        username: data.user.username,
-                        email: data.user.email,
-                        first_name: data.user.first_name || '',
-                        last_name: data.user.last_name || '',
-                        role: data.user.role
-                    };
-                    localStorage.setItem('user', JSON.stringify(userData));
-
-                    // Update navbar if auth.js is loaded
-                    if (typeof auth !== 'undefined') {
-                        auth.updateNavbar();
-                    }
-
-                    // Show success message
-                    if (loginMessage) {
-                        loginMessage.textContent = 'Login successful! Redirecting...';
-                        loginMessage.className = 'login-message success';
-                    }
-
-                    // Redirect to dashboard after a short delay
-                    setTimeout(() => {
-                        window.location.href = data.user.role === 'admin' ? 'admin.html' : 'user.html';
-                    }, 1000);
-                } else {
-                    // Show error message
-                    if (loginMessage) {
-                        loginMessage.textContent = data.message || 'Login failed. Please try again.';
-                        loginMessage.className = 'login-message error';
-                    }
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                if (loginMessage) {
-                    loginMessage.textContent = 'An error occurred. Please try again.';
-                    loginMessage.className = 'login-message error';
-                }
-            });
         });
+    });
+    
+    closeLoginModal.addEventListener('click', () => {
+        loginModal.classList.remove('active');
+    });
+    
+    // Toggle user dropdown
+    userProfileBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        userDropdown.style.display = userDropdown.style.display === 'block' ? 'none' : 'block';
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+        userDropdown.style.display = 'none';
+    });
+    
+    // Auth tabs switching
+    const authTabs = document.querySelectorAll('.auth-tab');
+    const authForms = document.querySelectorAll('.auth-form');
+    
+    authTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const tabName = tab.getAttribute('data-tab');
+            
+            authTabs.forEach(t => t.classList.remove('active'));
+            authForms.forEach(f => f.classList.remove('active'));
+            
+            tab.classList.add('active');
+            document.getElementById(`${tabName}Form`).classList.add('active');
+        });
+    });
+    
+    // Form submission
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Simulate login
+        isLoggedIn = true;
+        authModal.classList.remove('active');
+        signInBtn.style.display = 'none';
+        userProfileBtn.style.display = 'block';
+        // Show success message
+        showToast('Login successful!');
+    });
+    
+    signupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Simulate signup
+        isLoggedIn = true;
+        authModal.classList.remove('active');
+        signInBtn.style.display = 'none';
+        userProfileBtn.style.display = 'block';
+        // Show success message
+        showToast('Account created successfully!');
+    });
+    
+    logoutBtn.addEventListener('click', () => {
+        isLoggedIn = false;
+        signInBtn.style.display = 'flex';
+        userProfileBtn.style.display = 'none';
+        showToast('Logged out successfully');
+    });
+    
+    // Show toast notification
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 100);
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(toast);
+            }, 300);
+        }, 3000);
     }
-
-    // Signup form submission
-    const signupFormElement = document.querySelector('.signup-form');
-    if (signupFormElement) {
-        signupFormElement.addEventListener('submit', function(e) {
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.custom-navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
             e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
             
-            const username = document.querySelector('.signup-username-input').value;
-            const email = document.querySelector('.signup-email-input').value;
-            const password = document.querySelector('.signup-password-input').value;
-            const firstName = document.querySelector('.signup-firstname-input').value;
-            const lastName = document.querySelector('.signup-lastname-input').value;
-            const signupMessage = document.querySelector('.signup-message');
-            
-            // Clear previous message
-            if (signupMessage) {
-                signupMessage.textContent = '';
-                signupMessage.className = 'signup-message';
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
             }
-
-            // Make AJAX request to register
-            fetch('http://localhost/devweb/backend/api/register.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: username,
-                    email: email,
-                    password: password,
-                    first_name: firstName,
-                    last_name: lastName
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Store user data in localStorage
-                    const userData = {
-                        id: data.user.id,
-                        username: data.user.username,
-                        email: data.user.email,
-                        first_name: firstName,
-                        last_name: lastName,
-                        role: data.user.role
-                    };
-                    localStorage.setItem('user', JSON.stringify(userData));
-
-                    // Show success message
-                    if (signupMessage) {
-                        signupMessage.textContent = 'Registration successful! Redirecting...';
-                        signupMessage.className = 'signup-message success';
-                    }
-
-                    // Update navbar if auth.js is loaded
-                    if (typeof auth !== 'undefined') {
-                        auth.updateNavbar();
-                    }
-
-                    // Redirect to appropriate page after a short delay
-                    setTimeout(() => {
-                        window.location.href = data.user.role === 'admin' ? 'admin.html' : 'user.html';
-                    }, 1500);
-                } else {
-                    // Show error message
-                    if (signupMessage) {
-                        signupMessage.textContent = data.message || 'Registration failed. Please try again.';
-                        signupMessage.className = 'signup-message error';
-                    }
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                if (signupMessage) {
-                    signupMessage.textContent = 'An error occurred. Please try again.';
-                    signupMessage.className = 'signup-message error';
-                }
-            });
         });
-    }
-}); 
+    });
+    
+    // Add toast notification styles dynamically
+    const toastStyles = document.createElement('style');
+    toastStyles.textContent = `
+        .toast-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 3000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .toast-notification.show {
+            opacity: 1;
+        }
+    `;
+    document.head.appendChild(toastStyles);
+});

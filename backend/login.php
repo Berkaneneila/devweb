@@ -1,129 +1,116 @@
 <?php
-header('Content-Type: application/json');
-require_once 'config/db.php';
-
-// Get POST data
-$data = json_decode(file_get_contents('php://input'), true);
-$usernameOrEmail = trim($data['username'] ?? '');
-$password = $data['password'] ?? '';
-
-if (!$usernameOrEmail || !$password) {
-    echo json_encode(['success' => false, 'message' => 'All fields are required.']);
-    exit;
-}
-
-// Find user by username or email
-$stmt = $conn->prepare('SELECT id, username, email, password, role FROM users WHERE username = ? OR email = ?');
-$stmt->bind_param('ss', $usernameOrEmail, $usernameOrEmail);
-$stmt->execute();
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
-
-if ($user && password_verify($password, $user['password'])) {
-    // Success: return user info (never return password!)
-    echo json_encode([
-        'success' => true,
-        'message' => 'Login successful!',
-        'user' => [
-            'id' => $user['id'],
-            'username' => $user['username'],
-            'email' => $user['email'],
-            'role' => $user['role']
-        ]
-    ]);
-} else {
-    echo json_encode(['success' => false, 'message' => 'Invalid credentials.']);
-}
-$stmt->close();
-$conn->close();
-?>
-
-<?php
 // Enable error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Ensure headers are sent before any output
-ob_start();
-
-// Set CORS headers
-header("Access-Control-Allow-Origin: http://192.168.100.6:5500");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Access-Control-Allow-Credentials: true");
+// Enable CORS
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 header('Content-Type: application/json');
 
-// Handle preflight OPTIONS request
+// Handle preflight requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
-require_once 'config/db.php';
+// Database configuration
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "worldtours";
 
 try {
-    // Get POST data
-    $data = json_decode(file_get_contents('php://input'), true);
-    $usernameOrEmail = trim($data['username'] ?? '');
-    $password = $data['password'] ?? '';
+    // Create PDO connection
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-    if (!$usernameOrEmail || !$password) {
-        throw new Exception('All fields are required.');
-    }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Get POST data
+        $data = json_decode(file_get_contents('php://input'), true);
+        
+        if (!$data) {
+            throw new Exception('Invalid request data');
+        }
 
-    // Find user by username or email
-    $stmt = $conn->prepare('SELECT id, username, email, password, role, first_name, last_name FROM users WHERE username = ? OR email = ?');
-    $stmt->bind_param('ss', $usernameOrEmail, $usernameOrEmail);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
+        // Validate required fields
+        if (empty($data['email']) || empty($data['password'])) {
+            throw new Exception('Email and password are required');
+        }
 
-    if ($user && password_verify($password, $user['password'])) {
-        // Log successful login
-        $log_stmt = $conn->prepare("INSERT INTO login_logs (user_id, username, ip_address, status, message) VALUES (?, ?, ?, 'success', 'Login successful')");
-        $ip_address = $_SERVER['REMOTE_ADDR'];
-        $log_stmt->bind_param('iss', $user['id'], $user['username'], $ip_address);
-        $log_stmt->execute();
-        $log_stmt->close();
+        // Sanitize input
+        $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
+        $password = $data['password'];
 
-        // Success: return user info (never return password!)
+        // Validate email
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception('Invalid email format');
+        }
+
+        // Prepare and execute query
+        $stmt = $conn->prepare("SELECT id, username, email, password, first_name, last_name, role FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch();
+
+        if (!$user) {
+            throw new Exception('Invalid email or password');
+        }
+
+        // Verify password
+        if (!password_verify($password, $user['password'])) {
+            throw new Exception('Invalid email or password');
+        }
+
+        // Remove password from response
+        unset($user['password']);
+
+        // Generate JWT token
+        $token = generateJWT($user);
+
+        // Store token in database
+        $updateStmt = $conn->prepare("UPDATE users SET token = ? WHERE id = ?");
+        $updateStmt->execute([$token, $user['id']]);
+
+        // Return success response
         echo json_encode([
-            'success' => true,
-            'message' => 'Login successful!',
-            'user' => [
-                'id' => $user['id'],
-                'username' => $user['username'],
-                'email' => $user['email'],
-                'first_name' => $user['first_name'],
-                'last_name' => $user['last_name'],
-                'role' => $user['role']
+            'status' => 'success',
+            'message' => 'Login successful',
+            'data' => [
+                'user' => $user,
+                'token' => $token
             ]
         ]);
     } else {
-        // Log failed attempt
-        $log_stmt = $conn->prepare("INSERT INTO login_logs (username, ip_address, status, message) VALUES (?, ?, 'failed', 'Invalid credentials')");
-        $ip_address = $_SERVER['REMOTE_ADDR'];
-        $log_stmt->bind_param('ss', $usernameOrEmail, $ip_address);
-        $log_stmt->execute();
-        $log_stmt->close();
-
-        throw new Exception('Invalid credentials.');
+        throw new Exception('Method not allowed');
     }
-
 } catch (Exception $e) {
+    // Log error
+    error_log("Login error: " . $e->getMessage());
+    
+    // Return error response
+    http_response_code(401);
     echo json_encode([
-        'success' => false,
+        'status' => 'error',
         'message' => $e->getMessage()
     ]);
 }
 
-if (isset($stmt)) {
-    $stmt->close();
-}
-if (isset($conn)) {
-    $conn->close();
-}
+// Function to generate JWT token
+function generateJWT($user) {
+    $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
+    $payload = json_encode([
+        'user_id' => $user['id'],
+        'email' => $user['email'],
+        'exp' => time() + (60 * 60 * 24) // 24 hours
+    ]);
 
-// Flush output buffer
-ob_end_flush();
-?>
+    $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
+    $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload));
+
+    $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, 'your-secret-key', true);
+    $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
+
+    return $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
+}

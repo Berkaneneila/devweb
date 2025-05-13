@@ -5,127 +5,105 @@ ini_set('display_errors', 1);
 
 // Set headers
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Credentials: true');
+
+// Handle preflight requests
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 // Database configuration
-$servername = "localhost";
-$username = "root";
-$password = "";
+$db_host = 'localhost';
+$db_user = 'root';
+$db_pass = '';
 
 try {
     // Create connection without database
-    $conn = new mysqli($servername, $username, $password);
-    
-    // Check connection
-    if ($conn->connect_error) {
-        throw new Exception("Connection failed: " . $conn->connect_error);
-    }
+    $pdo = new PDO("mysql:host=$db_host", $db_user, $db_pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Create database if it doesn't exist
-    $sql = "CREATE DATABASE IF NOT EXISTS worldtours";
-    if (!$conn->query($sql)) {
-        throw new Exception("Error creating database: " . $conn->error);
-    }
-
-    // Select the database
-    $conn->select_db("worldtours");
+    // Create database if not exists
+    $pdo->exec("CREATE DATABASE IF NOT EXISTS worldtours CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+    $pdo->exec("USE worldtours");
 
     // Create users table
-    $sql = "CREATE TABLE IF NOT EXISTS users (
-        id INT(11) NOT NULL AUTO_INCREMENT,
-        username VARCHAR(50) NOT NULL,
-        email VARCHAR(100) NOT NULL,
+    $pdo->exec("CREATE TABLE IF NOT EXISTS users (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        username VARCHAR(50) UNIQUE NOT NULL,
+        email VARCHAR(100) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
-        first_name VARCHAR(50),
-        last_name VARCHAR(50),
-        role ENUM('user', 'admin') NOT NULL DEFAULT 'user',
-        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        PRIMARY KEY (id),
-        UNIQUE KEY username (username),
-        UNIQUE KEY email (email)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
-
-    if (!$conn->query($sql)) {
-        throw new Exception("Error creating users table: " . $conn->error);
-    }
+        first_name VARCHAR(50) NOT NULL,
+        last_name VARCHAR(50) NOT NULL,
+        role ENUM('user', 'admin') DEFAULT 'user',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
     // Create login_logs table
-    $sql = "CREATE TABLE IF NOT EXISTS login_logs (
-        id INT(11) NOT NULL AUTO_INCREMENT,
-        user_id INT(11) DEFAULT NULL,
+    $pdo->exec("CREATE TABLE IF NOT EXISTS login_logs (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT,
         username VARCHAR(50) NOT NULL,
-        login_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        ip_address VARCHAR(45) DEFAULT NULL,
+        ip_address VARCHAR(45) NOT NULL,
         status ENUM('success', 'failed') NOT NULL,
-        message VARCHAR(255) DEFAULT NULL,
-        PRIMARY KEY (id),
-        KEY user_id (user_id),
-        CONSTRAINT login_logs_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
-
-    if (!$conn->query($sql)) {
-        throw new Exception("Error creating login_logs table: " . $conn->error);
-    }
+        message TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
     // Create registration_logs table
-    $sql = "CREATE TABLE IF NOT EXISTS registration_logs (
-        id INT(11) NOT NULL AUTO_INCREMENT,
-        user_id INT(11) DEFAULT NULL,
+    $pdo->exec("CREATE TABLE IF NOT EXISTS registration_logs (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT,
         username VARCHAR(50) NOT NULL,
-        email VARCHAR(100) NOT NULL,
-        registration_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        ip_address VARCHAR(45) DEFAULT NULL,
+        ip_address VARCHAR(45) NOT NULL,
         status ENUM('success', 'failed') NOT NULL,
-        message VARCHAR(255) DEFAULT NULL,
-        PRIMARY KEY (id),
-        KEY user_id (user_id),
-        CONSTRAINT registration_logs_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
-
-    if (!$conn->query($sql)) {
-        throw new Exception("Error creating registration_logs table: " . $conn->error);
-    }
+        message TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
     // Insert test admin user if not exists
-    $admin_password = password_hash('admin123', PASSWORD_DEFAULT);
-    $sql = "INSERT IGNORE INTO users (username, email, password, role) 
-            VALUES ('admin', 'admin@worldtours.com', ?, 'admin')";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('s', $admin_password);
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = 'admin'");
     $stmt->execute();
-    $stmt->close();
+    if ($stmt->fetchColumn() == 0) {
+        $hashedPassword = password_hash('admin123', PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare("INSERT INTO users (username, email, password, first_name, last_name, role) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->execute(['admin', 'admin@example.com', $hashedPassword, 'Admin', 'User', 'admin']);
+    }
 
     // Insert test regular user if not exists
-    $user_password = password_hash('user123', PASSWORD_DEFAULT);
-    $sql = "INSERT IGNORE INTO users (username, email, password, role) 
-            VALUES ('user', 'user@worldtours.com', ?, 'user')";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('s', $user_password);
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = 'user'");
     $stmt->execute();
-    $stmt->close();
+    if ($stmt->fetchColumn() == 0) {
+        $hashedPassword = password_hash('user123', PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare("INSERT INTO users (username, email, password, first_name, last_name, role) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->execute(['user', 'user@example.com', $hashedPassword, 'Regular', 'User', 'user']);
+    }
 
+    // Return success message
     echo json_encode([
         'status' => 'success',
-        'message' => 'Database and tables created successfully!',
-        'test_users' => [
-            'admin' => [
-                'username' => 'admin',
-                'email' => 'admin@worldtours.com',
-                'password' => 'admin123'
-            ],
-            'user' => [
-                'username' => 'user',
-                'email' => 'user@worldtours.com',
-                'password' => 'user123'
+        'message' => 'Database and tables created successfully',
+        'data' => [
+            'database' => 'worldtours',
+            'tables' => ['users', 'login_logs', 'registration_logs'],
+            'test_users' => [
+                'admin' => ['username' => 'admin', 'password' => 'admin123'],
+                'user' => ['username' => 'user', 'password' => 'user123']
             ]
         ]
     ]);
 
-} catch (Exception $e) {
+} catch (PDOException $e) {
+    // Return error message
+    http_response_code(500);
     echo json_encode([
         'status' => 'error',
-        'message' => $e->getMessage()
+        'message' => 'Database setup failed: ' . $e->getMessage()
     ]);
-}
-
-$conn->close();
-?> 
+} 
