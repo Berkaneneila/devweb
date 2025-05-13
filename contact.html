@@ -20,6 +20,18 @@
             --dark-gray: #495057;
             --error: #E63946;
             --success: #2A9D8F;
+            :root {
+    /* Existing variables... */
+    --primary-dark: #1F3140;
+    --light-beige: #BFAE9F;
+    --accent-gold: #73672C;
+    --primary-blue: #3A6D8C;
+    --light-gray: #f5f5f5;
+    --dark-gray: #495057;
+    --white: #FFFFFF;
+    --header-height: 80px;
+    --transition: all 0.3s ease;
+}
         }
 
         * {
@@ -35,42 +47,271 @@
             line-height: 1.6;
         }
 
-        /* Navigation */
-        nav {
-            background-color: var(--navy);
-            color: white;
-            padding: 1rem 2rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+/* Navigation */
+.custom-navbar {
+    background-color: var(--primary-dark);
+    color: var(--white);
+    height: var(--header-height);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    transition: var(--transition);
+}
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.custom-navbar.scrolled {
+    height: 70px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: white;
-            text-decoration: none;
-        }
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
 
-        .logo span {
-            color: var(--beige);
-        }
+.nav-brand h1 {
+    color: var(--white);
+    font-size: 1.8rem;
+    font-weight: 700;
+}
 
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+    transition: var(--transition);
+    padding: 0.5rem 0;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: var(--light-beige);
+    bottom: 0;
+    left: 0;
+    transition: var(--transition);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--light-beige);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: var(--transition);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-btn.primary {
+    background-color: var(--accent-gold);
+    color: var(--white);
+    border: none;
+}
+
+.nav-btn.secondary {
+    background-color: transparent;
+    color: var(--white);
+    border: 1px solid var(--white);
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.nav-btn.primary:hover {
+    background-color: #5a501a;
+}
+
+.nav-btn.secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.user-profile-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    border: 2px solid var(--light-beige);
+    transition: var(--transition);
+}
+
+.user-profile-circle:hover {
+    transform: scale(1.1);
+}
+
+.user-profile-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-dropdown-menu {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 250px;
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.user-dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--light-gray);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--light-gray);
+}
+
+.dropdown-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+
+.dropdown-header h4 {
+    font-size: 1rem;
+    margin: 0;
+    color: var(--primary-dark);
+}
+
+.dropdown-header span {
+    font-size: 0.8rem;
+    color: var(--dark-gray);
+    display: block;
+    margin-top: 2px;
+}
+
+.dropdown-item {
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--dark-gray);
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+.dropdown-item:hover {
+    background: var(--light-gray);
+    color: var(--primary-blue);
+}
+
+.dropdown-item i {
+    width: 20px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: var(--light-gray);
+    margin: 0.5rem 0;
+}
+
+.text-danger {
+    color: #dc3545;
+}
+
+.text-danger:hover {
+    background: #fff5f5 !important;
+    color: #dc3545 !important;
+}
+
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+@media (max-width: 992px) {
+    .nav-links {
+        position: fixed;
+        top: var(--header-height);
+        left: -100%;
+        width: 80%;
+        height: calc(100vh - var(--header-height));
+        background: var(--primary-dark);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 2rem 0;
+        gap: 1.5rem;
+        transition: var(--transition);
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .hamburger {
+        display: block;
+    }
+}
         /* Main Content */
         main {
-            padding-top: 80px;
-            min-height: 100vh;
-        }
+    padding-top: var(--header-height); /* Changed from 80px to use variable */
+    min-height: 100vh;
+}
 
         .container {
             max-width: 1200px;
@@ -375,116 +616,7 @@
         }
 
         /* Footer */
-        footer {
-            background-color: var(--navy);
-            color: white;
-            padding: 4rem 0 2rem;
-        }
 
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-        }
-
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .footer-logo span {
-            color: var(--beige);
-        }
-
-        .footer-about p {
-            opacity: 0.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .footer-social a {
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .footer-social a:hover {
-            background-color: var(--beige);
-            color: var(--navy);
-        }
-
-        .footer-links h3, 
-        .footer-contact h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-links h3::after,
-        .footer-contact h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background-color: var(--beige);
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--beige);
-            padding-left: 5px;
-        }
-
-        .footer-contact p {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            opacity: 0.8;
-        }
-
-        .footer-contact i {
-            margin-right: 0.8rem;
-            color: var(--beige);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -516,16 +648,67 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="logo">World<span>Tours</span></a>
-            <div class="nav-links">
-                <!-- Navigation links would go here -->
-            </div>
-        </div>
-    </nav>
+<!-- Navigation -->
+<nav class="custom-navbar" id="navbar">
+    <div class="nav-brand">
+        <svg class="logo" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="8" fill="#1F3140"/>
+            <path d="M20 8C13.373 8 8 13.373 8 20C8 26.627 13.373 32 20 32C26.627 32 32 26.627 32 20C32 13.373 26.627 8 20 8ZM20 12C22.209 12 24 13.791 24 16C24 18.209 22.209 20 20 20C17.791 20 16 18.209 16 16C16 13.791 17.791 12 20 12ZM20 28C17.333 28 14.933 26.933 13.2 25.067C13.233 23.067 18.4 21.733 20 21.733C21.6 21.733 26.767 23.067 26.8 25.067C25.067 26.933 22.667 28 20 28Z" fill="#BFAE9F"/>
+        </svg>
+        <h1>ZRquest</h1>
+    </div>
+    <button class="hamburger" id="hamburgerBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="destinations.html" class="nav-link">Destinations</a>
+        <a href="tours.html" class="nav-link">Tours</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link active">Contact</a>
+    </div>
+    <div class="nav-actions" id="navActions">
+        <!-- Sign In Button -->
+        <button id="signInBtn" class="nav-btn primary">
+            <i class="fas fa-user"></i>
+            <span>Sign In</span>
+        </button>
 
+        <!-- User Profile Circle -->
+        <div id="userProfileBtn" class="user-profile-circle" style="display: none;">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+        </div>
+
+        <!-- User Dropdown -->
+        <div id="userDropdown" class="user-dropdown-menu">
+            <div class="dropdown-header">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                <div>
+                    <h4>John Doe</h4>
+                    <span>john@example.com</span>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a href="user.html" class="dropdown-item">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="profile.html" class="dropdown-item">
+                <i class="fas fa-user"></i> My Profile
+            </a>
+            <a href="my-trips.html" class="dropdown-item">
+                <i class="fas fa-suitcase"></i> My Trips
+            </a>
+            <a href="settings.html" class="dropdown-item">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+            <div class="dropdown-divider"></div>
+            <button id="logoutBtn" class="dropdown-item text-danger">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+</nav>
+ 
     <main>
         <!-- Hero Section -->
         <section class="hero">
@@ -662,54 +845,7 @@
     </main>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-about">
-                <div class="footer-logo">World<span>Tours</span></div>
-                <p>Discover the beauty and culture of Algeria with our expert-guided tours and travel experiences.</p>
-                <div class="footer-social">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-links">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Destinations</a></li>
-                    <li><a href="#">Tours</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-links">
-                <h3>Popular Tours</h3>
-                <ul>
-                    <li><a href="#">Sahara Desert Expedition</a></li>
-                    <li><a href="#">Algiers Cultural Tour</a></li>
-                    <li><a href="#">Coastal Adventure</a></li>
-                    <li><a href="#">Historical Algeria</a></li>
-                    <li><a href="#">Custom Tours</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-contact">
-                <h3>Contact Info</h3>
-                <p><i class="fas fa-map-marker-alt"></i> 123 Travel St, Algiers, Algeria</p>
-                <p><i class="fas fa-phone-alt"></i> +213 123 456 789</p>
-                <p><i class="fas fa-envelope"></i> contact@worldtours.dz</p>
-                <p><i class="fas fa-clock"></i> Mon-Fri: 9AM-6PM</p>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2025 World Tours. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-        </div>
-    </footer>
+    
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
@@ -839,6 +975,55 @@
                 });
             });
         });
+
+        // Navbar functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const navbar = document.getElementById('navbar');
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navLinks = document.getElementById('navLinks');
+    const userProfileBtn = document.getElementById('userProfileBtn');
+    const userDropdown = document.getElementById('userDropdown');
+    const signInBtn = document.getElementById('signInBtn');
+    
+    // For demonstration - in a real app, you'd check authentication state
+    const isLoggedIn = false; // Change to true to see logged-in state
+    
+    // Toggle mobile menu
+    hamburgerBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+    
+    // User dropdown toggle
+    if (userProfileBtn) {
+        userProfileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userDropdown.classList.toggle('show');
+        });
+    }
+    
+    // Close dropdown when clicking elsewhere
+    document.addEventListener('click', () => {
+        if (userDropdown) userDropdown.classList.remove('show');
+    });
+    
+    // Set initial state based on login status
+    if (isLoggedIn) {
+        signInBtn.style.display = 'none';
+        userProfileBtn.style.display = 'block';
+    } else {
+        signInBtn.style.display = 'block';
+        userProfileBtn.style.display = 'none';
+    }
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+});
     </script>
 </body>
 </html>

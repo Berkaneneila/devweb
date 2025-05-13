@@ -64,6 +64,280 @@
             --transition-slow: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        /* Navigation Styles */
+:root {
+    /* Add these to your existing :root variables */
+    --primary-dark: #1F3140;
+    --white: #FFFFFF;
+    --light-beige: #BFAE9F;
+    --accent-gold: #736722;
+    --light-gray: #f5f5f5;
+    --dark-gray: #666666;
+    --primary-blue: #3A6D8C;
+    --header-height: 80px;
+}
+
+.custom-navbar {
+    background-color: var(--primary-dark);
+    color: var(--white);
+    height: var(--header-height);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    transition: var(--transition);
+}
+
+.custom-navbar.scrolled {
+    height: 70px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-brand h1 {
+    color: var(--white);
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+    transition: var(--transition);
+    padding: 0.5rem 0;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: var(--light-beige);
+    bottom: 0;
+    left: 0;
+    transition: var(--transition);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--light-beige);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: var(--transition);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-btn.primary {
+    background-color: var(--accent-gold);
+    color: var(--white);
+    border: none;
+}
+
+.nav-btn.secondary {
+    background-color: transparent;
+    color: var(--white);
+    border: 1px solid var(--white);
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.nav-btn.primary:hover {
+    background-color: #5a501a;
+}
+
+.nav-btn.secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.user-profile-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    border: 2px solid var(--light-beige);
+    transition: var(--transition);
+}
+
+.user-profile-circle:hover {
+    transform: scale(1.1);
+}
+
+.user-profile-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-dropdown-menu {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 250px;
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.user-dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--light-gray);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--light-gray);
+}
+
+.dropdown-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+
+.dropdown-header h4 {
+    font-size: 1rem;
+    margin: 0;
+    color: var(--primary-dark);
+}
+
+.dropdown-header span {
+    font-size: 0.8rem;
+    color: var(--dark-gray);
+    display: block;
+    margin-top: 2px;
+}
+
+.dropdown-item {
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--dark-gray);
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+.dropdown-item:hover {
+    background: var(--light-gray);
+    color: var(--primary-blue);
+}
+
+.dropdown-item i {
+    width: 20px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: var(--light-gray);
+    margin: 0.5rem 0;
+}
+
+.text-danger {
+    color: #dc3545;
+}
+
+.text-danger:hover {
+    background: #fff5f5 !important;
+    color: #dc3545 !important;
+}
+
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Responsive styles for navbar */
+@media (max-width: 992px) {
+    .nav-links {
+        position: fixed;
+        top: var(--header-height);
+        left: -100%;
+        width: 80%;
+        height: calc(100vh - var(--header-height));
+        background: var(--primary-dark);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 2rem 0;
+        gap: 1.5rem;
+        transition: var(--transition-slow);
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .hamburger {
+        display: block;
+    }
+}
+
         /* Base Styles */
         * {
             margin: 0;
@@ -101,148 +375,22 @@
             padding: 0 var(--spacing-md);
         }
 
-        /* Navbar */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: var(--primary);
-            color: var(--text-light);
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: var(--transition-slow);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem var(--spacing-md);
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            opacity: 0.8;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            opacity: 1;
-            color: var(--secondary);
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .nav-btn {
-            background: none;
-            border: none;
-            color: var(--text-light);
-            cursor: pointer;
-            padding: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: var(--transition);
-        }
-
-        .nav-btn:hover {
-            color: var(--secondary);
-        }
-
-        .auth-btn {
-            background: var(--secondary);
-            color: var(--primary);
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
-            font-weight: 500;
-        }
-
-        .auth-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-light);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            position: relative;
-            width: 50px;
-            height: 24px;
-            background: var(--secondary);
-            border-radius: 50px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 5px;
-            margin-left: 1rem;
-        }
-
-        .theme-toggle i {
-            font-size: 0.8rem;
-            color: var(--primary);
-        }
-
-        .theme-toggle .fa-sun {
-            opacity: 0;
-        }
-
-        body.dark-mode .theme-toggle .fa-moon {
-            opacity: 0;
-        }
-
-        body.dark-mode .theme-toggle .fa-sun {
-            opacity: 1;
-        }
-
         /* Hero Section */
         .hero {
-            position: relative;
-            height: 100vh;
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--text-light);
-            overflow: hidden;
-            margin-top: 0;
-            padding-top: 80px;
-            background: linear-gradient(rgba(31, 49, 64, 0.85), rgba(31, 49, 64, 0.85)), 
-                        url('photos yassir/algeria hero bg.jpg') no-repeat center center/cover;
-        }
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-light);
+    overflow: hidden;
+    margin-top: 0;
+    padding-top: 80px; /* This should match your --header-height */
+    background: linear-gradient(rgba(31, 49, 64, 0.85), rgba(31, 49, 64, 0.85)), 
+                url('photos yassir/algeria hero bg.jpg') no-repeat center center/cover;
+}
 
         .hero-overlay {
             position: absolute;
@@ -998,8 +1146,67 @@
         <i class="fas fa-sun"></i>
     </div>
     
-    <!-- Simple Modern Navbar -->
-    <div id="navbar-placeholder"></div>
+    
+    <!-- Navigation -->
+<nav class="custom-navbar" id="navbar">
+    <div class="nav-brand">
+        <svg class="logo" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="8" fill="#1F3140"/>
+            <path d="M20 8C13.373 8 8 13.373 8 20C8 26.627 13.373 32 20 32C26.627 32 32 26.627 32 20C32 13.373 26.627 8 20 8ZM20 12C22.209 12 24 13.791 24 16C24 18.209 22.209 20 20 20C17.791 20 16 18.209 16 16C16 13.791 17.791 12 20 12ZM20 28C17.333 28 14.933 26.933 13.2 25.067C13.233 23.067 18.4 21.733 20 21.733C21.6 21.733 26.767 23.067 26.8 25.067C25.067 26.933 22.667 28 20 28Z" fill="#BFAE9F"/>
+        </svg>
+        <h1>ZRquest</h1>
+    </div>
+    <button class="hamburger" id="hamburgerBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="destinations.html" class="nav-link active">Destinations</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="aboutUs.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <div class="nav-actions" id="navActions">
+        <!-- Sign In Button -->
+        <button id="signInBtn" class="nav-btn primary">
+            <i class="fas fa-user"></i>
+            <span>Sign In</span>
+        </button>
+
+        <!-- User Profile Circle -->
+        <div id="userProfileBtn" class="user-profile-circle" style="display: none;">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+        </div>
+
+        <!-- User Dropdown -->
+        <div id="userDropdown" class="user-dropdown-menu">
+            <div class="dropdown-header">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                <div>
+                    <h4>John Doe</h4>
+                    <span>john@example.com</span>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a href="user.html" class="dropdown-item">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="profile.html" class="dropdown-item">
+                <i class="fas fa-user"></i> My Profile
+            </a>
+            <a href="my-trips.html" class="dropdown-item">
+                <i class="fas fa-suitcase"></i> My Trips
+            </a>
+            <a href="settings.html" class="dropdown-item">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+            <div class="dropdown-divider"></div>
+            <button id="logoutBtn" class="dropdown-item text-danger">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+</nav>
 
     <!-- Main Content -->
     <main>
@@ -1842,7 +2049,7 @@
     </main>
 
     <!-- Footer -->
-    <div id="footer-placeholder"></div>
+    
 
 
     <!-- Destination Bubble Popup -->
@@ -1958,6 +2165,68 @@
         if (localStorage.getItem('darkMode') === 'true') {
             document.body.classList.add('dark-mode');
         }
+
+        // Navigation JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    const navbar = document.getElementById('navbar');
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navLinks = document.getElementById('navLinks');
+    const signInBtn = document.getElementById('signInBtn');
+    const userProfileBtn = document.getElementById('userProfileBtn');
+    const userDropdown = document.getElementById('userDropdown');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Mobile menu toggle
+    hamburgerBtn.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+        hamburgerBtn.innerHTML = navLinks.classList.contains('active') ? 
+            '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+
+    // User dropdown toggle
+    userProfileBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        userDropdown.classList.toggle('show');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!userDropdown.contains(e.target) && e.target !== userProfileBtn) {
+            userDropdown.classList.remove('show');
+        }
+    });
+
+    // Simulate login/logout (for demo purposes)
+    signInBtn.addEventListener('click', function() {
+        signInBtn.style.display = 'none';
+        userProfileBtn.style.display = 'block';
+    });
+
+    logoutBtn.addEventListener('click', function() {
+        userProfileBtn.style.display = 'none';
+        signInBtn.style.display = 'flex';
+        userDropdown.classList.remove('show');
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Highlight active link based on current page
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-link').forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+});
 
         // Mobile Menu Toggle
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -2200,6 +2469,6 @@
             });
         });
     </script>
-    <script src="common.js"></script>
+ 
 </body>
 </html>

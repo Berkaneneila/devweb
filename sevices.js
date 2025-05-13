@@ -1,22 +1,76 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Navigation
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    
-    hamburger.addEventListener('click', function() {
-        this.classList.toggle('open');
-        navLinks.classList.toggle('active');
-        document.body.classList.toggle('no-scroll');
+
+    // Navigation functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
     });
 
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('open');
-            navLinks.classList.remove('active');
-            document.body.classList.remove('no-scroll');
+    // Mobile menu toggle
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    if (hamburgerBtn && navLinks) {
+        hamburgerBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            this.querySelector('i').classList.toggle('fa-times');
+            this.querySelector('i').classList.toggle('fa-bars');
         });
+    }
+
+    // User dropdown functionality
+    const userProfileBtn = document.getElementById('userProfileBtn');
+    const userDropdown = document.getElementById('userDropdown');
+    const signInBtn = document.getElementById('signInBtn');
+    
+    if (userProfileBtn && userDropdown) {
+        userProfileBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            userDropdown.classList.toggle('show');
+        });
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function() {
+        if (userDropdown) userDropdown.classList.remove('show');
     });
+
+    // Demo login/logout functionality
+    if (signInBtn && userProfileBtn) {
+        signInBtn.addEventListener('click', function() {
+            this.style.display = 'none';
+            userProfileBtn.style.display = 'block';
+            showToast('Welcome back! You are now signed in.');
+        });
+    }
+
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn && signInBtn && userProfileBtn) {
+        logoutBtn.addEventListener('click', function() {
+            userProfileBtn.style.display = 'none';
+            signInBtn.style.display = 'flex';
+            if (userDropdown) userDropdown.classList.remove('show');
+            showToast('You have been logged out.');
+        });
+    }
+
+    // Highlight current page in navigation
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinksAll = document.querySelectorAll('.nav-link');
+    
+    navLinksAll.forEach(link => {
+        const linkHref = link.getAttribute('href');
+        if (linkHref === currentPage) {
+            link.classList.add('active');
+        }
+    });
+});
 
     // Service data with more details
     const services = {
