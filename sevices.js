@@ -1,14 +1,21 @@
-// Wait for both DOM and navbar to be loaded
-window.addEventListener('load', function() {
-    // Mobile Navigation Toggle
-    // Mobile Navigation Toggle
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const navLinks = document.getElementById('navLinks');
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile Navigation
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
     
-    hamburgerBtn.addEventListener('click', function() {
+    hamburger.addEventListener('click', function() {
+        this.classList.toggle('open');
         navLinks.classList.toggle('active');
-        hamburgerBtn.innerHTML = navLinks.classList.contains('active') ? 
-            '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        document.body.classList.toggle('no-scroll');
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('open');
+            navLinks.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        });
     });
 
     // Service data with more details
@@ -110,179 +117,152 @@ window.addEventListener('load', function() {
         const service = services[serviceId];
         if (!service) return;
 
-        const modalTitle = document.getElementById('modalTitle');
-        const modalSubtitle = document.getElementById('modalSubtitle');
-        const modalImage = document.getElementById('modalImage');
-        const modalDescription = document.getElementById('modalDescription');
-        const modalPrice = document.getElementById('modalPrice');
-
-        if (modalTitle) modalTitle.textContent = service.title;
-        if (modalSubtitle) modalSubtitle.textContent = service.subtitle;
-        if (modalImage) {
-            modalImage.src = service.image;
-            modalImage.alt = service.title;
-        }
-        if (modalDescription) modalDescription.textContent = service.description;
-        if (modalPrice) modalPrice.textContent = service.price;
+        document.getElementById('modalTitle').textContent = service.title;
+        document.getElementById('modalSubtitle').textContent = service.subtitle;
+        document.getElementById('modalImage').src = service.image;
+        document.getElementById('modalImage').alt = service.title;
+        document.getElementById('modalDescription').textContent = service.description;
+        document.getElementById('modalPrice').textContent = service.price;
 
         const featuresContainer = document.querySelector('.modal-features');
-        if (featuresContainer) {
-            featuresContainer.innerHTML = '';
-            service.features.forEach(feature => {
-                const featureItem = document.createElement('div');
-                featureItem.className = 'feature-item';
-                featureItem.innerHTML = `
-                    <div class="feature-icon">
-                        <i class="fas ${feature.icon}"></i>
-                    </div>
-                    <div>
-                        <h4>${feature.title}</h4>
-                        <p>${feature.text}</p>
-                    </div>
-                `;
-                featuresContainer.appendChild(featureItem);
-            });
-        }
+        featuresContainer.innerHTML = '';
 
-        if (serviceModal) {
-            serviceModal.classList.add('active');
-            document.body.classList.add('no-scroll');
-        }
+        service.features.forEach(feature => {
+            const featureItem = document.createElement('div');
+            featureItem.className = 'feature-item';
+            featureItem.innerHTML = `
+                <div class="feature-icon">
+                    <i class="fas ${feature.icon}"></i>
+                </div>
+                <div>
+                    <h4>${feature.title}</h4>
+                    <p>${feature.text}</p>
+                </div>
+            `;
+            featuresContainer.appendChild(featureItem);
+        });
+
+        serviceModal.classList.add('active');
+        document.body.classList.add('no-scroll');
     }
 
     // Close modal
     function closeServiceModal() {
-        if (serviceModal) {
-            serviceModal.classList.remove('active');
-            document.body.classList.remove('no-scroll');
-        }
+        serviceModal.classList.remove('active');
+        document.body.classList.remove('no-scroll');
     }
 
     // Event listeners for service buttons
-    if (serviceDetailBtns.length > 0) {
-        serviceDetailBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const serviceCard = this.closest('.service-card, .featured-card');
-                if (serviceCard) {
-                    const serviceId = serviceCard.dataset.service;
-                    openServiceModal(serviceId);
-                }
-            });
+    serviceDetailBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const serviceCard = this.closest('.service-card, .featured-card');
+            const serviceId = serviceCard.dataset.service;
+            openServiceModal(serviceId);
         });
-    }
+    });
 
-    if (featuredCards.length > 0) {
-        featuredCards.forEach(card => {
-            card.addEventListener('click', function(e) {
-                if (!e.target.closest('button')) {
-                    const serviceId = this.dataset.service;
-                    openServiceModal(serviceId);
-                }
-            });
-        });
-    }
-
-    if (modalClose) {
-        modalClose.addEventListener('click', closeServiceModal);
-    }
-
-    if (serviceModal) {
-        serviceModal.addEventListener('click', function(e) {
-            if (e.target === serviceModal) {
-                closeServiceModal();
+    featuredCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            if (!e.target.closest('button')) {
+                const serviceId = this.dataset.service;
+                openServiceModal(serviceId);
             }
         });
-    }
+    });
+
+    modalClose.addEventListener('click', closeServiceModal);
+    serviceModal.addEventListener('click', function(e) {
+        if (e.target === serviceModal) {
+            closeServiceModal();
+        }
+    });
 
     // Service filtering
     const filterButtons = document.querySelectorAll('.filter-btn');
     const serviceCards = document.querySelectorAll('.service-card, .featured-card');
 
-    if (filterButtons.length > 0 && serviceCards.length > 0) {
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const filter = this.dataset.filter;
-                
-                // Update active button
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                
-                // Filter services
-                serviceCards.forEach(card => {
-                    const serviceCategory = card.dataset.service;
-                    
-                    if (filter === 'all' || serviceCategory.includes(filter)) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-    }
-
-    // Search functionality
-    const serviceSearch = document.getElementById('serviceSearch');
-    const searchButton = document.getElementById('searchButton');
-
-    if (serviceSearch && searchButton && serviceCards.length > 0) {
-        function searchServices() {
-            const searchTerm = serviceSearch.value.toLowerCase();
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.dataset.filter;
             
+            // Update active button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Filter services
             serviceCards.forEach(card => {
-                const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
-                const description = card.querySelector('p')?.textContent.toLowerCase() || '';
+                const serviceCategory = card.dataset.service;
                 
-                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                if (filter === 'all' || serviceCategory.includes(filter)) {
                     card.style.display = 'block';
                 } else {
                     card.style.display = 'none';
                 }
             });
-        }
+        });
+    });
 
-        searchButton.addEventListener('click', searchServices);
-        serviceSearch.addEventListener('keyup', function(e) {
-            if (e.key === 'Enter') {
-                searchServices();
+    // Search functionality
+    const serviceSearch = document.getElementById('serviceSearch');
+    const searchButton = document.getElementById('searchButton');
+
+    function searchServices() {
+        const searchTerm = serviceSearch.value.toLowerCase();
+        
+        serviceCards.forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            const description = card.querySelector('p').textContent.toLowerCase();
+            
+            if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
             }
         });
     }
 
+    searchButton.addEventListener('click', searchServices);
+    serviceSearch.addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') {
+            searchServices();
+        }
+    });
+
     // Counter animation for stats
     const statNumbers = document.querySelectorAll('.stat-number');
     
-    if (statNumbers.length > 0) {
-        function animateCounters() {
-            statNumbers.forEach(stat => {
-                const target = parseInt(stat.dataset.count);
-                const duration = 2000;
-                const step = target / (duration / 16);
-                let current = 0;
-                
-                const counter = setInterval(() => {
-                    current += step;
-                    if (current >= target) {
-                        clearInterval(counter);
-                        stat.textContent = target.toLocaleString();
-                    } else {
-                        stat.textContent = Math.floor(current).toLocaleString();
-                    }
-                }, 16);
-            });
-        }
-
-        // Start counter animation when stats are in view
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounters();
-                    observer.unobserve(entry.target);
+    function animateCounters() {
+        statNumbers.forEach(stat => {
+            const target = parseInt(stat.dataset.count);
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+            
+            const counter = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    clearInterval(counter);
+                    stat.textContent = target.toLocaleString();
+                } else {
+                    stat.textContent = Math.floor(current).toLocaleString();
                 }
-            });
+            }, 16);
         });
+    }
 
-        statNumbers.forEach(stat => observer.observe(stat));
+    // Intersection Observer for counter animation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounters();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    const heroStats = document.querySelector('.hero-stats');
+    if (heroStats) {
+        observer.observe(heroStats);
     }
 
     // Enhanced Chatbot Functionality
@@ -695,29 +675,23 @@ window.addEventListener('load', function() {
     }
 
     // Toggle chatbot window
-    if (chatbotButton && chatbotWindow) {
-        chatbotButton.addEventListener('click', function() {
-            chatbotWindow.classList.toggle('active');
-            if (chatbotWindow.classList.contains('active')) {
-                initChatbot();
-                
-                // Add pulse animation when first opened
-                const pulse = document.querySelector('.chatbot-pulse');
-                if (pulse) {
-                    pulse.style.animation = 'pulse 2s infinite';
-                    setTimeout(() => {
-                        pulse.style.animation = 'none';
-                    }, 2000);
-                }
-            }
-        });
-    }
+    chatbotButton.addEventListener('click', function() {
+        chatbotWindow.classList.toggle('active');
+        if (chatbotWindow.classList.contains('active')) {
+            initChatbot();
+            
+            // Add pulse animation when first opened
+            const pulse = document.querySelector('.chatbot-pulse');
+            pulse.style.animation = 'pulse 2s infinite';
+            setTimeout(() => {
+                pulse.style.animation = 'none';
+            }, 2000);
+        }
+    });
 
-    if (chatbotClose) {
-        chatbotClose.addEventListener('click', function() {
-            chatbotWindow.classList.remove('active');
-        });
-    }
+    chatbotClose.addEventListener('click', function() {
+        chatbotWindow.classList.remove('active');
+    });
 
     // Send message function
     function sendMessage() {
@@ -746,86 +720,65 @@ window.addEventListener('load', function() {
         }
     }
 
-    if (chatbotSend) {
-        chatbotSend.addEventListener('click', sendMessage);
-    }
-
-    if (chatbotInput) {
-        chatbotInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-    }
+    chatbotSend.addEventListener('click', sendMessage);
+    chatbotInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
 
     // Floating booking button
     const floatingBooking = document.getElementById('floatingBooking');
-    if (floatingBooking) {
-        floatingBooking.addEventListener('click', function() {
-            // Open a random Algerian service modal for demo purposes
-            const serviceKeys = Object.keys(services);
-            const randomService = serviceKeys[Math.floor(Math.random() * serviceKeys.length)];
-            openServiceModal(randomService);
-        });
-    }
+    floatingBooking.addEventListener('click', function() {
+        // Open a random Algerian service modal for demo purposes
+        const serviceKeys = Object.keys(services);
+        const randomService = serviceKeys[Math.floor(Math.random() * serviceKeys.length)];
+        openServiceModal(randomService);
+    });
 
     // Toast notification with Algerian context
     function showToast(message) {
         const toast = document.getElementById('toastNotification');
         const toastMessage = document.getElementById('toastMessage');
         
-        if (toast && toastMessage) {
-            toastMessage.textContent = message;
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
+        toastMessage.textContent = message;
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
     }
 
     // Book now button in modal
-    const bookNowBtn = document.getElementById('bookNowBtn');
-    if (bookNowBtn) {
-        bookNowBtn.addEventListener('click', function() {
-            const modalTitle = document.getElementById('modalTitle');
-            if (modalTitle) {
-                const serviceTitle = modalTitle.textContent;
-                closeServiceModal();
-                showToast(`Booking request sent for ${serviceTitle} in Algeria!`);
-            }
-        });
-    }
+    document.getElementById('bookNowBtn')?.addEventListener('click', function() {
+        const serviceTitle = document.getElementById('modalTitle').textContent;
+        closeServiceModal();
+        showToast(`Booking request sent for ${serviceTitle} in Algeria!`);
+    });
 
     // Dark mode toggle
     const darkModeToggle = document.getElementById('darkModeToggle');
     const html = document.documentElement;
     
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('click', function() {
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            
-            // Update icon
-            const icon = this.querySelector('i');
-            if (icon) {
-                icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-            }
-        });
-
-        // Check for saved theme preference
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        html.setAttribute('data-theme', savedTheme);
+    darkModeToggle.addEventListener('click', function() {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
-        // Set initial icon
-        const icon = darkModeToggle.querySelector('i');
-        if (icon) {
-            icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-        }
-    }
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        // Update icon
+        const icon = this.querySelector('i');
+        icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    });
+
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    
+    // Set initial icon
+    const icon = darkModeToggle.querySelector('i');
+    icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -846,15 +799,11 @@ window.addEventListener('load', function() {
 
     // Skip link functionality
     const skipLink = document.querySelector('.skip-link');
-    if (skipLink) {
-        skipLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.setAttribute('tabindex', '-1');
-                target.focus();
-                setTimeout(() => target.removeAttribute('tabindex'), 1000);
-            }
-        });
-    }
+    skipLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        target.setAttribute('tabindex', '-1');
+        target.focus();
+        setTimeout(() => target.removeAttribute('tabindex'), 1000);
+    });
 });
